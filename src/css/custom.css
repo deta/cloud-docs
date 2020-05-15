@@ -28,7 +28,8 @@ body {
 
 .codeBlockLines_node_modules-\@docusaurus-theme-classic-src-theme-CodeBlock- {
   font-family: var(--ifm-font-family-monospace);
-  font-size: inherit;
+  font-size: 14px !important;
+  background-color: #183055 !important;
   line-height: var(--ifm-pre-line-height);
   white-space: pre;
   float: left;
