@@ -1,0 +1,56 @@
+/* stylelint-disable docusaurus/copyright-header */
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+
+
+
+body {
+  font-family: 'Karla', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
+}
+
+:root {
+  --ifm-color-primary: #3884ff;
+  --ifm-color-primary-dark: #2c69cc;
+  --ifm-color-primary-darker: #214f99;
+  --ifm-color-primary-darkest: #163466;
+  --ifm-color-primary-light: #5f9cff;
+  --ifm-color-primary-lighter: #87b5ff;
+  --ifm-color-primary-lightest: #afcdff;
+  --ifm-code-font-size: 95%;
+  --ifm-font-family-monospace: "IBM Plex Mono", SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+}
+
+
+.codeBlockLines_node_modules-\@docusaurus-theme-classic-src-theme-CodeBlock- {
+  font-family: var(--ifm-font-family-monospace);
+  font-size: inherit;
+  line-height: var(--ifm-pre-line-height);
+  white-space: pre;
+  float: left;
+  min-width: 100%;
+  padding: var(--ifm-pre-padding);
+}
+
+html[data-theme="dark"] {
+  --ifm-color-emphasis-0: var(--ifm-color-gray-1000);
+  --ifm-color-emphasis-100: var(--ifm-color-gray-900);
+  --ifm-color-emphasis-200: var(--ifm-color-gray-800);
+  --ifm-color-emphasis-300: var(--ifm-color-gray-700);
+  --ifm-color-emphasis-400: var(--ifm-color-gray-600);
+  --ifm-color-emphasis-500: var(--ifm-color-gray-500);
+  --ifm-color-emphasis-600: var(--ifm-color-gray-400);
+  --ifm-color-emphasis-700: var(--ifm-color-gray-300);
+  --ifm-color-emphasis-800: var(--ifm-color-gray-200);
+  --ifm-color-emphasis-900: var(--ifm-color-gray-100);
+  --ifm-color-emphasis-1000: var(--ifm-color-gray-0);
+  --ifm-background-color: #1B1B23;
+  --ifm-background-surface-color: #20232B;
+  --ifm-hover-overlay: rgba(255, 255, 255, 0.05);
+  --ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg alt="Arrow" xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(255,255,255,0.6)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
+  --ifm-color-content-secondary: #D6D6D6;
+}
