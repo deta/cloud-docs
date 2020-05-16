@@ -1,22 +1,18 @@
 ---
 id: lib
-title: Library
+title: Deta Library
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-
-The Deta Library provides methods which make it very simple to interact with any [Base you create]().
-
-The Deta Library can be installed for both the Python and Node.js runtimes.
-
+The Deta library is the easiest way to store and retrieve data from your Deta Base. Currently we only support JavaScript (Node + Browser) and Python 3. [Drop us a line](#) if you want us to support your favorite language.
 
 ## Installing the Deta Library
 
 First, install the Deta library in your project's directory.
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -25,7 +21,7 @@ First, install the Deta library in your project's directory.
 <TabItem value="js">
 
 ```shell
-npm install deta
+npm install -s deta
 ```
 
 </TabItem>
@@ -42,8 +38,10 @@ pip install deta
 
 ## Configuration
 
+To start working with your Base, you need to import the `Deta` and initialize it with your `project_key`. You can get your project key from your [Deta dashboard](#).
+
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -51,107 +49,38 @@ pip install deta
 }>
 <TabItem value="js">
 
-To configure Deta, import the **Deta** class from **deta**, in your code:
-
-
 ```js
-const { Deta } = require('deta');
-```
+const Deta = require('deta');
 
-Then, depending on your use, authenticate with Deta using of the following two tabs:
-
-<!--- Start Nested Tabs JS --->
-
-<Tabs
-  defaultValue="protected"
-  values={[
-    { label: 'Protected Uses', value: 'protected', },
-    { label: 'Public Uses', value: 'public', },
-  ]
-}>
-
-<TabItem value="protected">
-
-For protected interactions with Bases, use your secret **Base key**:
-
-```js
-const deta = Deta("myBaseKey")  // for protected use cases
+const deta = new Deta("project key")
 ```
 </TabItem>
 
-<TabItem value="public">
 
-Bases can have public read access. 
-
-For read only uses, use your **project id**:
-
-```js
-const deta = Deta("my id")  // for public read access use cases
-```
-</TabItem>
-</Tabs>
-
-<!--- End Nested Tabs JS --->
-
-</TabItem>
 <TabItem value="py">
-
-To configure Deta, import the **Deta** class from **deta**, in your code:
-
 
 ```py
 from deta import Deta
+
+deta = Deta("project key") 
 ```
-
-Then, depending on your use, authenticate with Deta using of the following two tabs:
-
-<!--- Start Nested Tabs --->
-
-<Tabs
-  defaultValue="protected"
-  values={[
-    { label: 'Protected Uses', value: 'protected', },
-    { label: 'Public Uses', value: 'public', },
-  ]
-}>
-
-<TabItem value="protected">
-
-For protected interactions with Bases, use your secret **base key**:
-
-```py
-deta = Deta("base_key")  # for protected use cases
-```
-</TabItem>
-
-<TabItem value="public">
-
-Bases can have public read access. 
-
-For read only uses, use your **project id**:
-
-```py
-deta = Deta(project_id="my_id")  # for public read access use cases
-```
-</TabItem>
-</Tabs>
-
-<!--- End Nested Tabs --->
 
 </TabItem>
 </Tabs>
 
 
 ## Instantiating & Using a Deta Base
-With Deta, Bases are created for you automatically when you start using them.
 
-To use a Base, simply "instantiate" it in your code, providing it with a required **name**.
+Deta Bases are created for you automatically when you start using them.
 
-Names for Bases must be unique within the scope of a project.
+To use a Base, simply "instantiate" with a name.
 
+:::note
+Note that names for Bases are unique within the scope of a project (key).
+:::
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -171,7 +100,7 @@ const db = new deta.Base('simple_db');
 ```py
 books = deta.Base("books")
 authors = deta.Base("authors")
-db = deta.Base("simple_db");
+db = deta.Base("simple_db")
 ```
 
 </TabItem>
@@ -180,7 +109,7 @@ db = deta.Base("simple_db");
 
 ## Methods
 
-Deta's **Base** class offers the following methods:
+Deta's **`Base`** class offers the following methods:
   - [put](#put)
   - [get](#get)
   - [delete](#delete)
@@ -189,10 +118,11 @@ Deta's **Base** class offers the following methods:
 
 ### Put
 
-Put inserts a single item into a Base under a **key**; if a key already exists, then **put** ***overwrites the original data***.
+`put` is the fastest way to store in item in the database. You can store objects and primitive types (e.g strings).  
+In case you do not provide us with a key, we will auto generate a 12 chars long string.
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -201,74 +131,88 @@ Put inserts a single item into a Base under a **key**; if a key already exists, 
 <TabItem value="js">
 
 
-`async function put(data, key=null, ttl=null) { ...`
-
-#### Code
-```js
-const { Deta } = require('deta');
-const deta = Deta("secret key");
-const db = new deta.Base("myFirstDb");
-
-await db.put('a', 'hello');
-await db.put('b', null);
-await db.put('c', 1213123213); // data will live for 86400 seconds, or 24 hours
-await db.put('d', 1.4);
-await db.put('e', False);
-await db.put('f', {});
-await db.put('g', [1, 2, 3, 'hello', { nested: [8487637843, 53645] }]);
-await db.put(0); // key is auto generated
-await db.put(2); // key is auto generated
-await db.put({ height: 80 }); // key is auto generated
-
-```
+**`put(data, key=null, expires=null)`**
 
 #### Parameters & Types
+<!-- TODO: fix expire type and return if not valid. Is return a promise? -->
 
-
-|          |          `data`                                  |  `key`                  | `ttl`    |
-| -------- | ------------------------------------------------ | ----------------------- | -------- |
-| Default  |                      n/a                         | `null` (auto-generated) | `null`   |
-| Accepted | `String`, `Number`, `Boolean`, `null`,  `Object` | `String`                | `Number` |
+- **`data`** (required): the data to be stored. 
+    - **Types:** `object`, `string`, `number`, `boolean` and `array`.
+- **`key`** (optional): the key (aka ID) to store the data under. Will be auto generated if not provided.
+    - **Type:** `string`
+- **`expires`** (optional): A unix timestamp of when the item should be auto-deleted from the database. A great feature for temporary data. By default all your data is stored for ever!
+    - **Type:** `number`
 
 #### Return
-Put returns the **data**, **key** pair on a succesful put, and throws an **Error** elsewise.
+TODO(success, errs, exceptions)
 
-**TO DO need exact shape.**
+#### Code examples
 
+```js
+const Deta = require('deta');
+
+const deta = Deta("project key");
+const db = new deta.Base("testdb");
+
+// you can store objects
+db.put({name: "alex", age: 77})  // A key will be automatically generated
+db.put({name: "alex", age: 77}, key="one")  // We will use "one" as a key
+db.put({name: "alex", age: 77, key:"one"})  // The key could also be included in the object itself
+
+// or store simple types:
+db.put("hello, worlds")
+db.put(7)
+db.put("success", key="smart_work")
+db.put(["a", "b", "c"], key="my_abc")
+```
 </TabItem>
 <TabItem value="py">
 
-`def put(data, key:str = None, ttl:int = None):`  
+**`put(data: typing.Any, key:str = None, expires:int = None):`**
 
-#### Code
+#### Parameters & Types
+<!-- TODO: fix expire type and return if not valid.-->
+
+- **`data`** (required): the data to be stored. 
+    - **Types:** `dict`, `str`, `int`, `bool` and `list`.
+- **`key`** (optional): the key (aka ID) to store the data under. Will be auto generated if not provided.
+    - **Type:** `str`
+- **`expires`** (optional): A unix timestamp of when the item should be auto-deleted from the database. A great feature for temporary data. By default all your data is stored for ever!
+    - **Type:** `int`
+
+#### Return
+TODO(success, errs, exceptions)
+
+#### Code examples
 ```py
 from deta import Deta
-deta = Deta("my_secret_key")  
-db = deta.Base("my_first_db")
+deta = Deta("project keyret_key")  
+db = deta.Base("testdb")
 
-db.put("a", "hello")
-db.put("b", None)
-db.put("c", 1213123213, 86400) # data will live for 86400 seconds, or 24 hours
-db.put("d", Decimal("1.4"))
-db.put("e", False)
-db.put("f", {})
-db.put("g", [1, 2, 3, "hello", {"nested": [8487637843, 53645]}])
-db.put(Decimal(2)) # key is auto-generated
-db.put(0) # key is auto-generated
-db.put({"height": Decimal(80)}) # key is auto-generated
+# you can store objects
+db.put({"name": "alex", age: 77})  # A key will be automatically generated
+db.put({"name": "alex", age: 77}, key="one")  # We will use "one" as a key
+db.put({"name": "alex", age: 77, key:"one"})  # The key could also be included in the object itself
+
+# or store simple types:
+db.put("hello, worlds")
+db.put(7)
+db.put("success", key="smart_work")
+db.put(["a", "b", "c"], key="my_abc")
 
 ```
 
 #### Parameters & Types
 
-|          |          `data`                                     |  `key`                  | `ttl`    |
+TODO
+<!-- |          |          `data`                                     |  `key`                  | `ttl`    |
 | -------- | --------------------------------------------------- | ----------------------- | -------- |
 | Default  |                      n/a                            | `None` (auto-generated) | `None`   |
-| Accepted | `str`, `int`, `Decimal`, `boolean`,  `list`, `dict` | `str`                   | `int`    |
+| Accepted | `str`, `int`, `Decimal`, `boolean`,  `list`, `dict` | `str`                   | `int`    | -->
 
 
 #### Return
-Put returns the **data**, **key** pair on a succesful put, and raises an **Error** elsewise.
+Put returns the **data**, **key** pair on a successful put, and raises an **Error** else wise.
 
 **TO DO need exact shape.**
 
@@ -278,10 +222,10 @@ Put returns the **data**, **key** pair on a succesful put, and raises an **Error
 
 ### Get
 
-Get retrieves an item from the database stored under a **key**.
+`get` retrieves an item from the database by it's `key`.
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -383,7 +327,7 @@ Retrieving an item with a key that does not exist will raise a **KeyError** exce
 Delete deletes an item provided a key.
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -467,7 +411,7 @@ The **insert** method is inserts a single item into a base, but is unique from [
 
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -555,7 +499,7 @@ For the following examples, let's assume we have a Base of the following structu
 
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
