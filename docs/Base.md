@@ -15,7 +15,7 @@ Examples:
 - Stateful integrations 
 - Hackathons and random projects
 
-**add examples**
+**TO DO add examples**
 
 ## Is my data secure?
 
