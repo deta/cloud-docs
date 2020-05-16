@@ -13,6 +13,18 @@ body {
   font-family: 'Karla', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
 }
 
+h2 {
+  margin-top: 6rem !important;
+}
+
+h3 {
+  margin-top: 4.5rem !important;
+}
+
+h4 {
+  margin-top: 3rem !important;
+}
+
 :root {
   --ifm-color-primary: #3884ff;
   --ifm-color-primary-dark: #2c69cc;
