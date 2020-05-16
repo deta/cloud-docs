@@ -187,7 +187,7 @@ Deta's `Base` instance offers the following methods:
 
 ### Put
 
-Put inserts a single item into a Base.
+Put inserts a single item into a Base under a `key`; if a key already exists, then `put` **overwrites the original data**.
 
 <Tabs
   defaultValue="py"
@@ -209,7 +209,7 @@ const db = new deta.Base("myFirstDb");
 
 await db.put('a', 'hello');
 await db.put('b', null);
-await db.put('c', 1213123213);
+await db.put('c', 1213123213); // data will live for 86400 seconds, or 24 hours
 await db.put('d', 1.4);
 await db.put('e', False);
 await db.put('f', {});
@@ -218,11 +218,6 @@ await db.put(0); // key is auto generated
 await db.put(2); // key is auto generated
 await db.put({ height: 80 }); // key is auto generated
 
-// Not valid:
-// db.put("", "hello") # no empty string as key
-// db.put(1, "hello") # no empty non-string type as key -- use "1" instead
-// db.put("a", "") # no empty string as value -- use None instead
-// db.put("b", NaN) # no NaN as value
 ```
 
 #### Parameters & Types
@@ -233,6 +228,10 @@ await db.put({ height: 80 }); // key is auto generated
 | Default  |                      n/a                         | `null` (auto-generated) | `null`   |
 | Accepted | `String`, `Number`, `Boolean`, `null`,  `Object` | `String`                | `Number` |
 
+#### Return
+Put returns the `data`, `key` pair on a succesful put, and throws an `Error` elsewise.
+
+**TO DO need exact shape.**
 
 </TabItem>
 <TabItem value="py">
@@ -247,7 +246,7 @@ db = deta.Base("my_first_db")
 
 db.put("a", "hello")
 db.put("b", None)
-db.put("c", 1213123213)
+db.put("c", 1213123213, 86400) # data will live for 86400 seconds, or 24 hours
 db.put("d", Decimal("1.4"))
 db.put("e", False)
 db.put("f", {})
@@ -256,11 +255,6 @@ db.put(Decimal(2)) # key is auto-generated
 db.put(0) # key is auto-generated
 db.put({"height": Decimal(80)}) # key is auto-generated
 
-# Not valid:
-# db.put("", "hello") # no empty string as key
-# db.put(1, "hello") # no empty non-string type as key -- use "1" instead
-# db.put("a", "") # no empty string as value -- use None instead
-# db.put("b", 1.4) # no float as value -- use Decimal instead
 ```
 
 #### Parameters & Types
@@ -271,20 +265,22 @@ db.put({"height": Decimal(80)}) # key is auto-generated
 | Accepted | `str`, `int`, `Decimal`, `boolean`,  `list`, `dict` | `str`                   | `int`    |
 
 
+#### Return
+Put returns the `data`, `key` pair on a succesful put, and raises an `Error` elsewise.
+
+**TO DO need exact shape.**
 
 </TabItem>
 </Tabs>
 
-If a key already exists, then `put` **overwrites the original value**.
 
-Put returns the `data` on a succesful put, and throws an `Error` elsewise.
 
 <br />
 
 
 ### Get
 
-Get retrieves an item from the database.
+Get retrieves an item from the database stored under a `key`.
 
 <Tabs
   defaultValue="py"
@@ -325,6 +321,14 @@ const my_item = await db.get('g');
 }
 ```
 
+#### Parameter Types
+
+Get takes a single parameter: `key`, which is a `string`.
+
+#### Return
+
+Get returns the `key`, `data` pair as an object when successful.
+
 Retrieving an item with a key that does not exist will throw an **`Error`**.
 
 
@@ -359,14 +363,18 @@ my_item = db.get("g")
 }
 ```
 
+#### Parameter Types
+
+Get takes a single parameter: `key`, which is a `str`.
+
+#### Return
+
+Get returns the `key`, `data` pair as a `dict` when successful.
+
 Retrieving an item with a key that does not exist will raise a **`KeyError`** exception.
 
 </TabItem>
 </Tabs>
-
-#### Parameter Types
-
-Get takes a single parameter: `key`, which is a `string`.
 
 <br />
 
@@ -403,6 +411,15 @@ deletedFive = await db.delete("another_non_existent_key", true) // false, key do
 | Accepted | `string` | `boolean`   | 
 
 
+#### Return
+
+Delete returns `null` if `strict` is set to `null` or `false`.
+
+If `strict` is set to `true`, Delete returns `true` upon a confirmed deletion, elsewise `false`.
+
+Deleting item with a key that does not exist will throw an **`Error`**. **(TO DO Confirm me)**
+
+
 </TabItem>
 <TabItem value="py">
 
@@ -424,7 +441,17 @@ deleted_five = db.delete("another_non_existent_key", True) #False, key doesn't e
 |          | `key`    |  `strict`   | 
 | -------- | -------- | ----------- | 
 | Default  |  n/a     | `None`      | 
-| Accepted | `str`    | `boolean`   | 
+| Accepted | `str`    | `boolean`   |
+
+
+
+#### Return
+
+Delete returns `None` if `strict` is set to `None` or `False`.
+
+If `strict` is set to `True`, Delete returns `True` upon a confirmed deletion, elsewise `False`.
+
+Deleting item with a key that does not exist will raise a **`KeyError`** exception. **(TO DO Confirm me)**
 
 
 </TabItem>
@@ -465,6 +492,10 @@ db.insert('myKey', 'hello');
 | Default  |                      n/a                         | `null` (auto-generated) | `null`   |
 | Accepted | `String`, `Number`, `Boolean`, `null`,  `Object` | `String`                | `Number` |
 
+
+#### Return
+Insert returns the `data`, `key` pair on a succesful insert, and throws an `Error` elsewise (including if the key already exists).
+
 </TabItem>
 <TabItem value="py">
 
@@ -482,6 +513,9 @@ db.insert("hello", "my_key")
 | -------- | --------------------------------------------------- | ----------------------- | -------- |
 | Default  |                      n/a                            | `None` (auto-generated) | `None`   |
 | Accepted | `str`, `int`, `Decimal`, `boolean`,  `list`, `dict` | `str`                   | `int`    |
+
+#### Return
+Insert returns the `data`, `key` pair on a succesful insert, and raises an `Error` elsewise (including if the key already exists).
 
 </TabItem>
 </Tabs>
@@ -541,7 +575,7 @@ const filterTwo = {"hometown": "Greenville"}
 const filterThree = {"age?gt": 45}
 
 const myFirstSet = await db.filter(filterOne);
-const mySecondSet = await db.filter([filterOne, filterTwo])
+const mySecondSet = await db.filter([filterOne, filterTwo]);
 ```
 
 ... will come back with following data:
@@ -596,7 +630,7 @@ filter_one = {"age?lt": 30}
 filter_two = {"hometown": "Greenville"}
 filter_three = {"age?gt": 45}
 
-my_first_set = db.filter(filter_one);
+my_first_set = db.filter(filter_one)
 my_second_set = db.filter([filter_one, filter_two])
 ```
 
@@ -640,8 +674,16 @@ my_second_set = db.filter([filter_one, filter_two])
 </TabItem>
 </Tabs>
 
+#### Parameters & Types
 
-- `limit` is an integer which specifies the maximum number of records which can be returned.
+`filers` is a single filter object or list of filters.
+
+`limit` is an integer which specifies the maximum number of records which can be returned.
+
+
+#### Return
+
+A list of objects that meet the filter criteria, up to the length of `limit` is returned.
 
 
 <br />

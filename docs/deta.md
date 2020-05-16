@@ -1,5 +1,5 @@
 ---
-id: mdx
+id: deta
 title: About Deta
 ---
 
@@ -13,3 +13,6 @@ To accomplish this, we offer a set of minimal-config cloud primitives, letting y
 
 1. Building your application logic
 2. Using your app
+
+
+[Deta Base](Base), our NoSQL database, is our first product.

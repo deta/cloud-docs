@@ -1,5 +1,5 @@
 ---
-id: API
+id: HTTP
 title: HTTP API
 sidebar_label: HTTP API
 ---
