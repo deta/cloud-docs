@@ -1,16 +1,14 @@
 ---
-id: Lib
-title: Deta Base Lib
+id: lib
+title: Library
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
-The Deta Base library is a package which can be isntalled for both the Python and Node.js runtimes.
+The Deta Library provides methods which make it very simple to interact with any [Base you create]().
 
-Deta's Database is built on top of DynamoDB which means it's very reliable and highly scalable. 
-
-The Deta Base lib offers convenient ways to interact with your database.
+The Deta Library can be installed for both the Python and Node.js runtimes.
 
 
 ## Installing the Deta Library
@@ -61,6 +59,8 @@ To configure Deta, import the `Deta` class from `deta`, in your code:
 const { Deta } = require('deta');
 ```
 
+Then, depending on your use, follow one of the following two steps.
+
 <!--- Start Nested Tabs JS --->
 
 <Tabs
@@ -104,6 +104,8 @@ To configure Deta, import the `Deta` class from `deta`, in your code:
 from deta import Deta
 ```
 
+Then, depending on your use, follow one of the following two steps.
+
 <!--- Start Nested Tabs --->
 
 <Tabs
@@ -145,7 +147,7 @@ deta = Deta(project_id="my id")  # for public read access use cases
 ## Instantiating & Using a Deta Base
 With Deta, Bases are created for you automatically when you start using them.
 
-To use a Base, simply "instantiate" it in your code, providing it with a required name.
+To use a Base, simply "instantiate" it in your code, providing it with a required `name`.
 
 Names for Bases must be unique within the scope of a project.
 
@@ -197,12 +199,13 @@ Put inserts a single item into a Base.
 <TabItem value="js">
 
 
-`await db.put(data, key, ttl)`
+`async function put(data, key=null, ttl=null) { ...`
 
 #### Code
 ```js
-const { Database } = require('detalib');
-const db = new Database();
+const { Deta } = require('deta');
+const deta = Deta("secret key");
+const db = new deta.Base("myFirstDb");
 
 await db.put('a', 'hello');
 await db.put('b', null);
@@ -234,12 +237,12 @@ await db.put({ height: 80 }); // key is auto generated
 </TabItem>
 <TabItem value="py">
 
-`db.put(data, key:str = None, ttl:int = None)`  
+`def put(data, key:str = None, ttl:int = None):`  
 
 #### Code
 ```py
 from deta import Deta
-deta = Deta("my key")  
+deta = Deta("my_secret_key")  
 db = deta.Base("my_first_db")
 
 db.put("a", "hello")
@@ -292,7 +295,7 @@ Get retrieves an item from the database.
 }>
 <TabItem value="js">
 
-`await db.get(key)`
+`async function get(key) {...`
 
 Retrieving the item with id `g` from our last example...
 
@@ -329,7 +332,7 @@ Retrieving an item with a key that does not exist will throw an **`Error`**.
 <TabItem value="py">
 
 
-`db.get(key)` 
+`def get(key):` 
 
 Retrieving the item with id `g` from our last example...
 
@@ -380,7 +383,7 @@ Delete deletes an item provided a key.
 <TabItem value="js">
 
 
-`await db.delete(key, strict)` 
+`async function delete(key, strict=null){...` 
 
 ##### Code
 
@@ -403,7 +406,7 @@ deletedFive = await db.delete("another_non_existent_key", true) // false, key do
 </TabItem>
 <TabItem value="py">
 
-`db.delete(key:str, strict:bool = None)` 
+`def delete(key:str, strict:bool = None):` 
 
 
 ##### Code
@@ -447,18 +450,16 @@ The `insert` method is inserts a single item into a base, but is unique from [`p
 <TabItem value="js">
 
 
-`await db.insert(data, key, ttl)`
+`async function insert(data, key=null, ttl=null){...`
 
 
 #### Code
 ```js
-const { Database } = require('detalib');
-const db = new Database();
-
-await db.insert('myKey', 'hello');
+db.insert('myKey', 'hello');
 ```
 
-#### Types
+#### Parameters & Types
+
 |          |          `data`                                  |  `key`                  | `ttl`    |
 | -------- | ------------------------------------------------ | ----------------------- | -------- |
 | Default  |                      n/a                         | `null` (auto-generated) | `null`   |
@@ -467,18 +468,13 @@ await db.insert('myKey', 'hello');
 </TabItem>
 <TabItem value="py">
 
-`db.insert(data, key:str = None, ttl:int = None)`
+`def insert(data, key:str = None, ttl:int = None):`
 
 #### Code
 ```py
-from deta import Deta
-deta = Deta("my key")  
-db = deta.Base("my_first_db")
-
 db.insert("hello", "my_key")
 ```
 
-#### Types
 
 #### Parameters & Types
 
@@ -492,19 +488,19 @@ db.insert("hello", "my_key")
 
 <br />
 
-### Fetch
+### Fetch & Queries
 
+Fetch retrieves a list of items matching a query.
 
-`db.fetch(filters, limit=25)` fetches a list of items matching a query, which is composed of [filters](#filters).
+A query is composed a single [filter](#filters) object or a list of [filters](#filters).
 
-- `filters` is a single filter object or a list of filters.
-  - In the case of a list, filters are OR'ed in the query.
-- `limit` is an integer which specifies the maximum number of records which can be returned.
+In the case of a list, filters are OR'ed in the query.
 
-For the following examples, let's assume we have a database of the following structure:
+For the following examples, let's assume we have a Base of the following structure:
 
 ```json
-[
+
+{
   "key-1": {
     "name": "Wesley",
     "age": 27,
@@ -520,7 +516,8 @@ For the following examples, let's assume we have a database of the following str
     "age": 43,
     "hometown": "Greenville",
   }
-]
+} 
+
 
 ```
 
@@ -533,6 +530,8 @@ For the following examples, let's assume we have a database of the following str
   ]
 }>
 <TabItem value="js">
+
+`async function filter (query, limit=25) {...`
 
 ##### Code
 
@@ -588,6 +587,8 @@ const mySecondSet = await db.filter([filterOne, filterTwo])
 
 <TabItem value="py">
 
+`def filter(query, limit=25):`
+
 ##### Code
 
 ```py
@@ -638,6 +639,10 @@ my_second_set = db.filter([filter_one, filter_two])
 ```
 </TabItem>
 </Tabs>
+
+
+- `limit` is an integer which specifies the maximum number of records which can be returned.
+
 
 <br />
 

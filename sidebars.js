@@ -1,6 +1,6 @@
 module.exports = {
   someSidebar: {
     General: ['mdx'],
-    ["Deta Base"]: ['About', 'Lib', 'API', "Tutorial"],
+    ["Deta Base"]: ['About', 'lib', 'API', "Tutorial"],
   },
 };
