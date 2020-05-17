@@ -8,19 +8,34 @@ import TabItem from '@theme/TabItem';
 
 export let Bubble = ({ item }) => {
     return (
-        <div style={{ display: 'flex', justifyContent: 'center',
-        borderRadius: '0.5rem', color: '#f5f6f7', backgroundColor: '#3884ff',
-        width: '120px', padding: '2' }}>
-            HTTP {item}
+        <div style={{ display: 'flex', fontFamily: 'monospace', borderRadius: '3px', backgroundColor: '#ddd', display: 'inline', padding: '5px' }}>
+            {item}
         </div>
     );
 }
 
 ## General & Auth
 
-Root url: **`https://database.deta.sh/v1/{project_key}/{base_name}`**
 
-The `project_key` **must** to be provided in the header `X-API-Key` for authentication.
+:::note
+You can get your **Project Key** and your **Project ID** from your [Deta dashboard](#). You need these to talk with the Deta API.
+:::
+
+### Root URL
+This URL is the base for all your HTTP requests:
+
+**`https://database.deta.sh/v1/{project_id}/{base_name}`**
+
+> The `base_name` is the name for your database. If you already have a **Base**, then you can go ahead and provide it's name here. Additionally, you could provide any name here when doing any `PUT`or `POST` request and our backend will automatically create it. There is no limit on hoe many "Bases" you can create.
+
+### Auth
+A **Project Key** _must_ to be provided in the request **headers** `X-API-Key` for authentication. This is how we authorize your requests.
+
+Example `'X-API-Key: a0abcyxz_randomstring'`.
+
+### Content Type
+
+We only accept JSON payloads. Make sure you set the headers correctly: `'Content-Type: application/json'`
 
 
 
@@ -28,10 +43,7 @@ The `project_key` **must** to be provided in the header `X-API-Key` for authenti
 
 ### Put Item
 
-<Bubble item="PUT" /> 
-
-
-**`/{project_id}/{base_name}/items`**
+<Bubble item="PUT /items" /> 
 
 <Tabs
   defaultValue="request"
@@ -42,15 +54,11 @@ The `project_key` **must** to be provided in the header `X-API-Key` for authenti
 }>
 <TabItem value="request">
 
-| Path Parameter   | Required | Type     |
-|------------------|----------|----------|
-| `project_id`     | Yes      | `string` |
-| `base_name`      | Yes      | `string` |
+TODO: fix the payload
 
-
-| Payload | Required | Type    | Description                              |
-|---------|----------|---------|------------------------------------------|
-| `items` | Yes      | `array` | An array of items `object` to be stored. |
+| JSON Payload | Required | Type    | Description                              |
+|--------------|----------|---------|------------------------------------------|
+| `items`      | Yes      | `array` | An array of items `object` to be stored. |
 
 </TabItem>
 <TabItem value="response">
@@ -78,9 +86,7 @@ The `project_key` **must** to be provided in the header `X-API-Key` for authenti
 
 ### Get Item
 
-<Bubble item="GET" /> 
-
-**`/{project_id}/{base_name}/{key}`**
+<Bubble item="GET /items/{key}" /> 
 
 <Tabs
   defaultValue="request"
@@ -91,18 +97,26 @@ The `project_key` **must** to be provided in the header `X-API-Key` for authenti
 }>
 <TabItem value="request">
 
-| Path Parameter   | Required | Type     |Description
-|------------------|----------|----------|
-| `project_id`     | Yes      | `string` |
-| `base_name`      | Yes      | `string` |
-| `key`            | Yes      | `string` |
+| URL Parameter | Required | Type     | Description                                        |
+|---------------|----------|----------|----------------------------------------------------|
+| `key`         | Yes      | `string` | The key (aka. ID) of the item you want to retrieve |
 
 
 
 </TabItem>
 <TabItem value="response">
+You will get two responses:
 
+#### 1. `200 OK`
 
+```js
+{
+  "key": {key},
+  // the rest of the item
+}
+```
+
+#### 2. `404 Not Found`
 
 </TabItem>
 </Tabs>
@@ -110,13 +124,7 @@ The `project_key` **must** to be provided in the header `X-API-Key` for authenti
 
 ### Delete Item
 
-<Bubble item="DELETE" /> 
-
-
-<br />
-
-
-**`/{project_id}/{base_name}/items/{key}?strict={strict}`**
+<Bubble item="DELETE /items/{key}" /> 
 
 <Tabs
   defaultValue="request"
@@ -127,36 +135,29 @@ The `project_key` **must** to be provided in the header `X-API-Key` for authenti
 }>
 <TabItem value="request">
 
-| Path Parameter   | Required | Type      |
-|------------------|----------|-----------|
-| `project_id`     | Yes      | `string`  |
-| `base_name`      | Yes      | `string`  |
-| `key`            | Yes      | `string`  |
-
-| Query Parameter   | Required | Type      |
-|-------------------|----------|-----------|
-| `strict`          | No       | `boolean` |
-
-
-
+| URL Parameter | Required | Type     | Description                                       |
+|---------------|----------|----------|---------------------------------------------------|
+| `key`         | Yes      | `string` | The key (aka. ID) of the item you want to delete. |
 
 </TabItem>
 <TabItem value="response">
 
+The server will always return `200` regardless if an item with that `key` existed or not.
 
+`200 OK`
+
+```json
+{
+  "key": {key}
+}
+```
 
 </TabItem>
 </Tabs>
 
 ### Post (Insert) Item
 
-<Bubble item="POST" /> 
-
-
-<br />
-
-
-**`/{project_id}/{base_name}/items`**
+<Bubble item="POST /items" /> 
 
 <Tabs
   defaultValue="request"
@@ -167,16 +168,19 @@ The `project_key` **must** to be provided in the header `X-API-Key` for authenti
 }>
 <TabItem value="request">
 
-| Path Parameter   | Required | Type      |
-|------------------|----------|-----------|
-| `project_id`     | Yes      | `string`  |
-| `base_name`      | Yes      | `string`  |
+TODO: fix the payload
 
+| JSON Payload | Required | Type     | Description            |
+|--------------|----------|----------|------------------------|
+| `item`       | Yes      | `object` | The item to be stored. |
 
 
 </TabItem>
 <TabItem value="response">
 
+`201 Created`
+
+TODO: other responses
 
 
 </TabItem>
@@ -184,13 +188,7 @@ The `project_key` **must** to be provided in the header `X-API-Key` for authenti
 
 ### List Items
 
-<Bubble item="GET" /> 
-
-
-<br />
-
-
-**`/{project_id}/{base_name}/items?query={query}&limit={limit}&last={last_key}`**
+<Bubble item="GET /items?query={query}&limit={limit}&last={last_key}" /> 
 
 <Tabs
   defaultValue="request"
@@ -201,24 +199,17 @@ The `project_key` **must** to be provided in the header `X-API-Key` for authenti
 }>
 <TabItem value="request">
 
-| Path Parameter   | Required | Type     |
-|------------------|----------|----------|
-| `project_id`     | Yes      | `string` |
-| `base_name`      | Yes      | `string` |
-
-| Query Parameter   | Required | Type     |
-|-------------------|----------|----------|
-| `query`      | No     | `list` |
-| `limit`       | No     | `int` |
-| `last_key`       | No     | `string` |
+| Query Parameter | Required | Type     |
+|-----------------|----------|----------|
+| `query`         | No       | `list`   |
+| `limit`         | No       | `int`    |
+| `last_key`      | No       | `string` |
 
 
 </TabItem>
 <TabItem value="response">
-
+TODO
 
 
 </TabItem>
 </Tabs>
-
-### Post Query
