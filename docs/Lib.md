@@ -206,91 +206,54 @@ db.put(["a", "b", "c"], key="my_abc")
 }>
 <TabItem value="js">
 
-`async function get(key) {...`
-
-Retrieving the item with id **g** from our last example...
-
-#### Code
-
-```js
-const my_item = await db.get('g');
-```
-
-... will come back with following data:
-
-##### Result
-
-```js
-// value of `my_item`
-{
-    'key': 'g',
-    'data': [
-        1,
-        2,
-        3,
-        'hello',
-        {
-            'nested': [Decimal('8487637843'), Decimal('53645')]
-        }
-    ]
-}
-```
+**`get(key)`**
 
 #### Parameter Types
 
-Get takes a single parameter: **key**, which is a **string**.
+- **`key`** (required) – Accepts: `string`
+    - Description: the key of which item is to be retrieved.
 
-#### Return
+#### Example code
 
-Get returns the **key**, **data** pair as an object when successful.
+```js
+const item = await db.get('one'); // retrieving item it key "one"
+```
 
-**TO DO on exact structure**
 
-Retrieving an item with a key that does not exist will throw an **Error**.
+#### Response
 
+If found:
+```js
+{
+  name: 'alex', age: 77, key: 'one'
+}
+```
+If not found, the function will return `null`.
 
 </TabItem>
 <TabItem value="py">
 
 
-`def get(key):` 
-
-Retrieving the item with id **g** from our last example...
-
-#### Code
-```py
-my_item = db.get("g")
-```
-
-... will come back with following data:
-##### Result
-```py
-# value of `my_item`
-{
-    'key': 'g',
-    'data': [
-        Decimal('1'),
-        Decimal('2'),
-        Decimal('3'),
-        'hello',
-        {
-            'nested': [Decimal('8487637843'), Decimal('53645')]
-        }
-    ]
-}
-```
+**`get(key: str)`**
 
 #### Parameter Types
 
-Get takes a single parameter: **key**, which is a **str**.
+- **`key`** (required) – Accepts: `str`
+    - Description: the key of which item is to be retrieved.
 
-#### Return
+#### Code
+```py
+item = db.get("one")
+```
 
-Get returns the **key**, **data** pair as a **dict** when successful.
+#### Response
+```py
+{
+  "name": "alex", "age": 77, "key": "one"
+} 
+```
 
-**TO DO on exact structure**
-
-Retrieving an item with a key that does not exist will raise a **KeyError** exception.
+If not found, the function will return `None`.
 
 </TabItem>
 </Tabs>
