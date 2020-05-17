@@ -7,6 +7,8 @@ import TabItem from '@theme/TabItem';
 
 The Deta library is the easiest way to store and retrieve data from your Deta Base. Currently we only support JavaScript (Node + Browser) and Python 3. [Drop us a line](#) if you want us to support your favorite language.
 
+<!-- TODO: validation errors for put, put_many, insert and fetch. -->
+
 ## Installing the Deta Library
 
 First, install the Deta library in your project's directory.
@@ -62,7 +64,7 @@ Deta Bases are created for you automatically when you start using them.
 const Deta = require('deta'); // import Deta
 
 // Initialize with a Project Key
-const deta = new Deta("project key"); 
+const deta = new Deta('project key'); 
 
 // This how to connect to or create a database.
 const db = new deta.Base('simple_db'); 
@@ -146,14 +148,14 @@ const db = new deta.Base("simple_db");
 
 // you can store objects
 db.put({name: "alex", age: 77})  // A key will be automatically generated
-db.put({name: "alex", age: 77}, key="one")  // We will use "one" as a key
+db.put({name: "alex", age: 77}, "one")  // We will use "one" as a key
 db.put({name: "alex", age: 77, key:"one"})  // The key could also be included in the object itself
 
 // or store simple types:
 db.put("hello, worlds")
 db.put(7)
-db.put("success", key="smart_work")
-db.put(["a", "b", "c"], key="my_abc")
+db.put("success", "smart_work") // "success" is the value and "smart_work" is the key.
+db.put(["a", "b", "c"], "my_abc")
 ```
 </TabItem>
 <TabItem value="py">
@@ -178,14 +180,14 @@ db = deta.Base("simple_db")
 
 # you can store objects
 db.put({"name": "alex", age: 77})  # A key will be automatically generated
-db.put({"name": "alex", age: 77}, key="one")  # We will use "one" as a key
+db.put({"name": "alex", age: 77}, "one")  # We will use "one" as a key
 db.put({"name": "alex", age: 77, key:"one"})  # The key could also be included in the object itself
 
 # or store simple types:
 db.put("hello, worlds")
 db.put(7)
-db.put("success", key="smart_work")
-db.put(["a", "b", "c"], key="my_abc")
+db.put("success", "smart_work")  # "success" is the value and "smart_work" is the key.
+db.put(["a", "b", "c"], "my_abc")
 
 ```
 
@@ -316,8 +318,7 @@ Always returns `None`, even if the key does not exist.
 
 ### Insert
 
-The **insert** method is inserts a single item into a base, but is unique from [**put**](#put) in that it will not overwrite an existing **key**.
-
+The `insert` method is inserts a single item into a base, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database. `insert` is also ~2x slower than `put`. We recommend using `put`.
 
 
 <Tabs
@@ -329,46 +330,58 @@ The **insert** method is inserts a single item into a base, but is unique from [
 }>
 <TabItem value="js">
 
+**`insert(data, key=null)`**
 
-`async function insert(data, key=null, ttl=null){...`
+#### Parameters
+
+- **`data`** (required) – Accepts: `object`, `string`, `number`, `boolean` and `array`.
+    - Description: The data to be stored.
+- **`key`** (optional) – Accepts: `string` and `null`
+    - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
 
 #### Code
 ```js
-db.insert('myKey', 'hello');
+// will succeed, a key will be auto-generated
+const res1 = await db.insert('hello, world');
+
+// will succeed.
+const res2 = await db.insert({message: 'hello, world'}, 'greeting1');
+
+// will raise an error as key "greeting1" already existed.
+const res3 = await db.insert({message: 'hello, there'}, 'greeting1');
 ```
 
-#### Parameters & Types
+#### Response
 
-|          |          `data`                                  |  `key`                  | `ttl`    |
-| -------- | ------------------------------------------------ | ----------------------- | -------- |
-| Default  |                      n/a                         | `null` (auto-generated) | `null`   |
-| Accepted | `String`, `Number`, `Boolean`, `null`,  `Object` | `String`                | `Number` |
-
-
-#### Return
-Insert returns the **data**, **key** pair on a succesful insert, and throws an **Error** elsewise (including if the key already exists).
+Returns the item on a successful insert, and throws an error if the key already exists.
 
 </TabItem>
 <TabItem value="py">
 
-`def insert(data, key:str = None, ttl:int = None):`
+**`insert(data: typing.Union[dict, list, str, int, float, bool], key:str = None):`**
+
+- **`data`** (required) – Accepts: `dict`, `str`, `int`, `float`, `bool` and `list`.
+    - Description: The data to be stored.
+- **`key`** (optional) – Accepts: `str` and `None`
+    - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
+
 
 #### Code
 ```py
-db.insert("hello", "my_key")
+# will succeed, a key will be auto-generated
+res1 = db.insert("hello, world")
+
+# will succeed.
+res2 = db.insert({"message": "hello, world"}, "greeting1")
+
+# will raise an error as key "greeting1" already existed.
+res3 = db.insert({"message": "hello, there"}, "greeting1")
 ```
 
+#### Response
 
-#### Parameters & Types
-
-|          |          `data`                                     |  `key`                  | `ttl`    |
-| -------- | --------------------------------------------------- | ----------------------- | -------- |
-| Default  |                      n/a                            | `None` (auto-generated) | `None`   |
-| Accepted | `str`, `int`, `Decimal`, `boolean`,  `list`, `dict` | `str`                   | `int`    |
-
-#### Return
-Insert returns the **data**, **key** pair on a succesful insert, and raises an **Error** elsewise (including if the key already exists).
+Returns the item on a successful insert, and throws an error if the key already exists.
 
 </TabItem>
 </Tabs>
@@ -376,34 +389,38 @@ Insert returns the **data**, **key** pair on a succesful insert, and raises an *
 
 ### Fetch
 
-Fetch retrieves a list of items matching a query.
+**`fetch(query=null, limit=null)`**
+
+Fetch retrieves a list of items matching a query. It will retrieve everything of no query is provided.
 
 A query is composed a single [filter](#filters) object or a list of [filters](#filters).
 
 In the case of a list, filters are OR'ed in the query.
 
-For the following examples, let's assume we have a Base of the following structure:
+For the following examples, let's assume we have a **Base** of the following structure:
 
 ```json
 
-{
-  "key-1": {
+[
+  {
+    "key": "key-1",
     "name": "Wesley",
     "age": 27,
     "hometown": "San Francisco",
   },
-  "key-2": {
+  {
+    "key": "key-2",
     "name": "Beverly",
     "age": 51,
     "hometown": "Copernicus City",
   },
-  "key-3": {
+  {
+    "key": "key-3",
     "name": "Kevin Garnett",
     "age": 43,
     "hometown": "Greenville",
   }
-} 
-
+]
 
 ```
 
@@ -422,12 +439,15 @@ For the following examples, let's assume we have a Base of the following structu
 #### Code
 
 ```js
-const filterOne = {"age?lt": 30}
-const filterTwo = {"hometown": "Greenville"}
-const filterThree = {"age?gt": 45}
+// const filterOne = {"age?lt": 30}
+// const filterTwo = {"hometown": "Greenville"}
+// const filterThree = {"age?gt": 45}
 
-const myFirstSet = await db.filter(filterOne);
-const mySecondSet = await db.filter([filterOne, filterTwo]);
+const myFirstSet = await db.filter({"age?lt": 30});
+const mySecondSet = await db.filter([
+  { "age?lt": 30 },
+  { "hometown": "Greenville" }
+]);
 ```
 
 ... will come back with following data:
@@ -438,11 +458,9 @@ const mySecondSet = await db.filter([filterOne, filterTwo]);
 [
   {
     "key": "key-1",
-    "data": {
-      "name": "Wesley",
-      "age": 27,
-      "hometown": "San Francisco",
-    }
+    "name": "Wesley",
+    "age": 27,
+    "hometown": "San Francisco",
   }
 ]
 ```
@@ -453,37 +471,29 @@ const mySecondSet = await db.filter([filterOne, filterTwo]);
 [
   {
     "key": "key-2",
-    "data": {
-      "name": "Beverly",
-      "age": 51,
-      "hometown": "Copernicus City",
-    },
+    "name": "Beverly",
+    "age": 51,
+    "hometown": "Copernicus City",
   },
   {
     "key": "key-3",
-    "data": {
-      "name": "Kevin Garnett",
-      "age": 43,
-      "hometown": "Greenville",
-    },
-  }
+    "name": "Kevin Garnett",
+    "age": 43,
+    "hometown": "Greenville",
+  },
 ]
 ```
 </TabItem>
 
 <TabItem value="py">
 
-`def filter(query, limit=25):`
+`def filter(query=None, limit=None):`
 
 #### Code
 
 ```py
-filter_one = {"age?lt": 30}
-filter_two = {"hometown": "Greenville"}
-filter_three = {"age?gt": 45}
-
-my_first_set = db.filter(filter_one)
-my_second_set = db.filter([filter_one, filter_two])
+my_first_set = db.filter({"age?lt": 30})
+my_second_set = db.filter([{"age?lt": 30}, {"hometown": "Greenville"}])
 ```
 
 ... will come back with following data:
@@ -493,11 +503,9 @@ my_second_set = db.filter([filter_one, filter_two])
 [
   {
     "key": "key-1",
-    "data": {
-      "name": "Wesley",
-      "age": 27,
-      "hometown": "San Francisco",
-    }
+    "name": "Wesley",
+    "age": 27,
+    "hometown": "San Francisco",
   }
 ]
 ```
@@ -507,20 +515,16 @@ my_second_set = db.filter([filter_one, filter_two])
 [
   {
     "key": "key-2",
-    "data": {
-      "name": "Beverly",
-      "age": 51,
-      "hometown": "Copernicus City",
-    },
+    "name": "Beverly",
+    "age": 51,
+    "hometown": "Copernicus City",
   },
   {
     "key": "key-3",
-    "data": {
-      "name": "Kevin Garnett",
-      "age": 43,
-      "hometown": "Greenville",
-    },
-  }
+    "name": "Kevin Garnett",
+    "age": 43,
+    "hometown": "Greenville",
+  },
 ]
 ```
 </TabItem>
@@ -528,17 +532,14 @@ my_second_set = db.filter([filter_one, filter_two])
 
 #### Parameters & Types
 
-`filers`: is a single filter object or list of filters.
+`query`: is a single filter object or list of filters.
 
 `limit`: is an integer which specifies the maximum number of records which can be returned.
 
 
 #### Return
 
-A list of objects that meet the filter criteria, up to the length of **limit** is returned.
-
-
-
+A generator of objects that meet the `query` criteria. TODO: mention pagination, maybe rename limit.
 
 #### Filters
 
