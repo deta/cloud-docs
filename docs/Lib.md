@@ -101,16 +101,18 @@ A "Deta Base" (or simply database) is like a Key-Value store, a collection or a 
 
 Deta's **`Base`** class offers the following methods to interact  with your Deta Base:
 
-  - [**`put`**](#put) – stores an item in the database. It will update an item if they key already exists. You would use put to also update an item.
-  - [**`insert`**](#insert) – stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
-  - [**`get`**](#get) – retrieves an item from the database.
-  - [**`delete`**](#delete) – deletes an item from the database.
-  - [**`fetch`**](#insert) – retrieves multiple items from the database based on the provided (optional) filters. 
+  - [**`put`**](#put) – Stores an item in the database. It will update an item if they key already exists. You would use put to also update an item.
+  - [**`insert`**](#insert) – Stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
+  - [**`get`**](#get) – Retrieves an item from the database by its key.
+  - [**`fetch`**](#insert) – Retrieves multiple items from the database based on the provided (optional) filters. 
+  - [**`delete`**](#delete) – Deletes an item from the database.
 
 ### Put
 
 `put` is the fastest way to store in item in the database. You can store objects and primitive types (e.g strings).  
 In case you do not provide us with a key, we will auto generate a 12 chars long string.
+
+You should also use `put` when you want to update an item in the database.
 
 <Tabs
   defaultValue="js"
@@ -124,15 +126,12 @@ In case you do not provide us with a key, we will auto generate a 12 chars long 
 
 **`put(data, key=null)`**
 
-#### Parameters & Types
-<!-- TODO: fix expire type and return if not valid. Is return a promise? -->
+#### Parameters
 
-- **`data`** (required): the data to be stored. 
-    - **Types:** `object`, `string`, `number`, `boolean` and `array`.
-- **`key`** (optional): the key (aka ID) to store the data under. Will be auto generated if not provided.
-    - **Type:** `string`
-- **`expires`** (optional): A unix timestamp of when the item should be auto-deleted from the database. A great feature for temporary data. By default all your data is stored for ever!
-    - **Type:** `number`
+- **`data`** (required) – Accepts: `object`, `string`, `number`, `boolean` and `array`.
+    - Description: The data to be stored.
+- **`key`** (optional) – Accepts: `string` and `null`
+    - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
 #### Return
 TODO(success, errs, exceptions)
@@ -143,7 +142,7 @@ TODO(success, errs, exceptions)
 const Deta = require('deta');
 
 const deta = Deta("project key");
-const db = new deta.Base("testdb");
+const db = new deta.Base("simple_db");
 
 // you can store objects
 db.put({name: "alex", age: 77})  // A key will be automatically generated
@@ -159,17 +158,14 @@ db.put(["a", "b", "c"], key="my_abc")
 </TabItem>
 <TabItem value="py">
 
-**`put(data: typing.Any, key:str = None, expires:int = None):`**
+**`put(data: typing.Union[dict, list, str, int, float, bool], key:str = None):`**
 
-#### Parameters & Types
-<!-- TODO: fix expire type and return if not valid.-->
+#### Parameters
 
-- **`data`** (required): the data to be stored. 
-    - **Types:** `dict`, `str`, `int`, `bool` and `list`.
-- **`key`** (optional): the key (aka ID) to store the data under. Will be auto generated if not provided.
-    - **Type:** `str`
-- **`expires`** (optional): A unix timestamp of when the item should be auto-deleted from the database. A great feature for temporary data. By default all your data is stored for ever!
-    - **Type:** `int`
+- **`data`** (required) – Accepts: `dict`, `str`, `int`, `float`, `bool` and `list`.
+    - Description: The data to be stored.
+- **`key`** (optional) – Accepts: `str` and `None`
+    - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
 #### Return
 TODO(success, errs, exceptions)
@@ -177,8 +173,8 @@ TODO(success, errs, exceptions)
 #### Code examples
 ```py
 from deta import Deta
-deta = Deta("project keyret_key")  
-db = deta.Base("testdb")
+deta = Deta("project key")  
+db = deta.Base("simple_db")
 
 # you can store objects
 db.put({"name": "alex", age: 77})  # A key will be automatically generated
@@ -192,20 +188,6 @@ db.put("success", key="smart_work")
 db.put(["a", "b", "c"], key="my_abc")
 
 ```
-
-#### Parameters & Types
-
-TODO
-<!-- |          |          `data`                                     |  `key`                  | `ttl`    |
-| -------- | --------------------------------------------------- | ----------------------- | -------- |
-| Default  |                      n/a                            | `None` (auto-generated) | `None`   |
-| Accepted | `str`, `int`, `Decimal`, `boolean`,  `list`, `dict` | `str`                   | `int`    | -->
-
-
-#### Return
-Put returns the **data**, **key** pair on a successful put, and raises an **Error** else wise.
-
-**TO DO need exact shape.**
 
 </TabItem>
 </Tabs>
