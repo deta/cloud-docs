@@ -8,20 +8,19 @@ import TabItem from '@theme/TabItem';
 
 export let Bubble = ({ item }) => {
     return (
-        <div style={{ display: 'flex', justifyContent: 'center', borderRadius: '0.5rem', color: '#f5f6f7', backgroundColor: '#3884ff', width: '120px', padding: '5px' }}>
+        <div style={{ display: 'flex', justifyContent: 'center',
+        borderRadius: '0.5rem', color: '#f5f6f7', backgroundColor: '#3884ff',
+        width: '120px', padding: '2' }}>
             HTTP {item}
         </div>
     );
 }
 
-## General
+## General & Auth
 
-Root url:
+Root url: **`https://database.deta.sh/v1/{project_key}/{base_name}`**
 
-**`database.deta.sh/v1`**
-
-An api key must be included in the header for all requests.
-
+The `project_key` **must** to be provided in the header `X-API-Key` for authentication.
 
 
 
@@ -31,7 +30,6 @@ An api key must be included in the header for all requests.
 
 <Bubble item="PUT" /> 
 
-<br />
 
 **`/{project_id}/{base_name}/items`**
 
@@ -50,22 +48,37 @@ An api key must be included in the header for all requests.
 | `base_name`      | Yes      | `string` |
 
 
+| Payload | Required | Type    | Description                              |
+|---------|----------|---------|------------------------------------------|
+| `items` | Yes      | `array` | An array of items `object` to be stored. |
 
 </TabItem>
 <TabItem value="response">
 
+`207 Multi-Status`
 
-
+```js
+{
+ "processed": {
+   "items": [
+     // items which were saved
+    ]
+  },
+  "failed": {
+    "items": [
+      // items which have failed
+    ]
+  }
+}
+```
 </TabItem>
+
+
 </Tabs>
 
 ### Get Item
 
 <Bubble item="GET" /> 
-
-
-<br />
-
 
 **`/{project_id}/{base_name}/{key}`**
 
@@ -78,7 +91,7 @@ An api key must be included in the header for all requests.
 }>
 <TabItem value="request">
 
-| Path Parameter   | Required | Type     |
+| Path Parameter   | Required | Type     |Description
 |------------------|----------|----------|
 | `project_id`     | Yes      | `string` |
 | `base_name`      | Yes      | `string` |
