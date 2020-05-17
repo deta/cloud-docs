@@ -19,9 +19,15 @@ First, install the Deta library in your project's directory.
   ]
 }>
 <TabItem value="js">
+Using NPM:
 
 ```shell
 npm install -s deta
+```
+
+Using Yarn:
+ ```shell
+yarn add deta
 ```
 
 </TabItem>
@@ -36,49 +42,13 @@ pip install deta
 
 
 
-## Configuration
-
-To start working with your Base, you need to import the `Deta` and initialize it with your `project_key`. You can get your project key from your [Deta dashboard](#).
-
-<Tabs
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'Python', value: 'py', },
-  ]
-}>
-<TabItem value="js">
-
-```js
-const Deta = require('deta');
-
-const deta = new Deta("project key")
-```
-</TabItem>
+## Instantiating
 
 
-<TabItem value="py">
-
-```py
-from deta import Deta
-
-deta = Deta("project key") 
-```
-
-</TabItem>
-</Tabs>
-
-
-## Instantiating & Using a Deta Base
+To start working with your Base, you need to import the `Deta` class and initialize it with a **Project Key**. Then instantiate a subclass called `Base` with a database name of your choosing.
 
 Deta Bases are created for you automatically when you start using them.
 
-To use a Base, simply "instantiate" with a name.
-
-:::note
-Note that names for Bases are unique within the scope of a project (key).
-:::
-
 <Tabs
   defaultValue="js"
   values={[
@@ -89,32 +59,53 @@ Note that names for Bases are unique within the scope of a project (key).
 <TabItem value="js">
 
 ```js
-const books = new deta.Base('books'); 
-const authors = new deta.Base('authors');
-const db = new deta.Base('simple_db');
-```
+const Deta = require('deta'); // import Deta
 
+// Initialize with a Project Key
+const deta = new Deta("project key"); 
+
+// This how to connect to or create a database.
+const db = new deta.Base('simple_db'); 
+
+// You can create as many as you want without additional charges.
+const books = new deta.Base('books'); 
+```
 </TabItem>
+
+
 <TabItem value="py">
 
 ```py
-books = deta.Base("books")
-authors = deta.Base("authors")
+from deta import Deta  # Import Deta
+
+# Initialize with a Project Key
+deta = Deta("project key")
+
+# This how to connect to or create a database.
 db = deta.Base("simple_db")
+
+# You can create as many as you want without additional charges.
+books = deta.Base("books")
+
 ```
 
 </TabItem>
 </Tabs>
 
+:::note
+A "Deta Base" (or simply database) is like a Key-Value store, a collection or a PostgreSQL/MySQL table. TODO: better wording
+:::
 
-## Methods
 
-Deta's **`Base`** class offers the following methods:
-  - [put](#put)
-  - [get](#get)
-  - [delete](#delete)
-  - [insert](#insert)
-  - [fetch](#insert)
+## Using
+
+Deta's **`Base`** class offers the following methods to interact  with your Deta Base:
+
+  - [**`put`**](#put) – stores an item in the database. It will update an item if they key already exists. You would use put to also update an item.
+  - [**`insert`**](#insert) – stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
+  - [**`get`**](#get) – retrieves an item from the database.
+  - [**`delete`**](#delete) – deletes an item from the database.
+  - [**`fetch`**](#insert) – retrieves multiple items from the database based on the provided (optional) filters. 
 
 ### Put
 
@@ -131,7 +122,7 @@ In case you do not provide us with a key, we will auto generate a 12 chars long 
 <TabItem value="js">
 
 
-**`put(data, key=null, expires=null)`**
+**`put(data, key=null)`**
 
 #### Parameters & Types
 <!-- TODO: fix expire type and return if not valid. Is return a promise? -->
