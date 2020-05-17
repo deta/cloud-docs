@@ -6,7 +6,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
-The Deta Library provides methods which make it very simple to interact with any [Base you create]().
+The Deta Library provides methods which make it very simple to interact with any of your Bases.
 
 The Deta Library can be installed for both the Python and Node.js runtimes.
 
@@ -25,7 +25,7 @@ First, install the Deta library in your project's directory.
 <TabItem value="js">
 
 ```shell
-npm install deta
+npm install -s deta
 ```
 
 </TabItem>
@@ -63,19 +63,19 @@ Then, depending on your use, authenticate with Deta using of the following two t
 <!--- Start Nested Tabs JS --->
 
 <Tabs
-  defaultValue="protected"
+  defaultValue="private"
   values={[
-    { label: 'Protected Uses', value: 'protected', },
-    { label: 'Public Uses', value: 'public', },
+    { label: 'Private Uses', value: 'private', },
+    { label: 'Prublic Uses', value: 'public, },
   ]
 }>
 
-<TabItem value="protected">
+<TabItem value="private>
 
-For protected interactions with Bases, use your secret **Base key**:
+For private interactions with Bases, use your secret **project key**:
 
 ```js
-const deta = Deta("myBaseKey")  // for protected use cases
+const deta = Deta("myBaseKey")  // for private use cases
 ```
 </TabItem>
 
@@ -108,19 +108,19 @@ Then, depending on your use, authenticate with Deta using of the following two t
 <!--- Start Nested Tabs --->
 
 <Tabs
-  defaultValue="protected"
+  defaultValue="private"
   values={[
-    { label: 'Protected Uses', value: 'protected', },
+    { label: 'Prrivate Uses', value: 'private', },
     { label: 'Public Uses', value: 'public', },
   ]
 }>
 
-<TabItem value="protected">
+<TabItem value="private">
 
-For protected interactions with Bases, use your secret **base key**:
+For private interactions with Bases, use your secret **rpoject key**:
 
 ```py
-deta = Deta("base_key")  # for protected use cases
+deta = Deta("private_key")  # for private use cases
 ```
 </TabItem>
 
