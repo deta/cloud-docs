@@ -260,7 +260,7 @@ If not found, the function will return `None`.
 
 
 ### Delete
-Delete deletes an item provided a key.
+Delete deletes an item form the database provided a key.
 
 <Tabs
   defaultValue="js"
@@ -272,67 +272,41 @@ Delete deletes an item provided a key.
 <TabItem value="js">
 
 
-`async function delete(key, strict=null){...` 
+**`delete(key)`**
 
-#### Code
+- **`key`** (required) – Accepts: `string`
+    - Description: the key of which item is to be deleted.
+
+#### Code example
 
 ```js
-deletedOne = await db.delete("j") // null, but successful deletion
-deletedTwo = await db.delete("b", false) // null, succesful deletion
-deletedThre = await db.delete("a", true) // true, succesful deletion
-deletedFour = await db.delete("a_non_existent_key") // null, key doesn't exist
-deletedFive = await db.delete("another_non_existent_key", true) // false, key doesn't exist
+const res = await db.delete("one")
 ```
 
-#### Parameters & Types
-
-|          | `key`    |  `strict`   | 
-| -------- | -------- | ----------- | 
-| Default  |  n/a     | `null`      | 
-| Accepted | `string` | `boolean`   | 
 
 
-#### Return
+#### Response
 
-If **strict** is set to **null** or **false**, Delete returns **null**.
-
-If **strict** is set to **true**, Delete returns **true** upon a confirmed deletion, elsewise **false**.
-
-Deleting item with a key that does not exist will throw an **Error**. **(TO DO Confirm me)**
+Always returns `null`, even if the key does not exist.
 
 
 </TabItem>
 <TabItem value="py">
 
-`def delete(key:str, strict:bool = None):` 
+**`delete(key: str)`**
 
+- **`key`** (required) – Accepts: `str`
+    - Description: the key of which item is to be deleted.
 
-#### Code
+#### Code example
 
 ```py
-deleted_one = db.delete("j") #None, but successful deletion
-deleted_two = db.delete("b", False) #None, succesful deletion
-deleted_three = db.delete("a", True) #True, succesful deletion
-deleted_four = db.delete("a_non_existent_key") #None, key doesn't exist
-deleted_five = db.delete("another_non_existent_key", True) #False, key doesn't exist
+res = db.delete("one")
 ```
 
-#### Parameters & Types
+#### Response
 
-|          | `key`    |  `strict`   | 
-| -------- | -------- | ----------- | 
-| Default  |  n/a     | `None`      | 
-| Accepted | `str`    | `boolean`   |
-
-
-
-#### Return
-
-If **strict** is set to **None** or **False**, Delete returns **None**.
-
-If **strict** is set to **True**, Delete returns **True** upon a confirmed deletion, elsewise **False**.
-
-Deleting item with a key that does not exist will raise a **KeyError** exception. **(TO DO Confirm me)**
+Always returns `None`, even if the key does not exist.
 
 
 </TabItem>
