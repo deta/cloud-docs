@@ -64,13 +64,13 @@ Deta Bases are created for you automatically when you start using them.
 const Deta = require('deta'); // import Deta
 
 // Initialize with a Project Key
-const deta = new Deta('project key'); 
+const deta = Deta('project key'); 
 
 // This how to connect to or create a database.
-const db = new deta.Base('simple_db'); 
+const db = deta.Base('simple_db'); 
 
 // You can create as many as you want without additional charges.
-const books = new deta.Base('books'); 
+const books = deta.Base('books'); 
 ```
 </TabItem>
 
@@ -95,13 +95,13 @@ books = deta.Base("books")
 </Tabs>
 
 :::note
-A "Deta Base" (or simply database) is like a Key-Value store, a collection or a PostgreSQL/MySQL table. TODO: better wording
+A "Deta Base" (or simply database) is a Key-Value store, like a collection or a PostgreSQL/MySQL table.
 :::
 
 
 ## Using
 
-Deta's **`Base`** class offers the following methods to interact  with your Deta Base:
+Deta's **`Base`** class offers the following methods to interact with your Deta Base:
 
   - [**`put`**](#put) – Stores an item in the database. It will update an item if they key already exists. You would use put to also update an item.
   - [**`insert`**](#insert) – Stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
@@ -112,7 +112,8 @@ Deta's **`Base`** class offers the following methods to interact  with your Deta
 ### Put
 
 `put` is the fastest way to store in item in the database. You can store objects and primitive types (e.g strings).  
-In case you do not provide us with a key, we will auto generate a 12 chars long string.
+
+In the case you do not provide us with a key, we will auto generate a 12 char long string as a key.
 
 You should also use `put` when you want to update an item in the database.
 
@@ -126,7 +127,7 @@ You should also use `put` when you want to update an item in the database.
 <TabItem value="js">
 
 
-**`put(data, key=null)`**
+**`async put(data, key=null)`**
 
 #### Parameters
 
@@ -135,16 +136,14 @@ You should also use `put` when you want to update an item in the database.
 - **`key`** (optional) – Accepts: `string` and `null`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
-#### Return
-TODO(success, errs, exceptions)
 
-#### Code examples
+#### Code Example
 
 ```js
 const Deta = require('deta');
 
 const deta = Deta("project key");
-const db = new deta.Base("simple_db");
+const db = deta.Base("simple_db");
 
 // you can store objects
 db.put({name: "alex", age: 77})  // A key will be automatically generated
@@ -157,6 +156,11 @@ db.put(7)
 db.put("success", "smart_work") // "success" is the value and "smart_work" is the key.
 db.put(["a", "b", "c"], "my_abc")
 ```
+
+#### Returns
+
+`put` returns the item on a successful put, otherwise it returns `null`.
+
 </TabItem>
 <TabItem value="py">
 
@@ -169,10 +173,8 @@ db.put(["a", "b", "c"], "my_abc")
 - **`key`** (optional) – Accepts: `str` and `None`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
-#### Return
-TODO(success, errs, exceptions)
 
-#### Code examples
+#### Code Example
 ```py
 from deta import Deta
 deta = Deta("project key")  
@@ -191,6 +193,10 @@ db.put(["a", "b", "c"], "my_abc")
 
 ```
 
+#### Returns
+
+`put` returns the item on a successful put, otherwise it returns `None`.
+
 </TabItem>
 </Tabs>
 
@@ -208,23 +214,23 @@ db.put(["a", "b", "c"], "my_abc")
 }>
 <TabItem value="js">
 
-**`get(key)`**
+**`async get(key)`**
 
 #### Parameter Types
 
 - **`key`** (required) – Accepts: `string`
     - Description: the key of which item is to be retrieved.
 
-#### Example code
+#### Code Example
 
 ```js
 const item = await db.get('one'); // retrieving item it key "one"
 ```
 
 
-#### Response
+#### Returns
 
-If found:
+If the record is found:
 ```js
 {
   name: 'alex', age: 77, key: 'one'
@@ -243,12 +249,14 @@ If not found, the function will return `null`.
 - **`key`** (required) – Accepts: `str`
     - Description: the key of which item is to be retrieved.
 
-#### Code
+#### Code Example
 ```py
 item = db.get("one")
 ```
 
-#### Response
+#### Returns
+
+If the record is found:
 ```py
 {
   "name": "alex", "age": 77, "key": "one"
@@ -274,12 +282,13 @@ Delete deletes an item form the database provided a key.
 <TabItem value="js">
 
 
-**`delete(key)`**
+**`async delete(key)`**
 
+#### Parameters
 - **`key`** (required) – Accepts: `string`
     - Description: the key of which item is to be deleted.
 
-#### Code example
+#### Code Example
 
 ```js
 const res = await db.delete("one")
@@ -287,7 +296,7 @@ const res = await db.delete("one")
 
 
 
-#### Response
+#### Returns
 
 Always returns `null`, even if the key does not exist.
 
@@ -297,16 +306,17 @@ Always returns `null`, even if the key does not exist.
 
 **`delete(key: str)`**
 
+#### Parameters
 - **`key`** (required) – Accepts: `str`
     - Description: the key of which item is to be deleted.
 
-#### Code example
+#### Code Example
 
 ```py
 res = db.delete("one")
 ```
 
-#### Response
+#### Returns
 
 Always returns `None`, even if the key does not exist.
 
@@ -318,7 +328,10 @@ Always returns `None`, even if the key does not exist.
 
 ### Insert
 
-The `insert` method is inserts a single item into a base, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database. `insert` is also ~2x slower than `put`. We recommend using `put`.
+The `insert` method is inserts a single item into a base, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database. 
+
+`insert` is roughly ~2x slower than `put`. 
+
 
 
 <Tabs
@@ -330,7 +343,7 @@ The `insert` method is inserts a single item into a base, but is unique from [`p
 }>
 <TabItem value="js">
 
-**`insert(data, key=null)`**
+**`async insert(data, key=null)`**
 
 #### Parameters
 
@@ -340,7 +353,7 @@ The `insert` method is inserts a single item into a base, but is unique from [`p
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
 
-#### Code
+#### Code Example
 ```js
 // will succeed, a key will be auto-generated
 const res1 = await db.insert('hello, world');
@@ -352,7 +365,7 @@ const res2 = await db.insert({message: 'hello, world'}, 'greeting1');
 const res3 = await db.insert({message: 'hello, there'}, 'greeting1');
 ```
 
-#### Response
+#### Returns
 
 Returns the item on a successful insert, and throws an error if the key already exists.
 
@@ -361,13 +374,15 @@ Returns the item on a successful insert, and throws an error if the key already 
 
 **`insert(data: typing.Union[dict, list, str, int, float, bool], key:str = None):`**
 
+#### Parameters
+
 - **`data`** (required) – Accepts: `dict`, `str`, `int`, `float`, `bool` and `list`.
     - Description: The data to be stored.
 - **`key`** (optional) – Accepts: `str` and `None`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
 
-#### Code
+#### Code Example
 ```py
 # will succeed, a key will be auto-generated
 res1 = db.insert("hello, world")
@@ -379,7 +394,7 @@ res2 = db.insert({"message": "hello, world"}, "greeting1")
 res3 = db.insert({"message": "hello, there"}, "greeting1")
 ```
 
-#### Response
+#### Returns
 
 Returns the item on a successful insert, and throws an error if the key already exists.
 
@@ -389,7 +404,6 @@ Returns the item on a successful insert, and throws an error if the key already 
 
 ### Fetch
 
-**`fetch(query=null, limit=null)`**
 
 Fetch retrieves a list of items matching a query. It will retrieve everything of no query is provided.
 
@@ -434,17 +448,25 @@ For the following examples, let's assume we have a **Base** of the following str
 }>
 <TabItem value="js">
 
-`async function filter (query, limit=25) {...`
+**`async fetch(query, buffer=null, limit=null)`**
 
-#### Code
+#### Parameters & Types
+
+`query`: is a single [filter object](#filters) or list of filters.
+
+`buffer`: the number of objects which will be yielded for each iteration on the return iterable.
+
+`limit`: is an integer which specifies the maximum number of records which can be returned.
+
+#### Code Example
 
 ```js
 // const filterOne = {"age?lt": 30}
 // const filterTwo = {"hometown": "Greenville"}
 // const filterThree = {"age?gt": 45}
 
-const myFirstSet = await db.filter({"age?lt": 30});
-const mySecondSet = await db.filter([
+const myFirstSet = await db.fetch({"age?lt": 30});
+const mySecondSet = await db.fetch([
   { "age?lt": 30 },
   { "hometown": "Greenville" }
 ]);
@@ -483,17 +505,45 @@ const mySecondSet = await db.filter([
   },
 ]
 ```
+#### Returns
+
+A generator of objects that meet the `query` criteria.
+
+This generator has a max length of `limit`.
+
+Iterating through the generator yields arrays containing objects, each array of max length `buffer`.
+
+
+#### Example using buffer, limit
+
+```js
+const foo = async (query) => {
+  allItems = await db.fetch(myQuery, 10, 100) // allItems is up to the limit length, 100
+
+  for (const subArray of allItems) // each subArray is up to the buffer length, 10
+    bar(subArray)
+
+}
+```
 </TabItem>
 
 <TabItem value="py">
 
-`def filter(query=None, limit=None):`
+**`fetch(query=None, buffer=None, limit=None):`**
 
-#### Code
+#### Parameters & Types
+
+`query`: is a single [filter object](#filters) or list of filters.
+
+`buffer`: the number of objects which will be yielded for each iteration on the return iterable.
+
+`limit`: is an integer which specifies the maximum number of records which can be returned.
+
+#### Code Example
 
 ```py
-my_first_set = db.filter({"age?lt": 30})
-my_second_set = db.filter([{"age?lt": 30}, {"hometown": "Greenville"}])
+my_first_set = db.fetch({"age?lt": 30})
+my_second_set = db.fetch([{"age?lt": 30}, {"hometown": "Greenville"}])
 ```
 
 ... will come back with following data:
@@ -527,19 +577,30 @@ my_second_set = db.filter([{"age?lt": 30}, {"hometown": "Greenville"}])
   },
 ]
 ```
+
+#### Returns
+
+A generator of objects that meet the `query` criteria.
+
+This generator has a max length of `limit`.
+
+Iterating through the generator yields lists containing objects, each list of max length `buffer`.
+
+
+#### Example using buffer, limit
+
+```py
+def foo(query):
+  all_items = db.fetch(my_query, 10, 100) # all_items is up to the limit length, 100
+
+  for sub_list in all_items: #each sub_list is up to the buffer length, 10
+    bar(sub_list)
+```
+
 </TabItem>
 </Tabs>
 
-#### Parameters & Types
 
-`query`: is a single filter object or list of filters.
-
-`limit`: is an integer which specifies the maximum number of records which can be returned.
-
-
-#### Return
-
-A generator of objects that meet the `query` criteria. TODO: mention pagination, maybe rename limit.
 
 #### Filters
 
