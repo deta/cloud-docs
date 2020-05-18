@@ -1,31 +1,35 @@
 ---
 id: lib
-title: Library
+title: Deta Library
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
+The Deta library is the easiest way to store and retrieve data from your Deta Base. Currently we support JavaScript (Node + Browser) and Python 3. [Drop us a line](#contact) if you want us to support your favorite language.
 
-The Deta Library provides methods which make it very simple to interact with any [Base you create]().
-
-The Deta Library can be installed for both the Python and Node.js runtimes.
-
+<!-- TODO: validation errors for put, put_many, insert and fetch. -->
 
 ## Installing the Deta Library
 
 First, install the Deta library in your project's directory.
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
   ]
 }>
 <TabItem value="js">
+Using NPM:
 
 ```shell
-npm install deta
+npm install -s deta
+```
+
+Using Yarn:
+ ```shell
+yarn add deta
 ```
 
 </TabItem>
@@ -40,118 +44,15 @@ pip install deta
 
 
 
-## Configuration
+## Instantiating
+
+
+To start working with your Base, you need to import the `Deta` class and initialize it with a **Project Key**. Then instantiate a subclass called `Base` with a database name of your choosing.
+
+Deta Bases are created for you automatically when you start using them.
 
 <Tabs
-  defaultValue="py"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'Python', value: 'py', },
-  ]
-}>
-<TabItem value="js">
-
-To configure Deta, import the **Deta** class from **deta**, in your code:
-
-
-```js
-const { Deta } = require('deta');
-```
-
-Then, depending on your use, authenticate with Deta using of the following two tabs:
-
-<!--- Start Nested Tabs JS --->
-
-<Tabs
-  defaultValue="protected"
-  values={[
-    { label: 'Protected Uses', value: 'protected', },
-    { label: 'Public Uses', value: 'public', },
-  ]
-}>
-
-<TabItem value="protected">
-
-For protected interactions with Bases, use your secret **Base key**:
-
-```js
-const deta = Deta("myBaseKey")  // for protected use cases
-```
-</TabItem>
-
-<TabItem value="public">
-
-Bases can have public read access. 
-
-For read only uses, use your **project id**:
-
-```js
-const deta = Deta("my id")  // for public read access use cases
-```
-</TabItem>
-</Tabs>
-
-<!--- End Nested Tabs JS --->
-
-</TabItem>
-<TabItem value="py">
-
-To configure Deta, import the **Deta** class from **deta**, in your code:
-
-
-```py
-from deta import Deta
-```
-
-Then, depending on your use, authenticate with Deta using of the following two tabs:
-
-<!--- Start Nested Tabs --->
-
-<Tabs
-  defaultValue="protected"
-  values={[
-    { label: 'Protected Uses', value: 'protected', },
-    { label: 'Public Uses', value: 'public', },
-  ]
-}>
-
-<TabItem value="protected">
-
-For protected interactions with Bases, use your secret **base key**:
-
-```py
-deta = Deta("base_key")  # for protected use cases
-```
-</TabItem>
-
-<TabItem value="public">
-
-Bases can have public read access. 
-
-For read only uses, use your **project id**:
-
-```py
-deta = Deta(project_id="my_id")  # for public read access use cases
-```
-</TabItem>
-</Tabs>
-
-<!--- End Nested Tabs --->
-
-</TabItem>
-</Tabs>
-
-
-## Instantiating & Using a Deta Base
-With Deta, Bases are created for you automatically when you start using them.
-
-To use a Base, simply "instantiate" it in your code, providing it with a required **name**.
-
-Names for Bases must be unique within the scope of a project.
-
-
-<Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -160,39 +61,64 @@ Names for Bases must be unique within the scope of a project.
 <TabItem value="js">
 
 ```js
-const books = new deta.Base('books'); 
-const authors = new deta.Base('authors');
-const db = new deta.Base('simple_db');
-```
+const Deta = require('deta'); // import Deta
 
+// Initialize with a Project Key
+const deta = Deta('project key'); 
+
+// This how to connect to or create a database.
+const db = deta.Base('simple_db'); 
+
+// You can create as many as you want without additional charges.
+const books = deta.Base('books'); 
+```
 </TabItem>
+
+
 <TabItem value="py">
 
 ```py
+from deta import Deta  # Import Deta
+
+# Initialize with a Project Key
+deta = Deta("project key")
+
+# This how to connect to or create a database.
+db = deta.Base("simple_db")
+
+# You can create as many as you want without additional charges.
 books = deta.Base("books")
-authors = deta.Base("authors")
-db = deta.Base("simple_db");
+
 ```
 
 </TabItem>
 </Tabs>
 
+:::note
+A "Deta Base" (or simply database) is a Key-Value store, like a collection or a PostgreSQL/MySQL table.
+:::
 
-## Methods
 
-Deta's **Base** class offers the following methods:
-  - [put](#put)
-  - [get](#get)
-  - [delete](#delete)
-  - [insert](#insert)
-  - [fetch](#insert)
+## Using
+
+Deta's **`Base`** class offers the following methods to interact with your Deta Base:
+
+  - [**`put`**](#put) – Stores an item in the database. It will update an item if they key already exists. You would use put to also update an item.
+  - [**`insert`**](#insert) – Stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
+  - [**`get`**](#get) – Retrieves an item from the database by its key.
+  - [**`fetch`**](#insert) – Retrieves multiple items from the database based on the provided (optional) filters. 
+  - [**`delete`**](#delete) – Deletes an item from the database.
 
 ### Put
 
-Put inserts a single item into a Base under a **key**; if a key already exists, then **put** ***overwrites the original data***.
+`put` is the fastest way to store in item in the database. You can store objects and primitive types (e.g strings).  
+
+In the case you do not provide us with a key, we will auto generate a 12 char long string as a key.
+
+You should also use `put` when you want to update an item in the database.
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -201,76 +127,75 @@ Put inserts a single item into a Base under a **key**; if a key already exists, 
 <TabItem value="js">
 
 
-`async function put(data, key=null, ttl=null) { ...`
+**`async put(data, key=null)`**
 
-#### Code
+#### Parameters
+
+- **`data`** (required) – Accepts: `object`, `string`, `number`, `boolean` and `array`.
+    - Description: The data to be stored.
+- **`key`** (optional) – Accepts: `string` and `null`
+    - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
+
+
+#### Code Example
+
 ```js
-const { Deta } = require('deta');
-const deta = Deta("secret key");
-const db = new deta.Base("myFirstDb");
+const Deta = require('deta');
 
-await db.put('a', 'hello');
-await db.put('b', null);
-await db.put('c', 1213123213); // data will live for 86400 seconds, or 24 hours
-await db.put('d', 1.4);
-await db.put('e', False);
-await db.put('f', {});
-await db.put('g', [1, 2, 3, 'hello', { nested: [8487637843, 53645] }]);
-await db.put(0); // key is auto generated
-await db.put(2); // key is auto generated
-await db.put({ height: 80 }); // key is auto generated
+const deta = Deta("project key");
+const db = deta.Base("simple_db");
 
+// you can store objects
+db.put({name: "alex", age: 77})  // A key will be automatically generated
+db.put({name: "alex", age: 77}, "one")  // We will use "one" as a key
+db.put({name: "alex", age: 77, key:"one"})  // The key could also be included in the object itself
+
+// or store simple types:
+db.put("hello, worlds")
+db.put(7)
+db.put("success", "smart_work") // "success" is the value and "smart_work" is the key.
+db.put(["a", "b", "c"], "my_abc")
 ```
 
-#### Parameters & Types
+#### Returns
 
-
-|          |          `data`                                  |  `key`                  | `ttl`    |
-| -------- | ------------------------------------------------ | ----------------------- | -------- |
-| Default  |                      n/a                         | `null` (auto-generated) | `null`   |
-| Accepted | `String`, `Number`, `Boolean`, `null`,  `Object` | `String`                | `Number` |
-
-#### Return
-Put returns the **data**, **key** pair on a succesful put, and throws an **Error** elsewise.
-
-**TO DO need exact shape.**
+`put` returns the item on a successful put, otherwise it returns `null`.
 
 </TabItem>
 <TabItem value="py">
 
-`def put(data, key:str = None, ttl:int = None):`  
+**`put(data: typing.Union[dict, list, str, int, float, bool], key:str = None):`**
 
-#### Code
+#### Parameters
+
+- **`data`** (required) – Accepts: `dict`, `str`, `int`, `float`, `bool` and `list`.
+    - Description: The data to be stored.
+- **`key`** (optional) – Accepts: `str` and `None`
+    - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
+
+
+#### Code Example
 ```py
 from deta import Deta
-deta = Deta("my_secret_key")  
-db = deta.Base("my_first_db")
+deta = Deta("project key")  
+db = deta.Base("simple_db")
 
-db.put("a", "hello")
-db.put("b", None)
-db.put("c", 1213123213, 86400) # data will live for 86400 seconds, or 24 hours
-db.put("d", Decimal("1.4"))
-db.put("e", False)
-db.put("f", {})
-db.put("g", [1, 2, 3, "hello", {"nested": [8487637843, 53645]}])
-db.put(Decimal(2)) # key is auto-generated
-db.put(0) # key is auto-generated
-db.put({"height": Decimal(80)}) # key is auto-generated
+# you can store objects
+db.put({"name": "alex", age: 77})  # A key will be automatically generated
+db.put({"name": "alex", age: 77}, "one")  # We will use "one" as a key
+db.put({"name": "alex", age: 77, key:"one"})  # The key could also be included in the object itself
+
+# or store simple types:
+db.put("hello, worlds")
+db.put(7)
+db.put("success", "smart_work")  # "success" is the value and "smart_work" is the key.
+db.put(["a", "b", "c"], "my_abc")
 
 ```
 
-#### Parameters & Types
+#### Returns
 
-|          |          `data`                                     |  `key`                  | `ttl`    |
-| -------- | --------------------------------------------------- | ----------------------- | -------- |
-| Default  |                      n/a                            | `None` (auto-generated) | `None`   |
-| Accepted | `str`, `int`, `Decimal`, `boolean`,  `list`, `dict` | `str`                   | `int`    |
-
-
-#### Return
-Put returns the **data**, **key** pair on a succesful put, and raises an **Error** elsewise.
-
-**TO DO need exact shape.**
+`put` returns the item on a successful put, otherwise it returns `None`.
 
 </TabItem>
 </Tabs>
@@ -278,10 +203,10 @@ Put returns the **data**, **key** pair on a succesful put, and raises an **Error
 
 ### Get
 
-Get retrieves an item from the database stored under a **key**.
+`get` retrieves an item from the database by it's `key`.
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -289,101 +214,66 @@ Get retrieves an item from the database stored under a **key**.
 }>
 <TabItem value="js">
 
-`async function get(key) {...`
-
-Retrieving the item with id **g** from our last example...
-
-#### Code
-
-```js
-const my_item = await db.get('g');
-```
-
-... will come back with following data:
-
-##### Result
-
-```js
-// value of `my_item`
-{
-    'key': 'g',
-    'data': [
-        1,
-        2,
-        3,
-        'hello',
-        {
-            'nested': [Decimal('8487637843'), Decimal('53645')]
-        }
-    ]
-}
-```
+**`async get(key)`**
 
 #### Parameter Types
 
-Get takes a single parameter: **key**, which is a **string**.
+- **`key`** (required) – Accepts: `string`
+    - Description: the key of which item is to be retrieved.
 
-#### Return
+#### Code Example
 
-Get returns the **key**, **data** pair as an object when successful.
+```js
+const item = await db.get('one'); // retrieving item it key "one"
+```
 
-**TO DO on exact structure**
 
-Retrieving an item with a key that does not exist will throw an **Error**.
+#### Returns
 
+If the record is found:
+```js
+{
+  name: 'alex', age: 77, key: 'one'
+}
+```
+If not found, the function will return `null`.
 
 </TabItem>
 <TabItem value="py">
 
 
-`def get(key):` 
-
-Retrieving the item with id **g** from our last example...
-
-#### Code
-```py
-my_item = db.get("g")
-```
-
-... will come back with following data:
-##### Result
-```py
-# value of `my_item`
-{
-    'key': 'g',
-    'data': [
-        Decimal('1'),
-        Decimal('2'),
-        Decimal('3'),
-        'hello',
-        {
-            'nested': [Decimal('8487637843'), Decimal('53645')]
-        }
-    ]
-}
-```
+**`get(key: str)`**
 
 #### Parameter Types
 
-Get takes a single parameter: **key**, which is a **str**.
+- **`key`** (required) – Accepts: `str`
+    - Description: the key of which item is to be retrieved.
 
-#### Return
+#### Code Example
+```py
+item = db.get("one")
+```
 
-Get returns the **key**, **data** pair as a **dict** when successful.
+#### Returns
 
-**TO DO on exact structure**
+If the record is found:
+```py
+{
+  "name": "alex", "age": 77, "key": "one"
+} 
+```
 
-Retrieving an item with a key that does not exist will raise a **KeyError** exception.
+If not found, the function will return `None`.
 
 </TabItem>
 </Tabs>
 
 
 ### Delete
-Delete deletes an item provided a key.
+Delete deletes an item form the database provided a key.
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -392,67 +282,43 @@ Delete deletes an item provided a key.
 <TabItem value="js">
 
 
-`async function delete(key, strict=null){...` 
+**`async delete(key)`**
 
-#### Code
+#### Parameters
+- **`key`** (required) – Accepts: `string`
+    - Description: the key of which item is to be deleted.
+
+#### Code Example
 
 ```js
-deletedOne = await db.delete("j") // null, but successful deletion
-deletedTwo = await db.delete("b", false) // null, succesful deletion
-deletedThre = await db.delete("a", true) // true, succesful deletion
-deletedFour = await db.delete("a_non_existent_key") // null, key doesn't exist
-deletedFive = await db.delete("another_non_existent_key", true) // false, key doesn't exist
+const res = await db.delete("one")
 ```
 
-#### Parameters & Types
-
-|          | `key`    |  `strict`   | 
-| -------- | -------- | ----------- | 
-| Default  |  n/a     | `null`      | 
-| Accepted | `string` | `boolean`   | 
 
 
-#### Return
+#### Returns
 
-If **strict** is set to **null** or **false**, Delete returns **null**.
-
-If **strict** is set to **true**, Delete returns **true** upon a confirmed deletion, elsewise **false**.
-
-Deleting item with a key that does not exist will throw an **Error**. **(TO DO Confirm me)**
+Always returns `null`, even if the key does not exist.
 
 
 </TabItem>
 <TabItem value="py">
 
-`def delete(key:str, strict:bool = None):` 
+**`delete(key: str)`**
 
+#### Parameters
+- **`key`** (required) – Accepts: `str`
+    - Description: the key of which item is to be deleted.
 
-#### Code
+#### Code Example
 
 ```py
-deleted_one = db.delete("j") #None, but successful deletion
-deleted_two = db.delete("b", False) #None, succesful deletion
-deleted_three = db.delete("a", True) #True, succesful deletion
-deleted_four = db.delete("a_non_existent_key") #None, key doesn't exist
-deleted_five = db.delete("another_non_existent_key", True) #False, key doesn't exist
+res = db.delete("one")
 ```
 
-#### Parameters & Types
+#### Returns
 
-|          | `key`    |  `strict`   | 
-| -------- | -------- | ----------- | 
-| Default  |  n/a     | `None`      | 
-| Accepted | `str`    | `boolean`   |
-
-
-
-#### Return
-
-If **strict** is set to **None** or **False**, Delete returns **None**.
-
-If **strict** is set to **True**, Delete returns **True** upon a confirmed deletion, elsewise **False**.
-
-Deleting item with a key that does not exist will raise a **KeyError** exception. **(TO DO Confirm me)**
+Always returns `None`, even if the key does not exist.
 
 
 </TabItem>
@@ -462,12 +328,14 @@ Deleting item with a key that does not exist will raise a **KeyError** exception
 
 ### Insert
 
-The **insert** method is inserts a single item into a base, but is unique from [**put**](#put) in that it will not overwrite an existing **key**.
+The `insert` method is inserts a single item into a base, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database. 
+
+`insert` is roughly ~2x slower than `put`. 
 
 
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -475,46 +343,60 @@ The **insert** method is inserts a single item into a base, but is unique from [
 }>
 <TabItem value="js">
 
+**`async insert(data, key=null)`**
 
-`async function insert(data, key=null, ttl=null){...`
+#### Parameters
+
+- **`data`** (required) – Accepts: `object`, `string`, `number`, `boolean` and `array`.
+    - Description: The data to be stored.
+- **`key`** (optional) – Accepts: `string` and `null`
+    - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
 
-#### Code
+#### Code Example
 ```js
-db.insert('myKey', 'hello');
+// will succeed, a key will be auto-generated
+const res1 = await db.insert('hello, world');
+
+// will succeed.
+const res2 = await db.insert({message: 'hello, world'}, 'greeting1');
+
+// will raise an error as key "greeting1" already existed.
+const res3 = await db.insert({message: 'hello, there'}, 'greeting1');
 ```
 
-#### Parameters & Types
+#### Returns
 
-|          |          `data`                                  |  `key`                  | `ttl`    |
-| -------- | ------------------------------------------------ | ----------------------- | -------- |
-| Default  |                      n/a                         | `null` (auto-generated) | `null`   |
-| Accepted | `String`, `Number`, `Boolean`, `null`,  `Object` | `String`                | `Number` |
-
-
-#### Return
-Insert returns the **data**, **key** pair on a succesful insert, and throws an **Error** elsewise (including if the key already exists).
+Returns the item on a successful insert, and throws an error if the key already exists.
 
 </TabItem>
 <TabItem value="py">
 
-`def insert(data, key:str = None, ttl:int = None):`
+**`insert(data: typing.Union[dict, list, str, int, float, bool], key:str = None):`**
 
-#### Code
+#### Parameters
+
+- **`data`** (required) – Accepts: `dict`, `str`, `int`, `float`, `bool` and `list`.
+    - Description: The data to be stored.
+- **`key`** (optional) – Accepts: `str` and `None`
+    - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
+
+
+#### Code Example
 ```py
-db.insert("hello", "my_key")
+# will succeed, a key will be auto-generated
+res1 = db.insert("hello, world")
+
+# will succeed.
+res2 = db.insert({"message": "hello, world"}, "greeting1")
+
+# will raise an error as key "greeting1" already existed.
+res3 = db.insert({"message": "hello, there"}, "greeting1")
 ```
 
+#### Returns
 
-#### Parameters & Types
-
-|          |          `data`                                     |  `key`                  | `ttl`    |
-| -------- | --------------------------------------------------- | ----------------------- | -------- |
-| Default  |                      n/a                            | `None` (auto-generated) | `None`   |
-| Accepted | `str`, `int`, `Decimal`, `boolean`,  `list`, `dict` | `str`                   | `int`    |
-
-#### Return
-Insert returns the **data**, **key** pair on a succesful insert, and raises an **Error** elsewise (including if the key already exists).
+Returns the item on a successful insert, and throws an error if the key already exists.
 
 </TabItem>
 </Tabs>
@@ -522,40 +404,43 @@ Insert returns the **data**, **key** pair on a succesful insert, and raises an *
 
 ### Fetch
 
-Fetch retrieves a list of items matching a query.
+
+Fetch retrieves a list of items matching a query. It will retrieve everything of no query is provided.
 
 A query is composed a single [filter](#filters) object or a list of [filters](#filters).
 
 In the case of a list, filters are OR'ed in the query.
 
-For the following examples, let's assume we have a Base of the following structure:
+For the following examples, let's assume we have a **Base** of the following structure:
 
 ```json
 
-{
-  "key-1": {
+[
+  {
+    "key": "key-1",
     "name": "Wesley",
     "age": 27,
     "hometown": "San Francisco",
   },
-  "key-2": {
+  {
+    "key": "key-2",
     "name": "Beverly",
     "age": 51,
     "hometown": "Copernicus City",
   },
-  "key-3": {
+  {
+    "key": "key-3",
     "name": "Kevin Garnett",
     "age": 43,
     "hometown": "Greenville",
   }
-} 
-
+]
 
 ```
 
 
 <Tabs
-  defaultValue="py"
+  defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
@@ -563,17 +448,28 @@ For the following examples, let's assume we have a Base of the following structu
 }>
 <TabItem value="js">
 
-`async function filter (query, limit=25) {...`
+**`async fetch(query, buffer=null, limit=null)`**
 
-#### Code
+#### Parameters & Types
+
+`query`: is a single [filter object](#filters) or list of filters.
+
+`buffer`: the number of objects which will be yielded for each iteration on the return iterable.
+
+`limit`: is an integer which specifies the maximum number of records which can be returned.
+
+#### Code Example
 
 ```js
-const filterOne = {"age?lt": 30}
-const filterTwo = {"hometown": "Greenville"}
-const filterThree = {"age?gt": 45}
+// const filterOne = {"age?lt": 30}
+// const filterTwo = {"hometown": "Greenville"}
+// const filterThree = {"age?gt": 45}
 
-const myFirstSet = await db.filter(filterOne);
-const mySecondSet = await db.filter([filterOne, filterTwo]);
+const myFirstSet = await db.fetch({"age?lt": 30});
+const mySecondSet = await db.fetch([
+  { "age?lt": 30 },
+  { "hometown": "Greenville" }
+]);
 ```
 
 ... will come back with following data:
@@ -584,11 +480,9 @@ const mySecondSet = await db.filter([filterOne, filterTwo]);
 [
   {
     "key": "key-1",
-    "data": {
-      "name": "Wesley",
-      "age": 27,
-      "hometown": "San Francisco",
-    }
+    "name": "Wesley",
+    "age": 27,
+    "hometown": "San Francisco",
   }
 ]
 ```
@@ -599,37 +493,57 @@ const mySecondSet = await db.filter([filterOne, filterTwo]);
 [
   {
     "key": "key-2",
-    "data": {
-      "name": "Beverly",
-      "age": 51,
-      "hometown": "Copernicus City",
-    },
+    "name": "Beverly",
+    "age": 51,
+    "hometown": "Copernicus City",
   },
   {
     "key": "key-3",
-    "data": {
-      "name": "Kevin Garnett",
-      "age": 43,
-      "hometown": "Greenville",
-    },
-  }
+    "name": "Kevin Garnett",
+    "age": 43,
+    "hometown": "Greenville",
+  },
 ]
+```
+#### Returns
+
+A generator of objects that meet the `query` criteria.
+
+This generator has a max length of `limit`.
+
+Iterating through the generator yields arrays containing objects, each array of max length `buffer`.
+
+
+#### Example using buffer, limit
+
+```js
+const foo = async (query) => {
+  allItems = await db.fetch(myQuery, 10, 100) // allItems is up to the limit length, 100
+
+  for (const subArray of allItems) // each subArray is up to the buffer length, 10
+    bar(subArray)
+
+}
 ```
 </TabItem>
 
 <TabItem value="py">
 
-`def filter(query, limit=25):`
+**`fetch(query=None, buffer=None, limit=None):`**
 
-#### Code
+#### Parameters & Types
+
+`query`: is a single [filter object](#filters) or list of filters.
+
+`buffer`: the number of objects which will be yielded for each iteration on the return iterable.
+
+`limit`: is an integer which specifies the maximum number of records which can be returned.
+
+#### Code Example
 
 ```py
-filter_one = {"age?lt": 30}
-filter_two = {"hometown": "Greenville"}
-filter_three = {"age?gt": 45}
-
-my_first_set = db.filter(filter_one)
-my_second_set = db.filter([filter_one, filter_two])
+my_first_set = db.fetch({"age?lt": 30})
+my_second_set = db.fetch([{"age?lt": 30}, {"hometown": "Greenville"}])
 ```
 
 ... will come back with following data:
@@ -639,11 +553,9 @@ my_second_set = db.filter([filter_one, filter_two])
 [
   {
     "key": "key-1",
-    "data": {
-      "name": "Wesley",
-      "age": 27,
-      "hometown": "San Francisco",
-    }
+    "name": "Wesley",
+    "age": 27,
+    "hometown": "San Francisco",
   }
 ]
 ```
@@ -653,36 +565,40 @@ my_second_set = db.filter([filter_one, filter_two])
 [
   {
     "key": "key-2",
-    "data": {
-      "name": "Beverly",
-      "age": 51,
-      "hometown": "Copernicus City",
-    },
+    "name": "Beverly",
+    "age": 51,
+    "hometown": "Copernicus City",
   },
   {
     "key": "key-3",
-    "data": {
-      "name": "Kevin Garnett",
-      "age": 43,
-      "hometown": "Greenville",
-    },
-  }
+    "name": "Kevin Garnett",
+    "age": 43,
+    "hometown": "Greenville",
+  },
 ]
 ```
+
+#### Returns
+
+A generator of objects that meet the `query` criteria.
+
+This generator has a max length of `limit`.
+
+Iterating through the generator yields lists containing objects, each list of max length `buffer`.
+
+
+#### Example using buffer, limit
+
+```py
+def foo(query):
+  all_items = db.fetch(my_query, 10, 100) # all_items is up to the limit length, 100
+
+  for sub_list in all_items: #each sub_list is up to the buffer length, 10
+    bar(sub_list)
+```
+
 </TabItem>
 </Tabs>
-
-#### Parameters & Types
-
-`filers`: is a single filter object or list of filters.
-
-`limit`: is an integer which specifies the maximum number of records which can be returned.
-
-
-#### Return
-
-A list of objects that meet the filter criteria, up to the length of **limit** is returned.
-
 
 
 
@@ -740,3 +656,7 @@ f = {"user.id?pfx": "afdk"}
 ```python
 f = {"user.age?r": [22, 30]}
 ```
+
+## Contact
+
+`team@deta.sh`
