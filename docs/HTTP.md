@@ -18,7 +18,7 @@ export let Bubble = ({ item }) => {
 
 
 :::note
-You can get your **Project Key** and your **Project ID** from your [Deta dashboard](#). You need these to talk with the Deta API.
+You can get your **Project Key** and your **Project ID** from your [Deta dashboard](https://web.deta.sh). You need these to talk with the Deta API.
 :::
 
 ### Root URL
@@ -54,11 +54,27 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 }>
 <TabItem value="request">
 
-TODO: fix the payload
 
 | JSON Payload | Required | Type    | Description                              |
 |--------------|----------|---------|------------------------------------------|
 | `items`      | Yes      | `array` | An array of items `object` to be stored. |
+
+#### Example
+
+```json
+{
+   // array of items to put
+   "items": [
+        {
+            "key": {key},//optional
+            "field1": "value1",
+            // rest of item
+        },
+        // rest of items
+    ]
+}
+
+```
 
 </TabItem>
 <TabItem value="response">
@@ -67,16 +83,16 @@ TODO: fix the payload
 
 ```js
 {
- "processed": {
-   "items": [
-     // items which were saved
-    ]
-  },
-  "failed": {
-    "items": [
-      // items which have failed
-    ]
-  }
+    "processed": {
+        "items": [
+            // items which were saved
+        ]
+    },
+    "failed": {
+        "items": [
+            // items which have failed
+        ]
+    }
 }
 ```
 </TabItem>
@@ -105,7 +121,7 @@ TODO: fix the payload
 
 </TabItem>
 <TabItem value="response">
-You will get two responses:
+You will get one of two responses:
 
 #### 1. `200 OK`
 
@@ -176,27 +192,29 @@ The server will always return `200` regardless if an item with that `key` existe
 #### Example
 
 ```json
- {
+{
     "item": {
-      "key": {key}, // optional
-      // rest of item
-  }, 
- }
+        "key": {key}, // optional
+        // rest of item
+    }
+}
 ```
 
 
 </TabItem>
 <TabItem value="response">
 
+You will get one of two responses:
+
 #### 1. `201 Created`
 
 ```json
 {
-  "item": {
-    "deta_key": key, // generated key if key was not given in the request
-    "field1": "value1",
-    // the rest of the item
-  }, 
+    "item": {
+        "deta_key": {key}, // auto generated key if key was not provided in the request
+        "field1": "value1",
+        // the rest of the item
+    } 
 }
 ```
 
@@ -231,9 +249,9 @@ The server will always return `200` regardless if an item with that `key` existe
 ```json
 {
    "query": [
-      //separate objects in the list are ORed
-      {"user.hometown": "Berlin"},
-      {"user.age?lt": 40}
+        //separate objects in the list are ORed
+        {"user.hometown": "Berlin"},
+        {"user.age?lt": 40}
    ],
    "limit": 5,
    "last": "afsefasd" // last key if applicable
@@ -265,3 +283,7 @@ The server will always return `200` regardless if an item with that `key` existe
 
 </TabItem>
 </Tabs>
+
+## Contact
+
+`team@deta.sh`

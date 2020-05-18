@@ -5,7 +5,7 @@ title: Deta Library
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The Deta library is the easiest way to store and retrieve data from your Deta Base. Currently we only support JavaScript (Node + Browser) and Python 3. [Drop us a line](#) if you want us to support your favorite language.
+The Deta library is the easiest way to store and retrieve data from your Deta Base. Currently we support JavaScript (Node + Browser) and Python 3. [Drop us a line](#contact) if you want us to support your favorite language.
 
 <!-- TODO: validation errors for put, put_many, insert and fetch. -->
 
@@ -656,3 +656,7 @@ f = {"user.id?pfx": "afdk"}
 ```python
 f = {"user.age?r": [22, 30]}
 ```
+
+## Contact
+
+`team@deta.sh`
