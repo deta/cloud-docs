@@ -63,7 +63,7 @@ TODO: fix the payload
 </TabItem>
 <TabItem value="response">
 
-`207 Multi-Status`
+#### `207 Multi-Status`
 
 ```js
 {
@@ -144,7 +144,7 @@ You will get two responses:
 
 The server will always return `200` regardless if an item with that `key` existed or not.
 
-`200 OK`
+#### `200 OK`
 
 ```json
 {
@@ -168,19 +168,39 @@ The server will always return `200` regardless if an item with that `key` existe
 }>
 <TabItem value="request">
 
-TODO: fix the payload
 
 | JSON Payload | Required | Type     | Description            |
 |--------------|----------|----------|------------------------|
 | `item`       | Yes      | `object` | The item to be stored. |
 
+#### Example
+
+```json
+ {
+    "item": {
+      "key": {key}, // optional
+      // rest of item
+  }, 
+ }
+```
+
 
 </TabItem>
 <TabItem value="response">
 
-`201 Created`
+#### 1. `201 Created`
 
-TODO: other responses
+```json
+{
+  "item": {
+    "deta_key": key, // generated key if key was not given in the request
+    "field1": "value1",
+    // the rest of the item
+  }, 
+}
+```
+
+#### 2. `409 Conflict` (if key already exists)
 
 
 </TabItem>
@@ -188,7 +208,7 @@ TODO: other responses
 
 ### List Items
 
-<Bubble item="GET /items?query={query}&limit={limit}&last={last_key}" /> 
+<Bubble item="POST /items" /> 
 
 <Tabs
   defaultValue="request"
@@ -199,16 +219,48 @@ TODO: other responses
 }>
 <TabItem value="request">
 
-| Query Parameter | Required | Type     |
+| JSON Payload    | Required | Type     |
 |-----------------|----------|----------|
 | `query`         | No       | `list`   |
 | `limit`         | No       | `int`    |
 | `last_key`      | No       | `string` |
 
 
+#### Example
+
+```json
+{
+   "query": [
+      //separate objects in the list are ORed
+      {"user.hometown": "Berlin"},
+      {"user.age?lt": 40}
+   ],
+   "limit": 5,
+   "last": "afsefasd" // last key if applicable
+}
+```
+
+
 </TabItem>
 <TabItem value="response">
-TODO
+
+#### `200 OK`
+
+```json
+{
+    "paging": {
+        "size": 5, // size of items
+        "last": adfjie // last key seen
+    },
+    "items": [
+       {
+         "key": {key},
+         // rest of the item
+       },
+       // rest of the items
+   ]
+}
+```
 
 
 </TabItem>
