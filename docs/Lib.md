@@ -415,11 +415,11 @@ The Put Many method inserts up to 25 items into a Base at once on a single call.
 }>
 <TabItem value="js">
 
-**`async putMany(data)`**
+**`async putMany(items)`**
 
 #### Parameters
 
-- **`data`** (required) – Accepts: `list` of `items`, where each `item` can be an `object` (serializable), `string`, `number`, `boolean` or `array`.
+- **`items`** (required) – Accepts: `Array` of items, where each "item" can be an `object` (serializable), `string`, `number`, `boolean` or `array`.
     - Description: The list of items to be stored.
 
 
