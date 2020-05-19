@@ -159,7 +159,7 @@ db.put(["a", "b", "c"], "my_abc")
 
 #### Returns
 
-`put` returns a promise which resolves to the item on a successful put, otherwise it returns `null`.
+`put` returns a promise which resolves to the item on a successful put, otherwise it throws an Error.
 
 </TabItem>
 <TabItem value="py">
@@ -195,7 +195,7 @@ db.put(["a", "b", "c"], "my_abc")
 
 #### Returns
 
-`put` returns the item on a successful put, otherwise it returns `None`.
+`put` returns the item on a successful put, otherwise it raises an Error.
 
 </TabItem>
 </Tabs>
@@ -216,7 +216,7 @@ db.put(["a", "b", "c"], "my_abc")
 
 **`async get(key)`**
 
-#### Parameter Types
+#### Parameters
 
 - **`key`** (required) – Accepts: `string`
     - Description: the key of which item is to be retrieved.
@@ -224,13 +224,13 @@ db.put(["a", "b", "c"], "my_abc")
 #### Code Example
 
 ```js
-const item = await db.get('one'); // retrieving item it key "one"
+const item = await db.get('one'); // retrieving item with key "one"
 ```
 
 
 #### Returns
 
-If the record is found, the promise resolves to
+If the record is found, the promise resolves to:
 ```js
 {
   name: 'alex', age: 77, key: 'one'
@@ -251,7 +251,7 @@ If not found, the promise will resolve to `null`.
 
 #### Code Example
 ```py
-item = db.get("one")
+item = db.get("one") # retrieving item with key "one"
 ```
 
 #### Returns
@@ -270,7 +270,7 @@ If not found, the function will return `None`.
 
 
 ### Delete
-Delete deletes an item form the database provided a key.
+`delete` deletes an item form the database provided a key.
 
 <Tabs
   defaultValue="js"
@@ -328,9 +328,9 @@ Always returns `None`, even if the key does not exist.
 
 ### Insert
 
-The `insert` method is inserts a single item into a base, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database. 
+The `insert` method inserts a single item into a **Base**, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database.
 
-`insert` is roughly ~2x slower than `put`. 
+`insert` is roughly 2x slower than [`put`](#put). 
 
 
 
@@ -527,7 +527,7 @@ Returns a promise which resolves to the put items on a successful insert, and ra
 
 Fetch retrieves a list of items matching a query. It will retrieve everything of no query is provided.
 
-A query is composed a single [query](#queries) object or a list of [queries](#queries).
+A query is composed of a single [query](#queries) object or a list of [queries](#queries).
 
 In the case of a list, the indvidual queries are OR'ed.
 
@@ -572,19 +572,15 @@ For the following examples, let's assume we have a **Base** of the following str
 
 #### Parameters & Types
 
-`query`: is a single [query object](#queries) or list of filters.
+- `query`: is a single [query object](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 
-`buffer`: the number of objects which will be yielded for each iteration on the return iterable.
+- `limit`: is the maximum number of items which can be returned.
 
-`limit`: is an integer which specifies the maximum number of records which can be returned.
+- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
 
 ```js
-// const filterOne = {"age?lt": 30}
-// const filterTwo = {"hometown": "Greenville"}
-// const filterThree = {"age?gt": 45}
-
 const myFirstSet = await db.fetch({"age?lt": 30});
 const mySecondSet = await db.fetch([
   { "age?lt": 30 },
@@ -629,9 +625,9 @@ const mySecondSet = await db.fetch([
 
 A promise which resolves to a generator of objects that meet the `query` criteria.
 
-This generator has a max length of `limit`.
+The total number of items will not exceed the `limit`.
 
-Iterating through the generator yields arrays containing objects, each array of max length `buffer`.
+Iterating through the generator yields lists containing objects, each list of max length `buffer`.
 
 
 #### Example using buffer, limit
@@ -651,13 +647,13 @@ const foo = async (myQuery, bar) => {
 
 **`fetch(query=None, limit=None, buffer=None):`**
 
-#### Parameters & Types
+#### Parameters
 
-`query`: is a single [query](#queries) or list of queries.
+- `query`: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 
-`buffer`: the number of objects which will be yielded for each iteration on the return iterable.
+- `limit`: is the maximum number of items which can be returned.
 
-`limit`: is an integer which specifies the maximum number of records which can be returned.
+- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
 
@@ -724,12 +720,12 @@ def foo(my_query, bar):
 
 #### Queries
 
-Queries are regular json objects with conventions for different operations.
+Queries are regular json objects / Python dicts with conventions for different operations.
 
 
 ##### Equal
 
-```python
+```json
 {"age": 22, "name": "Aavash"}
 ## hierarchical
 {"user.prof.age": 22, "user.prof.name": "Aavash"}
@@ -737,43 +733,43 @@ Queries are regular json objects with conventions for different operations.
 
 ##### Not Equal
 
-```python
+```json
 {"user.profile.age?ne": 22}
 ```
 
 ##### Less Than
 
-```python
+```json
 {"user.profile.age?lt": 22}
 ```
 
 ##### Greater Than
 
-```python
+```json
 {"user.profile.age?gt": 22}
 ```
 
 ##### Less Than or Equal
 
-```python
+```json
 {"user.profile.age?lte": 22}
 ```
 
 ##### Greater Than or Equal
 
-```python
+```json
 {"user.profile.age?gte": 22}
 ```
 
 ##### Prefix
 
-```python
+```json
 {"user.id?pfx": "afdk"}
 ```
 
 #### Range
 
-```python
+```json
 {"user.age?r": [22, 30]}
 ```
 
