@@ -401,6 +401,127 @@ Returns the item on a successful insert, and throws an error if the key already 
 </TabItem>
 </Tabs>
 
+### Put Many
+
+The `put_many / putMany` method inserts up to 25 items into a Base at once on a single call.
+
+
+
+<Tabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<TabItem value="js">
+
+**`async putMany(data)`**
+
+#### Parameters
+
+- **`data`** (required) – Accepts: `list` of `items`, where each `item` can be an `object` (serializable), `string`, `number`, `boolean` or `array`.
+    - Description: The list of items to be stored.
+
+
+#### Code Example
+```js
+
+const res1 = await db.putMany([
+  {"name": "Beverly", "hometown": "Copernicus City", "key": "one"}, // key provided
+  "dude", // key auto-generated 
+  ["Namaskāra", "marhabaan", "hello", "yeoboseyo"] // key auto-generated 
+]);
+
+```
+
+#### Returns
+
+Returns a promise which resolves to the put items on a successful insert, and throws an error if you attempt to put more than 25 items.
+
+```json
+{
+    "processed": {
+        "items": [
+            {
+                "hometown": "Copernicus City",
+                "key": "one",
+                "name": "Beverly"
+            },
+            {
+                "key": "jyesxxlrezo0",
+                "value": "dude"
+            },
+            {
+                "key": "5feqybn7lb05",
+                "value": [
+                    "Namaskāra",
+                    "hello",
+                    "marhabaan",
+                    "yeoboseyo"
+                ]
+            }
+        ]
+    }
+}
+```
+
+</TabItem>
+<TabItem value="py">
+
+**`async put_many(data)`**
+
+#### Parameters
+
+- **`data`** (required) – Accepts: `list` of `items`, where each `item` can be an `object` (serializable), `string`, `number`, `boolean` or `array`.
+    - Description: The list of items to be stored.
+
+
+#### Code Example
+```js
+
+res_one = db.put_many([
+  {"name": "Beverly", "hometown": "Copernicus City", "key": "one"}, // key provided
+  "dude", // key auto-generated 
+  ["Namaskāra", "marhabaan", "hello", "yeoboseyo"] // key auto-generated 
+]);
+
+```
+
+#### Returns
+
+Returns a promise which resolves to the put items on a successful insert, and throws an error if you attempt to put more than 25 items.
+
+```json
+{
+    "processed": {
+        "items": [
+            {
+                "hometown": "Copernicus City",
+                "key": "one",
+                "name": "Beverly"
+            },
+            {
+                "key": "jyesxxlrezo0",
+                "value": "dude"
+            },
+            {
+                "key": "5feqybn7lb05",
+                "value": [
+                    "Namaskāra",
+                    "hello",
+                    "marhabaan",
+                    "yeoboseyo"
+                ]
+            }
+        ]
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
 
 ### Fetch
 
