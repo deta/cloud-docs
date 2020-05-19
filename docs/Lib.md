@@ -131,7 +131,7 @@ You should also use `put` when you want to update an item in the database.
 
 #### Parameters
 
-- **`data`** (required) – Accepts: `object`, `string`, `number`, `boolean` and `array`.
+- **`data`** (required) – Accepts: `object` (serializable), `string`, `number`, `boolean` and `array`.
     - Description: The data to be stored.
 - **`key`** (optional) – Accepts: `string` and `null`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
@@ -347,7 +347,7 @@ The `insert` method is inserts a single item into a base, but is unique from [`p
 
 #### Parameters
 
-- **`data`** (required) – Accepts: `object`, `string`, `number`, `boolean` and `array`.
+- **`data`** (required) – Accepts: `object` (serializable), `string`, `number`, `boolean` and `array`.
     - Description: The data to be stored.
 - **`key`** (optional) – Accepts: `string` and `null`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
@@ -448,11 +448,11 @@ For the following examples, let's assume we have a **Base** of the following str
 }>
 <TabItem value="js">
 
-**`async fetch(query, buffer=null, limit=null)`**
+**`async fetch(query, limit=null, buffer=null)`**
 
 #### Parameters & Types
 
-`query`: is a single [query object](#query) or list of filters.
+`query`: is a single [query object](#queries) or list of filters.
 
 `buffer`: the number of objects which will be yielded for each iteration on the return iterable.
 
@@ -517,8 +517,8 @@ Iterating through the generator yields arrays containing objects, each array of 
 #### Example using buffer, limit
 
 ```js
-const foo = async (query) => {
-  allItems = await db.fetch(myQuery, 10, 100) // allItems is up to the limit length, 100
+const foo = async (myQuery, bar) => {
+  allItems = await db.fetch(myQuery, 100, 10) // allItems is up to the limit length, 100
 
   for (const subArray of allItems) // each subArray is up to the buffer length, 10
     bar(subArray)
@@ -529,11 +529,11 @@ const foo = async (query) => {
 
 <TabItem value="py">
 
-**`fetch(query=None, buffer=None, limit=None):`**
+**`fetch(query=None, limit=None, buffer=None):`**
 
 #### Parameters & Types
 
-`query`: is a single [query](#query) or list of queries.
+`query`: is a single [query](#queries) or list of queries.
 
 `buffer`: the number of objects which will be yielded for each iteration on the return iterable.
 
@@ -590,8 +590,8 @@ Iterating through the generator yields lists containing objects, each list of ma
 #### Example using buffer, limit
 
 ```py
-def foo(query):
-  all_items = db.fetch(my_query, 10, 100) # all_items is up to the limit length, 100
+def foo(my_query, bar):
+  all_items = db.fetch(my_query, limit=100, buffer=10) # all_items is up to the limit length, 100
 
   for sub_list in all_items: #each sub_list is up to the buffer length, 10
     bar(sub_list)
@@ -602,9 +602,9 @@ def foo(query):
 
 
 
-#### Filters
+#### Queries
 
-Filters are regular json objects with conventions for different operations.
+Queries are regular json objects with conventions for different operations.
 
 
 ##### Equal

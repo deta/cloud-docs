@@ -234,7 +234,7 @@ You will get one of two responses:
 
 **`POST /query`**
 
-List items that match a query using [filters](lib#filters).
+List items that match a [query](./lib#queries).
 
 <Tabs
   defaultValue="request"
