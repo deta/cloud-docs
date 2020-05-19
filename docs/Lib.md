@@ -403,8 +403,7 @@ Returns the item on a successful insert, and throws an error if the key already 
 
 ### Put Many
 
-The `put_many / putMany` method inserts up to 25 items into a Base at once on a single call.
-
+The Put Many method inserts up to 25 items into a Base at once on a single call.
 
 
 <Tabs
@@ -469,7 +468,7 @@ Returns a promise which resolves to the put items on a successful insert, and th
 </TabItem>
 <TabItem value="py">
 
-**`async put_many(data)`**
+**`put_many(data):`**
 
 #### Parameters
 
@@ -639,9 +638,9 @@ Iterating through the generator yields arrays containing objects, each array of 
 
 ```js
 const foo = async (myQuery, bar) => {
-  allItems = await db.fetch(myQuery, 100, 10) // allItems is up to the limit length, 100
+  items = await db.fetch(myQuery, 100, 10) // items is up to the limit length, 100
 
-  for (const subArray of allItems) // each subArray is up to the buffer length, 10
+  for (const subArray of items) // each subArray is up to the buffer length, 10
     bar(subArray)
 
 }
@@ -712,9 +711,9 @@ Iterating through the generator yields lists containing objects, each list of ma
 
 ```py
 def foo(my_query, bar):
-  all_items = db.fetch(my_query, limit=100, buffer=10) # all_items is up to the limit length, 100
+  items = db.fetch(my_query, limit=100, buffer=10) # items is up to the limit length, 100
 
-  for sub_list in all_items: #each sub_list is up to the buffer length, 10
+  for sub_list in items: #each sub_list is up to the buffer length, 10
     bar(sub_list)
 ```
 
