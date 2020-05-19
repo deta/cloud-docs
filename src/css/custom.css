@@ -41,6 +41,10 @@ html[data-theme="dark"] {
   --ifm-color-emphasis-100: #20232B !important;
 }
 
+.twentypx {
+  height: 20px;
+}
+
 
 .codeBlockLines_node_modules-\@docusaurus-theme-classic-src-theme-CodeBlock- {
   font-family: var(--ifm-font-family-monospace);
