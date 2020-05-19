@@ -18,11 +18,11 @@ Examples:
 
 ## Is my data secure?
 
-Your data is encrypted and stored safely on AWS. Encryption keys are managed by AWS; AWS manages Petabytes of the world's most sensitive data.
+Your data is encrypted and stored safely on AWS. Encryption keys are managed by AWS; AWS manages Exabytes of the world's most sensitive data.
 
 ## How do I start?
 
-1. Log in to [Deta](https://deta.sh).
+1. Log in to [Deta](https://web.deta.sh).
 2. Grab your **Project Key** and your **Project ID** and start writing code in [Python](lib), [Node.js](lib), or over [HTTP](HTTP) wherever you need persistent data storage.
 
 

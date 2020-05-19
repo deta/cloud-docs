@@ -7,7 +7,6 @@ import TabItem from '@theme/TabItem';
 
 The Deta library is the easiest way to store and retrieve data from your Deta Base. Currently we support JavaScript (Node + Browser) and Python 3. [Drop us a line](#contact) if you want us to support your favorite language.
 
-<!-- TODO: validation errors for put, put_many, insert and fetch. -->
 
 ## Installing the Deta Library
 
@@ -24,7 +23,7 @@ First, install the Deta library in your project's directory.
 Using NPM:
 
 ```shell
-npm install -s deta
+npm install deta
 ```
 
 Using Yarn:
@@ -95,7 +94,7 @@ books = deta.Base("books")
 </Tabs>
 
 :::note
-A "Deta Base" (or simply database) is a Key-Value store, like a collection or a PostgreSQL/MySQL table.
+A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will will grow with your app's needs.
 :::
 
 
@@ -159,7 +158,7 @@ db.put(["a", "b", "c"], "my_abc")
 
 #### Returns
 
-`put` returns the item on a successful put, otherwise it returns `null`.
+`put` returns the item on a successful put, otherwise it raises an error.
 
 </TabItem>
 <TabItem value="py">
@@ -195,7 +194,7 @@ db.put(["a", "b", "c"], "my_abc")
 
 #### Returns
 
-`put` returns the item on a successful put, otherwise it returns `None`.
+`put` returns the item on a successful put, otherwise it raises and error.
 
 </TabItem>
 </Tabs>
@@ -216,7 +215,7 @@ db.put(["a", "b", "c"], "my_abc")
 
 **`async get(key)`**
 
-#### Parameter Types
+#### Parameters
 
 - **`key`** (required) – Accepts: `string`
     - Description: the key of which item is to be retrieved.
@@ -224,7 +223,7 @@ db.put(["a", "b", "c"], "my_abc")
 #### Code Example
 
 ```js
-const item = await db.get('one'); // retrieving item it key "one"
+const item = await db.get('one'); // retrieving item with key "one"
 ```
 
 
@@ -251,7 +250,7 @@ If not found, the function will return `null`.
 
 #### Code Example
 ```py
-item = db.get("one")
+item = db.get("one")  # retrieving item with key "one"
 ```
 
 #### Returns
@@ -270,7 +269,8 @@ If not found, the function will return `None`.
 
 
 ### Delete
-Delete deletes an item form the database provided a key.
+
+`delete` deletes an item form the database provided a key.
 
 <Tabs
   defaultValue="js"
@@ -328,9 +328,9 @@ Always returns `None`, even if the key does not exist.
 
 ### Insert
 
-The `insert` method is inserts a single item into a base, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database. 
+The `insert` method inserts a single item into a **Base**, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database. 
 
-`insert` is roughly ~2x slower than `put`. 
+`insert` is roughly 2x slower than [`put`](#put). 
 
 
 
@@ -450,21 +450,15 @@ For the following examples, let's assume we have a **Base** of the following str
 
 **`async fetch(query, buffer=null, limit=null)`**
 
-#### Parameters & Types
+#### Parameters
 
-`query`: is a single [filter object](#filters) or list of filters.
-
-`buffer`: the number of objects which will be yielded for each iteration on the return iterable.
-
-`limit`: is an integer which specifies the maximum number of records which can be returned.
+- `query`: is a single [query object](#queries) or array of queries. If omitted, you will get all the items in the database (up to 1mb).
+- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb od data, so you could buffer the results in smaller chunks.
+- `limit`: is the maximum number of items which can be returned.
 
 #### Code Example
 
 ```js
-// const filterOne = {"age?lt": 30}
-// const filterTwo = {"hometown": "Greenville"}
-// const filterThree = {"age?gt": 45}
-
 const myFirstSet = await db.fetch({"age?lt": 30});
 const mySecondSet = await db.fetch([
   { "age?lt": 30 },
@@ -509,7 +503,7 @@ const mySecondSet = await db.fetch([
 
 A generator of objects that meet the `query` criteria.
 
-This generator has a max length of `limit`.
+the total number of items will not exceed the defined `limit`.
 
 Iterating through the generator yields arrays containing objects, each array of max length `buffer`.
 
@@ -517,11 +511,14 @@ Iterating through the generator yields arrays containing objects, each array of 
 #### Example using buffer, limit
 
 ```js
-const foo = async (query) => {
-  allItems = await db.fetch(myQuery, 10, 100) // allItems is up to the limit length, 100
+const foo = async () => {
+  items = await db.fetch(query, 10, 100) // items is up to the limit length, 100
 
-  for (const subArray of allItems) // each subArray is up to the buffer length, 10
-    bar(subArray)
+  
+  for (const page of items) {
+    // each "page" is up to the buffer length, 10
+    console.log(page)
+  }
 
 }
 ```
@@ -531,13 +528,11 @@ const foo = async (query) => {
 
 **`fetch(query=None, buffer=None, limit=None):`**
 
-#### Parameters & Types
+#### Parameters
 
-`query`: is a single [filter object](#filters) or list of filters.
-
-`buffer`: the number of objects which will be yielded for each iteration on the return iterable.
-
-`limit`: is an integer which specifies the maximum number of records which can be returned.
+- `query`: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
+- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb od data, so you could buffer the results in smaller chunks.
+- `limit`: is the maximum number of items which can be returned.
 
 #### Code Example
 
@@ -580,21 +575,21 @@ my_second_set = db.fetch([{"age?lt": 30}, {"hometown": "Greenville"}])
 
 #### Returns
 
-A generator of objects that meet the `query` criteria.
+A generator of items that meet the `query` criteria.
 
-This generator has a max length of `limit`.
+The total number of items will not exceed the defined `limit`.
 
-Iterating through the generator yields lists containing objects, each list of max length `buffer`.
+Iterating through the generator yields lists containing items, each list of max length `buffer`.
+
 
 
 #### Example using buffer, limit
 
 ```py
-def foo(query):
-  all_items = db.fetch(my_query, 10, 100) # all_items is up to the limit length, 100
+items = db.fetch(my_query, buffer=10, limit=100) # items is up to the limit length, 100
 
-  for sub_list in all_items: #each sub_list is up to the buffer length, 10
-    bar(sub_list)
+for sub_list in items: # each sub_list is up to the buffer length, 10
+    print(sub_list)
 ```
 
 </TabItem>
@@ -602,59 +597,69 @@ def foo(query):
 
 
 
-#### Filters
+#### Queries
 
-Filters are regular json objects with conventions for different operations.
+Queries are regular json objects/Python dicts with conventions for different operations.
 
 
 ##### Equal
 
-```python
-f = {"age": 22, "name": "Aavash"}
-## hierarchical
-f = {"user.prof.age": 22, "user.prof.name": "Aavash"}
+```json
+{"age": 22, "name": "Aavash"}
+```
+
+```json
+{"user.prof.age": 22, "user.prof.name": "Aavash"}
+```
+
+```json
+{"fav_numbers": [2, 4, 8]}
+```
+
+```json
+{"time": {"day": "Tuesday", "hour": "08:00"}}
 ```
 
 ##### Not Equal
 
-```python
-f = {"user.profile.age?ne": 22}
+```json
+{"user.profile.age?ne": 22}
 ```
 
 ##### Less Than
 
-```python
-f = {"user.profile.age?lt": 22}
+```json
+{"user.profile.age?lt": 22}
 ```
 
 ##### Greater Than
 
-```python
-f = {"user.profile.age?gt": 22}
+```json
+{"user.profile.age?gt": 22}
 ```
 
 ##### Less Than or Equal
 
-```python
-f = {"user.profile.age?lte": 22}
+```json
+{"user.profile.age?lte": 22}
 ```
 
 ##### Greater Than or Equal
 
-```python
-f = {"user.profile.age?gte": 22}
+```json
+{"user.profile.age?gte": 22}
 ```
 
 ##### Prefix
 
-```python
-f = {"user.id?pfx": "afdk"}
+```json
+{"user.id?pfx": "afdk"}
 ```
 
 #### Range
 
-```python
-f = {"user.age?r": [22, 30]}
+```json
+{"user.age?r": [22, 30]}
 ```
 
 ## Contact
