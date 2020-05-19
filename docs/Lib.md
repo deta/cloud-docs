@@ -570,7 +570,7 @@ For the following examples, let's assume we have a **Base** of the following str
 
 **`async fetch(query, limit=null, buffer=null)`**
 
-#### Parameters & Types
+#### Parameters
 
 - `query`: is a single [query object](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 
