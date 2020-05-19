@@ -645,7 +645,7 @@ const foo = async (myQuery, bar) => {
 
 <TabItem value="py">
 
-**`fetch(query=None, limit=None, buffer=None):`**
+**`fetch(query=None, limit=2000, buffer=None):`**
 
 #### Parameters
 
