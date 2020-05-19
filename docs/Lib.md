@@ -732,12 +732,12 @@ Queries are regular json objects / Python dicts with conventions for different o
 {"user.prof.age": 22, "user.prof.name": "Aavash"}
 ```
 
-```json	
-{"fav_numbers": [2, 4, 8]}	
+```json
+{"fav_numbers": [2, 4, 8]}
 ```	
 
-```json	
-{"time": {"day": "Tuesday", "hour": "08:00"}}	
+```json
+{"time": {"day": "Tuesday", "hour": "08:00"}}
 ```
 
 ##### Not Equal
