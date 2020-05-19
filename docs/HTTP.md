@@ -8,8 +8,11 @@ import TabItem from '@theme/TabItem';
 
 export let Bubble = ({ item }) => {
     return (
-        <div style={{ display: 'flex', fontFamily: 'monospace', borderRadius: '3px', backgroundColor: '#ddd', display: 'inline', padding: '5px' }}>
-            {item}
+        <div>
+            <div style={{ display: 'flex', fontFamily: 'monospace', borderRadius: '3px', backgroundColor: '#ddd', display: 'inline', padding: '5px'}}>
+                {item}
+            </div>
+            <div className="twentypx"/>
         </div>
     );
 }
@@ -26,7 +29,7 @@ This URL is the base for all your HTTP requests:
 
 **`https://database.deta.sh/v1/{project_id}/{base_name}`**
 
-> The `base_name` is the name for your database. If you already have a **Base**, then you can go ahead and provide it's name here. Additionally, you could provide any name here when doing any `PUT`or `POST` request and our backend will automatically create it. There is no limit on hoe many "Bases" you can create.
+> The `base_name` is the name for your database. If you already have a **Base**, then you can go ahead and provide it's name here. Additionally, you could provide any name here when doing any `PUT`or `POST` request and our backend will automatically create it. There is no limit on how many "Bases" you can create.
 
 ### Auth
 A **Project Key** _must_ to be provided in the request **headers** `X-API-Key` for authentication. This is how we authorize your requests.
@@ -44,6 +47,7 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 ### Put Item
 
 <Bubble item="PUT /items" /> 
+
 
 <Tabs
   defaultValue="request"
@@ -104,6 +108,7 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 
 <Bubble item="GET /items/{key}" /> 
 
+
 <Tabs
   defaultValue="request"
   values={[
@@ -141,6 +146,8 @@ You will get one of two responses:
 ### Delete Item
 
 <Bubble item="DELETE /items/{key}" /> 
+
+
 
 <Tabs
   defaultValue="request"
@@ -226,7 +233,7 @@ You will get one of two responses:
 
 ### List Items
 
-<Bubble item="POST /items" /> 
+<Bubble item="POST /query" /> 
 
 <Tabs
   defaultValue="request"
