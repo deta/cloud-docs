@@ -46,8 +46,7 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 
 ### Put Item
 
-<Bubble item="PUT /items" /> 
-
+**`PUT /items`**
 
 <Tabs
   defaultValue="request"
@@ -106,7 +105,7 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 
 ### Get Item
 
-<Bubble item="GET /items/{key}" /> 
+**`GET /items/{key}`**
 
 
 <Tabs
@@ -145,7 +144,7 @@ You will get one of two responses:
 
 ### Delete Item
 
-<Bubble item="DELETE /items/{key}" /> 
+**`DELETE /items/{key}`**
 
 
 
@@ -178,9 +177,9 @@ The server will always return `200` regardless if an item with that `key` existe
 </TabItem>
 </Tabs>
 
-### Post (Insert) Item
+### Insert Item
 
-<Bubble item="POST /items" /> 
+**`POST /items`**
 
 <Tabs
   defaultValue="request"
@@ -231,9 +230,11 @@ You will get one of two responses:
 </TabItem>
 </Tabs>
 
-### List Items
+### Query Items
 
-<Bubble item="POST /query" /> 
+**`POST /query`**
+
+List items that match a query using [filters](lib#filters).
 
 <Tabs
   defaultValue="request"

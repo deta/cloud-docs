@@ -24,7 +24,7 @@ First, install the Deta library in your project's directory.
 Using NPM:
 
 ```shell
-npm install -s deta
+npm install deta
 ```
 
 Using Yarn:
@@ -103,7 +103,7 @@ A "Deta Base" (or simply database) is a Key-Value store, like a collection or a 
 
 Deta's **`Base`** class offers the following methods to interact with your Deta Base:
 
-  - [**`put`**](#put) – Stores an item in the database. It will update an item if they key already exists. You would use put to also update an item.
+  - [**`put`**](#put) – Stores an item in the database. It will update an item if they key already exists.
   - [**`insert`**](#insert) – Stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
   - [**`get`**](#get) – Retrieves an item from the database by its key.
   - [**`fetch`**](#insert) – Retrieves multiple items from the database based on the provided (optional) filters. 
@@ -159,7 +159,7 @@ db.put(["a", "b", "c"], "my_abc")
 
 #### Returns
 
-`put` returns the item on a successful put, otherwise it returns `null`.
+`put` returns a promise which resolves to the item on a successful put, otherwise it returns `null`.
 
 </TabItem>
 <TabItem value="py">
@@ -230,13 +230,13 @@ const item = await db.get('one'); // retrieving item it key "one"
 
 #### Returns
 
-If the record is found:
+If the record is found, the promise resolves to
 ```js
 {
   name: 'alex', age: 77, key: 'one'
 }
 ```
-If not found, the function will return `null`.
+If not found, the promise will resolve to `null`.
 
 </TabItem>
 <TabItem value="py">
@@ -298,7 +298,7 @@ const res = await db.delete("one")
 
 #### Returns
 
-Always returns `null`, even if the key does not exist.
+Always returns a promise which resolves to `null`, even if the key does not exist.
 
 
 </TabItem>
@@ -367,7 +367,7 @@ const res3 = await db.insert({message: 'hello, there'}, 'greeting1');
 
 #### Returns
 
-Returns the item on a successful insert, and throws an error if the key already exists.
+Returns a promise which resolves to the item on a successful insert, and throws an error if the key already exists.
 
 </TabItem>
 <TabItem value="py">
@@ -407,9 +407,9 @@ Returns the item on a successful insert, and throws an error if the key already 
 
 Fetch retrieves a list of items matching a query. It will retrieve everything of no query is provided.
 
-A query is composed a single [filter](#filters) object or a list of [filters](#filters).
+A query is composed a single [query](#queries) object or a list of [queries](#queries).
 
-In the case of a list, filters are OR'ed in the query.
+In the case of a list, the indvidual queries are OR'ed.
 
 For the following examples, let's assume we have a **Base** of the following structure:
 
@@ -452,7 +452,7 @@ For the following examples, let's assume we have a **Base** of the following str
 
 #### Parameters & Types
 
-`query`: is a single [filter object](#filters) or list of filters.
+`query`: is a single [query object](#query) or list of filters.
 
 `buffer`: the number of objects which will be yielded for each iteration on the return iterable.
 
@@ -507,7 +507,7 @@ const mySecondSet = await db.fetch([
 ```
 #### Returns
 
-A generator of objects that meet the `query` criteria.
+A promise which resolves to a generator of objects that meet the `query` criteria.
 
 This generator has a max length of `limit`.
 
@@ -533,7 +533,7 @@ const foo = async (query) => {
 
 #### Parameters & Types
 
-`query`: is a single [filter object](#filters) or list of filters.
+`query`: is a single [query](#query) or list of queries.
 
 `buffer`: the number of objects which will be yielded for each iteration on the return iterable.
 
@@ -610,51 +610,51 @@ Filters are regular json objects with conventions for different operations.
 ##### Equal
 
 ```python
-f = {"age": 22, "name": "Aavash"}
+{"age": 22, "name": "Aavash"}
 ## hierarchical
-f = {"user.prof.age": 22, "user.prof.name": "Aavash"}
+{"user.prof.age": 22, "user.prof.name": "Aavash"}
 ```
 
 ##### Not Equal
 
 ```python
-f = {"user.profile.age?ne": 22}
+{"user.profile.age?ne": 22}
 ```
 
 ##### Less Than
 
 ```python
-f = {"user.profile.age?lt": 22}
+{"user.profile.age?lt": 22}
 ```
 
 ##### Greater Than
 
 ```python
-f = {"user.profile.age?gt": 22}
+{"user.profile.age?gt": 22}
 ```
 
 ##### Less Than or Equal
 
 ```python
-f = {"user.profile.age?lte": 22}
+{"user.profile.age?lte": 22}
 ```
 
 ##### Greater Than or Equal
 
 ```python
-f = {"user.profile.age?gte": 22}
+{"user.profile.age?gte": 22}
 ```
 
 ##### Prefix
 
 ```python
-f = {"user.id?pfx": "afdk"}
+{"user.id?pfx": "afdk"}
 ```
 
 #### Range
 
 ```python
-f = {"user.age?r": [22, 30]}
+{"user.age?r": [22, 30]}
 ```
 
 ## Contact
