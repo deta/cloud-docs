@@ -625,9 +625,9 @@ const mySecondSet = await db.fetch([
 
 A promise which resolves to a generator of objects that meet the `query` criteria.
 
-The total number of items will not exceed the `limit`.
+The total number of items will not exceed the defined `limit`.
 
-Iterating through the generator yields lists containing objects, each list of max length `buffer`.
+Iterating through the generator yields arrays containing objects, each array of max length `buffer`.
 
 
 #### Example using buffer, limit
@@ -698,7 +698,7 @@ my_second_set = db.fetch([{"age?lt": 30}, {"hometown": "Greenville"}])
 
 A generator of objects that meet the `query` criteria.
 
-This generator has a max length of `limit`.
+The total number of items will not exceed the defined `limit`.
 
 Iterating through the generator yields lists containing objects, each list of max length `buffer`.
 
@@ -709,7 +709,7 @@ Iterating through the generator yields lists containing objects, each list of ma
 def foo(my_query, bar):
   items = db.fetch(my_query, limit=100, buffer=10) # items is up to the limit length, 100
 
-  for sub_list in items: #each sub_list is up to the buffer length, 10
+  for sub_list in items: # each sub_list is up to the buffer length, 10
     bar(sub_list)
 ```
 
@@ -727,8 +727,17 @@ Queries are regular json objects / Python dicts with conventions for different o
 
 ```json
 {"age": 22, "name": "Aavash"}
-## hierarchical
+
+// hierarchical
 {"user.prof.age": 22, "user.prof.name": "Aavash"}
+```
+
+```json	
+{"fav_numbers": [2, 4, 8]}	
+```	
+
+```json	
+{"time": {"day": "Tuesday", "hour": "08:00"}}	
 ```
 
 ##### Not Equal
