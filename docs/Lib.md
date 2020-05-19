@@ -734,7 +734,7 @@ Queries are regular json objects / Python dicts with conventions for different o
 
 ```json
 {"fav_numbers": [2, 4, 8]}
-```	
+```
 
 ```json
 {"time": {"day": "Tuesday", "hour": "08:00"}}
