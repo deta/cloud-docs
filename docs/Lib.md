@@ -490,7 +490,7 @@ res_one = db.put_many([
 
 #### Returns
 
-Returns a promise which resolves to the put items on a successful insert, and throws an error if you attempt to put more than 25 items.
+Returns a promise which resolves to the put items on a successful insert, and raises an error if you attempt to put more than 25 items.
 
 ```json
 {

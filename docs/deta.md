@@ -3,7 +3,7 @@ id: deta
 title: About Deta
 ---
 
-Deta is a cloud computer crafted with the developer and user experience at heart.
+Deta is a cloud platform (we like to call it a "cloud computer") crafted with the developer and user experience at heart.
 
 Deta is borne by the belief, and bitter experience, that a lot of seemingly small ideas &mdash; though quite useful &mdash; are sitting on the sidelines. We think the dual experiences of *"getting to app"* and *"using and interacting with the app"* on current clouds is way too complicated for these ideas.
 

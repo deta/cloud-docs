@@ -82,7 +82,7 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 </TabItem>
 <TabItem value="response">
 
-#### `207 Multi-Status`
+#### `200 OK`
 
 ```js
 {
@@ -90,14 +90,22 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
         "items": [
             // items which were saved
         ]
-    },
+    }
+}
+```
+
+#### `400 Bad Request`
+
+```js
+{
     "failed": {
         "items": [
-            // items which have failed
+          // items which have failed
         ]
     }
 }
 ```
+
 </TabItem>
 
 
