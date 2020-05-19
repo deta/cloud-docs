@@ -95,7 +95,7 @@ books = deta.Base("books")
 </Tabs>
 
 :::note
-A "Deta Base" (or simply database) is a Key-Value store, like a collection or a PostgreSQL/MySQL table.
+A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will will grow with your app's needs.
 :::
 
 
@@ -103,7 +103,7 @@ A "Deta Base" (or simply database) is a Key-Value store, like a collection or a 
 
 Deta's **`Base`** class offers the following methods to interact with your Deta Base:
 
-  - [**`put`**](#put) – Stores an item in the database. It will update an item if they key already exists.
+  - [**`put`**](#put) – Stores an item in the database. It will update an item if the key already exists.
   - [**`insert`**](#insert) – Stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
   - [**`get`**](#get) – Retrieves an item from the database by its key.
   - [**`fetch`**](#insert) – Retrieves multiple items from the database based on the provided (optional) filters. 
