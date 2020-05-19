@@ -468,11 +468,11 @@ Returns a promise which resolves to the put items on a successful insert, and th
 </TabItem>
 <TabItem value="py">
 
-**`put_many(data):`**
+**`put_many(items):`**
 
 #### Parameters
 
-- **`data`** (required) – Accepts: `list` of `items`, where each `item` can be an `object` (serializable), `string`, `number`, `boolean` or `array`.
+- **`data`** (required) – Accepts: `list` of items, where each "item" can be an `dict` (JSON serializable), `str`, `int`, `bool`, `float` or `list`.
     - Description: The list of items to be stored.
 
 
