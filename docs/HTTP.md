@@ -40,9 +40,9 @@ Example `'X-API-Key: a0abcyxz_aSecretValue'`.
 
 We only accept JSON payloads. Make sure you set the headers correctly: `'Content-Type: application/json'`
 
-### Naming constraints
+### Naming Constraints
 
-- All user provided **keys** in an item can only contain alphanumeric(`a-zA-Z`), underscore(`_`), dot(`.`), dash(`-`) and tilde (`~`) characters. For instance a `random key$` is not a valid key because it contains a space and a `$`. 
+- All user provided **keys** in an item can only contain alphanumeric(`a-z,A-Z,0-9`), underscore(`_`), dot(`.`), dash(`-`) and tilde (`~`) characters. For instance a `random key$` is not a valid key because it contains a space and a `$`. 
 
 - Object attributes cannot contain the question mark character(`?`). For eg an object like `{"val?ue": 1}` can not be stored in the detabase.
 
@@ -100,7 +100,7 @@ Stores multiple items in a single request. This request overwrites an item if th
     },
     "failed": {
        "items": [
-           // items filed to be stored 
+           // items failed because of internal processing
        ]
     }
 }
@@ -124,7 +124,7 @@ Bad requests occur in the following cases:
 - if an item has a non-string key
 - if the number of items in the requests exceeds 25
 - if total request size exceeds 16 MB
-- if any individual item in exceed 400KB
+- if any individual item exceeds 400KB
 - if there are two items with identical keys 
 - if any item does not follow the [naming constraints](#naming-constraints)
 
@@ -167,7 +167,7 @@ Get a stored item.
 #### `404 Not Found`
 ```js
 {
-  "key": {key},
+  "key": {key}
 }
 ```
 
@@ -289,7 +289,7 @@ Bad requests occur in the following cases:
 
 **`POST /query`**
 
-List items that match a [query](./lib#queries). The response is paginated.
+List items that match a [query](./lib#queries).
 
 <Tabs
   defaultValue="request"
@@ -302,7 +302,7 @@ List items that match a [query](./lib#queries). The response is paginated.
 
 | JSON Payload    | Required | Type     | Description                                    |
 |-----------------|----------|----------|------------------------------------------------|
-| `query`         | No       | `list`   | a query(./lib#queries)                         |
+| `query`         | No       | `list`   | a [query](./lib#queries)                       |
 | `limit`         | No       | `int`    | no of items to return. min value 1 if used     |
 | `last`          | No       | `string` | last key seen in a previous paginated response |
 
@@ -325,7 +325,9 @@ List items that match a [query](./lib#queries). The response is paginated.
 </TabItem>
 <TabItem value="response">
 
-The response is automatically paginated if the reponse size exceeds 1 MB. 
+The response is paginated if the reponse size exceeds 1 MB or the total number of items matching the `query` exceeds the `limit` provided in the request.
+
+For paginated responses, `last` will return the last key seen in the response. You must use this `key` in the following request to continue retreival of items. If the response does not have the `last` key, then no further items are to be retreived.
 
 #### `200 OK`
 
@@ -333,7 +335,7 @@ The response is automatically paginated if the reponse size exceeds 1 MB.
 {
     "paging": {
         "size": 5, // size of items returned
-        "last": adfjie // last key seen if paginated, provide this key in the following request
+        "last": "adfjie" // last key seen if paginated, provide this key in the following request
     },
     "items": [
        {
@@ -359,7 +361,8 @@ The response is automatically paginated if the reponse size exceeds 1 MB.
 
 Bad requests occur in the following cases:
 - if a query is made on the `key`
-- if a query does not have the right format
+- if a query is not of the right format
+- if `limit` is provided in the request and is less than 1
 
 </TabItem>
 </Tabs>
