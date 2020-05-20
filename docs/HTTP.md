@@ -300,11 +300,11 @@ List items that match a [query](./lib#queries). The response is paginated.
 }>
 <TabItem value="request">
 
-| JSON Payload    | Required | Type     | Description                                   |
-|-----------------|----------|----------|-----------------------------------------------|
-| `query`         | No       | `list`   | a query(./lib#querires)                       |
-| `limit`         | No       | `int`    | no of items to return. min value 1 if used    |
-| `last_key`      | No       | `string` | last key seen in a paginated response         |
+| JSON Payload    | Required | Type     | Description                                    |
+|-----------------|----------|----------|------------------------------------------------|
+| `query`         | No       | `list`   | a query(./lib#queries)                         |
+| `limit`         | No       | `int`    | no of items to return. min value 1 if used     |
+| `last`          | No       | `string` | last key seen in a previous paginated response |
 
 
 #### Example
