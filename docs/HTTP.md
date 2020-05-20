@@ -126,11 +126,9 @@ Bad requests occur in the following cases:
 - if total request size exceeds 16 MB
 - if any individual item in exceed 400KB
 - if there are two items with identical keys 
-- if an item with a key does not follow the [naming constraints](###naming-constraints)
+- if any item does not follow the [naming constraints](###naming-constraints)
 
 </TabItem>
-
-
 </Tabs>
 
 ### Get Item
@@ -216,7 +214,7 @@ The server will always return `200` regardless if an item with that `key` existe
 
 **`POST /items`**
 
-Creates a new item only if the an item with the same key does not already exist. 
+Creates a new item only if no item with the same `key` exists. 
 
 <Tabs
   defaultValue="request"
@@ -247,7 +245,7 @@ Creates a new item only if the an item with the same key does not already exist.
 </TabItem>
 <TabItem value="response">
 
-#### 1. `201 Created`
+#### `201 Created`
 
 ```json
 {
@@ -259,14 +257,30 @@ Creates a new item only if the an item with the same key does not already exist.
 }
 ```
 
-#### 2. `409 Conflict` (if key already exists)
+### Client errors  
+
+#### `409 Conflict` (if key already exists)
 
 ```json
 {
-  "key": {key}
+  "errors": ["Key already exists"] 
 }
 ```
 
+#### `404 Bad Request`
+
+```json
+{
+  "errors": [
+     // error messages
+  ]
+}
+```
+
+Bad requests occur in the following cases: 
+- if the item has a non-string key
+- if size of the item exceeds 400KB
+- if the item does not follow the [naming constraints](###naming-constraints)
 
 </TabItem>
 </Tabs>
@@ -275,7 +289,7 @@ Creates a new item only if the an item with the same key does not already exist.
 
 **`POST /query`**
 
-List items that match a [query](./lib#queries).
+List items that match a [query](./lib#queries). The response is paginated.
 
 <Tabs
   defaultValue="request"
@@ -286,11 +300,11 @@ List items that match a [query](./lib#queries).
 }>
 <TabItem value="request">
 
-| JSON Payload    | Required | Type     |
-|-----------------|----------|----------|
-| `query`         | No       | `list`   |
-| `limit`         | No       | `int`    |
-| `last_key`      | No       | `string` |
+| JSON Payload    | Required | Type     | Description                                   |
+|-----------------|----------|----------|-----------------------------------------------|
+| `query`         | No       | `list`   | a query(./lib#querires)                       |
+| `limit`         | No       | `int`    | no of items to return. min value 1 if used    |
+| `last_key`      | No       | `string` | last key seen in a paginated response         |
 
 
 #### Example
@@ -298,8 +312,9 @@ List items that match a [query](./lib#queries).
 ```json
 {
    "query": [
-        //separate objects in the list are ORed
-        {"user.hometown": "Berlin"},
+        // separate objects in the list are ORed
+        // query evaluetes to list all users whose hometown is Berlin and is active OR all users who age less than 40
+        {"user.hometown": "Berlin", "user.active": true},
         {"user.age?lt": 40}
    ],
    "limit": 5,
@@ -307,17 +322,18 @@ List items that match a [query](./lib#queries).
 }
 ```
 
-
 </TabItem>
 <TabItem value="response">
+
+The response is automatically paginated if the reponse size exceeds 1 MB. 
 
 #### `200 OK`
 
 ```json
 {
     "paging": {
-        "size": 5, // size of items
-        "last": adfjie // last key seen
+        "size": 5, // size of items returned
+        "last": adfjie // last key seen if paginated, provide this key in the following request
     },
     "items": [
        {
@@ -329,6 +345,21 @@ List items that match a [query](./lib#queries).
 }
 ```
 
+### Client Errors 
+
+#### `400 Bad Request`
+
+```json
+{
+  "errors": [
+    // error messages
+  ]
+}
+```
+
+Bad requests occur in the following cases:
+- if a query is made on the `key`
+- if a query does not have the right format
 
 </TabItem>
 </Tabs>
