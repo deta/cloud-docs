@@ -302,7 +302,7 @@ List items that match a [query](./lib#queries). The response is paginated.
 
 | JSON Payload    | Required | Type     | Description                                    |
 |-----------------|----------|----------|------------------------------------------------|
-| `query`         | No       | `list`   | a query(./lib#queries)                         |
+| `query`         | No       | `list`   | a [query](./lib#queries)                         |
 | `limit`         | No       | `int`    | no of items to return. min value 1 if used     |
 | `last`          | No       | `string` | last key seen in a previous paginated response |
 
@@ -326,6 +326,8 @@ List items that match a [query](./lib#queries). The response is paginated.
 <TabItem value="response">
 
 The response is automatically paginated if the reponse size exceeds 1 MB. 
+
+For paginated responses, `last` will return the last key seen in the response. You must use this `key` in the following request to continue retreival of items. If the response does not have the `last` key, then no further items are to be retreived.
 
 #### `200 OK`
 
@@ -359,7 +361,8 @@ The response is automatically paginated if the reponse size exceeds 1 MB.
 
 Bad requests occur in the following cases:
 - if a query is made on the `key`
-- if a query does not have the right format
+- if a query is not of the right format
+- if `limit` is provided in the request and is less than 1
 
 </TabItem>
 </Tabs>
