@@ -7,6 +7,7 @@ import TabItem from '@theme/TabItem';
 
 The Deta library is the easiest way to store and retrieve data from your Deta Base. Currently we support JavaScript (Node + Browser) and Python 3. [Drop us a line](#contact) if you want us to support your favorite language.
 
+<!-- TODO: validation errors for put, put_many, insert and fetch. -->
 
 ## Installing the Deta Library
 
@@ -102,7 +103,7 @@ A "Deta Base" instance is a collection of data not unlike a Key-Value store, a M
 
 Deta's **`Base`** class offers the following methods to interact with your Deta Base:
 
-  - [**`put`**](#put) – Stores an item in the database. It will update an item if they key already exists. You would use put to also update an item.
+  - [**`put`**](#put) – Stores an item in the database. It will update an item if the key already exists.
   - [**`insert`**](#insert) – Stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
   - [**`get`**](#get) – Retrieves an item from the database by its key.
   - [**`fetch`**](#insert) – Retrieves multiple items from the database based on the provided (optional) filters. 
@@ -130,7 +131,7 @@ You should also use `put` when you want to update an item in the database.
 
 #### Parameters
 
-- **`data`** (required) – Accepts: `object`, `string`, `number`, `boolean` and `array`.
+- **`data`** (required) – Accepts: `object` (serializable), `string`, `number`, `boolean` and `array`.
     - Description: The data to be stored.
 - **`key`** (optional) – Accepts: `string` and `null`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
@@ -158,7 +159,7 @@ db.put(["a", "b", "c"], "my_abc")
 
 #### Returns
 
-`put` returns the item on a successful put, otherwise it raises an error.
+`put` returns a promise which resolves to the item on a successful put, otherwise it throws an Error.
 
 </TabItem>
 <TabItem value="py">
@@ -194,7 +195,7 @@ db.put(["a", "b", "c"], "my_abc")
 
 #### Returns
 
-`put` returns the item on a successful put, otherwise it raises and error.
+`put` returns the item on a successful put, otherwise it raises an Error.
 
 </TabItem>
 </Tabs>
@@ -229,13 +230,13 @@ const item = await db.get('one'); // retrieving item with key "one"
 
 #### Returns
 
-If the record is found:
+If the record is found, the promise resolves to:
 ```js
 {
   name: 'alex', age: 77, key: 'one'
 }
 ```
-If not found, the function will return `null`.
+If not found, the promise will resolve to `null`.
 
 </TabItem>
 <TabItem value="py">
@@ -250,7 +251,7 @@ If not found, the function will return `null`.
 
 #### Code Example
 ```py
-item = db.get("one")  # retrieving item with key "one"
+item = db.get("one") # retrieving item with key "one"
 ```
 
 #### Returns
@@ -269,7 +270,6 @@ If not found, the function will return `None`.
 
 
 ### Delete
-
 `delete` deletes an item form the database provided a key.
 
 <Tabs
@@ -298,7 +298,7 @@ const res = await db.delete("one")
 
 #### Returns
 
-Always returns `null`, even if the key does not exist.
+Always returns a promise which resolves to `null`, even if the key does not exist.
 
 
 </TabItem>
@@ -328,7 +328,7 @@ Always returns `None`, even if the key does not exist.
 
 ### Insert
 
-The `insert` method inserts a single item into a **Base**, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database. 
+The `insert` method inserts a single item into a **Base**, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database.
 
 `insert` is roughly 2x slower than [`put`](#put). 
 
@@ -347,7 +347,7 @@ The `insert` method inserts a single item into a **Base**, but is unique from [`
 
 #### Parameters
 
-- **`data`** (required) – Accepts: `object`, `string`, `number`, `boolean` and `array`.
+- **`data`** (required) – Accepts: `object` (serializable), `string`, `number`, `boolean` and `array`.
     - Description: The data to be stored.
 - **`key`** (optional) – Accepts: `string` and `null`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
@@ -367,7 +367,7 @@ const res3 = await db.insert({message: 'hello, there'}, 'greeting1');
 
 #### Returns
 
-Returns the item on a successful insert, and throws an error if the key already exists.
+Returns a promise which resolves to the item on a successful insert, and throws an error if the key already exists.
 
 </TabItem>
 <TabItem value="py">
@@ -401,15 +401,135 @@ Returns the item on a successful insert, and throws an error if the key already 
 </TabItem>
 </Tabs>
 
+### Put Many
+
+The Put Many method inserts up to 25 items into a Base at once on a single call.
+
+
+<Tabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<TabItem value="js">
+
+**`async putMany(items)`**
+
+#### Parameters
+
+- **`items`** (required) – Accepts: `Array` of items, where each "item" can be an `object` (serializable), `string`, `number`, `boolean` or `array`.
+    - Description: The list of items to be stored.
+
+
+#### Code Example
+```js
+
+const res1 = await db.putMany([
+  {"name": "Beverly", "hometown": "Copernicus City", "key": "one"}, // key provided
+  "dude", // key auto-generated 
+  ["Namaskāra", "marhabaan", "hello", "yeoboseyo"] // key auto-generated 
+]);
+
+```
+
+#### Returns
+
+Returns a promise which resolves to the put items on a successful insert, and throws an error if you attempt to put more than 25 items.
+
+```json
+{
+    "processed": {
+        "items": [
+            {
+                "hometown": "Copernicus City",
+                "key": "one",
+                "name": "Beverly"
+            },
+            {
+                "key": "jyesxxlrezo0",
+                "value": "dude"
+            },
+            {
+                "key": "5feqybn7lb05",
+                "value": [
+                    "Namaskāra",
+                    "hello",
+                    "marhabaan",
+                    "yeoboseyo"
+                ]
+            }
+        ]
+    }
+}
+```
+
+</TabItem>
+<TabItem value="py">
+
+**`put_many(items):`**
+
+#### Parameters
+
+- **`data`** (required) – Accepts: `list` of items, where each "item" can be an `dict` (JSON serializable), `str`, `int`, `bool`, `float` or `list`.
+    - Description: The list of items to be stored.
+
+
+#### Code Example
+```js
+
+res_one = db.put_many([
+  {"name": "Beverly", "hometown": "Copernicus City", "key": "one"}, // key provided
+  "dude", // key auto-generated 
+  ["Namaskāra", "marhabaan", "hello", "yeoboseyo"] // key auto-generated 
+]);
+
+```
+
+#### Returns
+
+Returns a promise which resolves to the put items on a successful insert, and raises an error if you attempt to put more than 25 items.
+
+```json
+{
+    "processed": {
+        "items": [
+            {
+                "hometown": "Copernicus City",
+                "key": "one",
+                "name": "Beverly"
+            },
+            {
+                "key": "jyesxxlrezo0",
+                "value": "dude"
+            },
+            {
+                "key": "5feqybn7lb05",
+                "value": [
+                    "Namaskāra",
+                    "hello",
+                    "marhabaan",
+                    "yeoboseyo"
+                ]
+            }
+        ]
+    }
+}
+```
+
+</TabItem>
+</Tabs>
+
 
 ### Fetch
 
 
 Fetch retrieves a list of items matching a query. It will retrieve everything of no query is provided.
 
-A query is composed a single [filter](#filters) object or a list of [filters](#filters).
+A query is composed of a single [query](#queries) object or a list of [queries](#queries).
 
-In the case of a list, filters are OR'ed in the query.
+In the case of a list, the indvidual queries are OR'ed.
 
 For the following examples, let's assume we have a **Base** of the following structure:
 
@@ -448,13 +568,15 @@ For the following examples, let's assume we have a **Base** of the following str
 }>
 <TabItem value="js">
 
-**`async fetch(query, buffer=null, limit=null)`**
+**`async fetch(query, limit=null, buffer=null)`**
 
 #### Parameters
 
-- `query`: is a single [query object](#queries) or array of queries. If omitted, you will get all the items in the database (up to 1mb).
-- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb od data, so you could buffer the results in smaller chunks.
+- `query`: is a single [query object](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
+
 - `limit`: is the maximum number of items which can be returned.
+
+- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
 
@@ -501,9 +623,9 @@ const mySecondSet = await db.fetch([
 ```
 #### Returns
 
-A generator of objects that meet the `query` criteria.
+A promise which resolves to a generator of objects that meet the `query` criteria.
 
-the total number of items will not exceed the defined `limit`.
+The total number of items will not exceed the defined `limit`.
 
 Iterating through the generator yields arrays containing objects, each array of max length `buffer`.
 
@@ -511,14 +633,11 @@ Iterating through the generator yields arrays containing objects, each array of 
 #### Example using buffer, limit
 
 ```js
-const foo = async () => {
-  items = await db.fetch(query, 10, 100) // items is up to the limit length, 100
+const foo = async (myQuery, bar) => {
+  items = await db.fetch(myQuery, 100, 10) // items is up to the limit length, 100
 
-  
-  for (const page of items) {
-    // each "page" is up to the buffer length, 10
-    console.log(page)
-  }
+  for (const subArray of items) // each subArray is up to the buffer length, 10
+    bar(subArray)
 
 }
 ```
@@ -526,13 +645,15 @@ const foo = async () => {
 
 <TabItem value="py">
 
-**`fetch(query=None, buffer=None, limit=None):`**
+**`fetch(query=None, limit=2000, buffer=None):`**
 
 #### Parameters
 
 - `query`: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
-- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb od data, so you could buffer the results in smaller chunks.
+
 - `limit`: is the maximum number of items which can be returned.
+
+- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
 
@@ -575,21 +696,21 @@ my_second_set = db.fetch([{"age?lt": 30}, {"hometown": "Greenville"}])
 
 #### Returns
 
-A generator of items that meet the `query` criteria.
+A generator of objects that meet the `query` criteria.
 
 The total number of items will not exceed the defined `limit`.
 
-Iterating through the generator yields lists containing items, each list of max length `buffer`.
-
+Iterating through the generator yields lists containing objects, each list of max length `buffer`.
 
 
 #### Example using buffer, limit
 
 ```py
-items = db.fetch(my_query, buffer=10, limit=100) # items is up to the limit length, 100
+def foo(my_query, bar):
+  items = db.fetch(my_query, limit=100, buffer=10) # items is up to the limit length, 100
 
-for sub_list in items: # each sub_list is up to the buffer length, 10
-    print(sub_list)
+  for sub_list in items: # each sub_list is up to the buffer length, 10
+    bar(sub_list)
 ```
 
 </TabItem>
@@ -599,16 +720,15 @@ for sub_list in items: # each sub_list is up to the buffer length, 10
 
 #### Queries
 
-Queries are regular json objects/Python dicts with conventions for different operations.
+Queries are regular json objects / Python dicts with conventions for different operations.
 
 
 ##### Equal
 
 ```json
 {"age": 22, "name": "Aavash"}
-```
 
-```json
+// hierarchical
 {"user.prof.age": 22, "user.prof.name": "Aavash"}
 ```
 
