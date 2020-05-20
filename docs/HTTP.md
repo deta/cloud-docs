@@ -29,17 +29,22 @@ This URL is the base for all your HTTP requests:
 
 **`https://database.deta.sh/v1/{project_id}/{base_name}`**
 
-> The `base_name` is the name for your database. If you already have a **Base**, then you can go ahead and provide it's name here. Additionally, you could provide any name here when doing any `PUT`or `POST` request and our backend will automatically create it. There is no limit on how many "Bases" you can create.
+> The `base_name` is the name for your database. If you already have a **Base**, then you can go ahead and provide it's name here. Additionally, you could provide any name here when doing any `PUT` or `POST` request and our backend will automatically create a new base for you if it does not exist. There is no limit on how many "Bases" you can create.
 
 ### Auth
 A **Project Key** _must_ to be provided in the request **headers** `X-API-Key` for authentication. This is how we authorize your requests.
 
-Example `'X-API-Key: a0abcyxz_randomstring'`.
+Example `'X-API-Key: a0abcyxz_aSecretValue'`.
 
 ### Content Type
 
 We only accept JSON payloads. Make sure you set the headers correctly: `'Content-Type: application/json'`
 
+### Naming constraints
+
+- All user provided **keys** in an item can only contain alphanumeric(`a-zA-Z`), underscore(`_`), dot(`.`), dash(`-`) and tilde (`~`) characters. For instance a `random key$` is not a valid key because it contains a space and a `$`. 
+
+- Object attributes cannot contain the question mark character(`?`). For eg an object like `{"val?ue": 1}` can not be stored in the detabase.
 
 
 ## Endpoints
@@ -47,6 +52,8 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 ### Put Item
 
 **`PUT /items`**
+
+Stores multiple items in a single request. This request overwrites an item if the key already exists.
 
 <Tabs
   defaultValue="request"
@@ -69,7 +76,7 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
    // array of items to put
    "items": [
         {
-            "key": {key},//optional
+            "key": {key}, // optional, a random key is generated if not provided
             "field1": "value1",
             // rest of item
         },
@@ -82,39 +89,53 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 </TabItem>
 <TabItem value="response">
 
-#### `200 OK`
+#### `207 Multi Status`
 
 ```js
 {
     "processed": {
         "items": [
-            // items which were saved
+            // items which were stored 
         ]
+    },
+    "failed": {
+       "items": [
+           // items filed to be stored 
+       ]
     }
 }
 ```
+
+### Client errors
+
+In case of client errors, **no items** in the request are stored.
 
 #### `400 Bad Request`
 
 ```js
 {
-    "failed": {
-        "items": [
-          // items which have failed
-        ]
-    }
+    "errors" : [
+       // error messages
+    ] 
 }
 ```
 
+Bad requests occur in the following cases: 
+- if an item has a non-string key
+- if the number of items in the requests exceeds 25
+- if total request size exceeds 16 MB
+- if any individual item in exceed 400KB
+- if there are two items with identical keys 
+- if any item does not follow the [naming constraints](#naming-constraints)
+
 </TabItem>
-
-
 </Tabs>
 
 ### Get Item
 
 **`GET /items/{key}`**
 
+Get a stored item.
 
 <Tabs
   defaultValue="request"
@@ -133,9 +154,8 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 
 </TabItem>
 <TabItem value="response">
-You will get one of two responses:
 
-#### 1. `200 OK`
+#### `200 OK`
 
 ```js
 {
@@ -144,7 +164,12 @@ You will get one of two responses:
 }
 ```
 
-#### 2. `404 Not Found`
+#### `404 Not Found`
+```js
+{
+  "key": {key},
+}
+```
 
 </TabItem>
 </Tabs>
@@ -154,7 +179,7 @@ You will get one of two responses:
 
 **`DELETE /items/{key}`**
 
-
+Delete a stored item.
 
 <Tabs
   defaultValue="request"
@@ -189,6 +214,8 @@ The server will always return `200` regardless if an item with that `key` existe
 
 **`POST /items`**
 
+Creates a new item only if no item with the same `key` exists. 
+
 <Tabs
   defaultValue="request"
   values={[
@@ -218,9 +245,7 @@ The server will always return `200` regardless if an item with that `key` existe
 </TabItem>
 <TabItem value="response">
 
-You will get one of two responses:
-
-#### 1. `201 Created`
+#### `201 Created`
 
 ```json
 {
@@ -232,8 +257,30 @@ You will get one of two responses:
 }
 ```
 
-#### 2. `409 Conflict` (if key already exists)
+### Client errors  
 
+#### `409 Conflict` (if key already exists)
+
+```json
+{
+  "errors": ["Key already exists"] 
+}
+```
+
+#### `404 Bad Request`
+
+```json
+{
+  "errors": [
+     // error messages
+  ]
+}
+```
+
+Bad requests occur in the following cases: 
+- if the item has a non-string key
+- if size of the item exceeds 400KB
+- if the item does not follow the [naming constraints](#naming-constraints)
 
 </TabItem>
 </Tabs>
@@ -242,7 +289,7 @@ You will get one of two responses:
 
 **`POST /query`**
 
-List items that match a [query](./lib#queries).
+List items that match a [query](./lib#queries). The response is paginated.
 
 <Tabs
   defaultValue="request"
@@ -253,11 +300,11 @@ List items that match a [query](./lib#queries).
 }>
 <TabItem value="request">
 
-| JSON Payload    | Required | Type     |
-|-----------------|----------|----------|
-| `query`         | No       | `list`   |
-| `limit`         | No       | `int`    |
-| `last_key`      | No       | `string` |
+| JSON Payload    | Required | Type     | Description                                    |
+|-----------------|----------|----------|------------------------------------------------|
+| `query`         | No       | `list`   | a query(./lib#queries)                         |
+| `limit`         | No       | `int`    | no of items to return. min value 1 if used     |
+| `last`          | No       | `string` | last key seen in a previous paginated response |
 
 
 #### Example
@@ -265,8 +312,9 @@ List items that match a [query](./lib#queries).
 ```json
 {
    "query": [
-        //separate objects in the list are ORed
-        {"user.hometown": "Berlin"},
+        // separate objects in the list are ORed
+        // query evaluetes to list all users whose hometown is Berlin and is active OR all users who age less than 40
+        {"user.hometown": "Berlin", "user.active": true},
         {"user.age?lt": 40}
    ],
    "limit": 5,
@@ -274,17 +322,18 @@ List items that match a [query](./lib#queries).
 }
 ```
 
-
 </TabItem>
 <TabItem value="response">
+
+The response is automatically paginated if the reponse size exceeds 1 MB. 
 
 #### `200 OK`
 
 ```json
 {
     "paging": {
-        "size": 5, // size of items
-        "last": adfjie // last key seen
+        "size": 5, // size of items returned
+        "last": adfjie // last key seen if paginated, provide this key in the following request
     },
     "items": [
        {
@@ -296,6 +345,21 @@ List items that match a [query](./lib#queries).
 }
 ```
 
+### Client Errors 
+
+#### `400 Bad Request`
+
+```json
+{
+  "errors": [
+    // error messages
+  ]
+}
+```
+
+Bad requests occur in the following cases:
+- if a query is made on the `key`
+- if a query does not have the right format
 
 </TabItem>
 </Tabs>

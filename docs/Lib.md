@@ -95,7 +95,7 @@ books = deta.Base("books")
 </Tabs>
 
 :::note
-A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will will grow with your app's needs.
+A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will grow with your app's needs.
 :::
 
 
@@ -106,7 +106,7 @@ Deta's **`Base`** class offers the following methods to interact with your Deta 
   - [**`put`**](#put) – Stores an item in the database. It will update an item if the key already exists.
   - [**`insert`**](#insert) – Stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
   - [**`get`**](#get) – Retrieves an item from the database by its key.
-  - [**`fetch`**](#insert) – Retrieves multiple items from the database based on the provided (optional) filters. 
+  - [**`fetch`**](#insert) – Retrieves multiple items from the database based on the provided (optional) query. 
   - [**`delete`**](#delete) – Deletes an item from the database.
 
 ### Put
@@ -328,7 +328,7 @@ Always returns `None`, even if the key does not exist.
 
 ### Insert
 
-The `insert` method inserts a single item into a **Base**, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database.
+The `insert` method inserts a single item into a **Base**, but is unique from [`put`](#put) in that it will raise an error if the `key` already exists in the database.
 
 `insert` is roughly 2x slower than [`put`](#put). 
 
@@ -576,7 +576,7 @@ For the following examples, let's assume we have a **Base** of the following str
 
 - `limit`: is the maximum number of items which can be returned.
 
-- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
+- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more than 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
 
