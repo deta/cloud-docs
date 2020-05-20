@@ -40,7 +40,7 @@ Example `'X-API-Key: a0abcyxz_aSecretValue'`.
 
 We only accept JSON payloads. Make sure you set the headers correctly: `'Content-Type: application/json'`
 
-### Naming constraints
+### Naming Constraints
 
 - All user provided **keys** in an item can only contain alphanumeric(`a-zA-Z`), underscore(`_`), dot(`.`), dash(`-`) and tilde (`~`) characters. For instance a `random key$` is not a valid key because it contains a space and a `$`. 
 
@@ -124,7 +124,7 @@ Bad requests occur in the following cases:
 - if an item has a non-string key
 - if the number of items in the requests exceeds 25
 - if total request size exceeds 16 MB
-- if any individual item in exceed 400KB
+- if any individual item exceeds 400KB
 - if there are two items with identical keys 
 - if any item does not follow the [naming constraints](#naming-constraints)
 
