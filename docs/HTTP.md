@@ -29,17 +29,22 @@ This URL is the base for all your HTTP requests:
 
 **`https://database.deta.sh/v1/{project_id}/{base_name}`**
 
-> The `base_name` is the name for your database. If you already have a **Base**, then you can go ahead and provide it's name here. Additionally, you could provide any name here when doing any `PUT`or `POST` request and our backend will automatically create it. There is no limit on how many "Bases" you can create.
+> The `base_name` is the name for your database. If you already have a **Base**, then you can go ahead and provide it's name here. Additionally, you could provide any name here when doing any `PUT` or `POST` request and our backend will automatically create a new base for you if it does not exist. There is no limit on how many "Bases" you can create.
 
 ### Auth
 A **Project Key** _must_ to be provided in the request **headers** `X-API-Key` for authentication. This is how we authorize your requests.
 
-Example `'X-API-Key: a0abcyxz_randomstring'`.
+Example `'X-API-Key: a0abcyxz_aSecretValue'`.
 
 ### Content Type
 
 We only accept JSON payloads. Make sure you set the headers correctly: `'Content-Type: application/json'`
 
+### Naming constraints
+
+- All user provided **keys** in an item can only contain alphanumeric(`a-zA-Z`), underscore(`_`), dot(`.`), dash(`-`) and tilde (`~`) characters. For instance a `random key$` is not a valid key because it contains a space and a `$`. 
+
+- Object attributes cannot contain the question mark character(`?`). For eg an object like `{"val?ue": 1}` can not be stored in the detabase.
 
 
 ## Endpoints
@@ -47,6 +52,8 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 ### Put Item
 
 **`PUT /items`**
+
+Stores multiple items in a single request. This request overwrites an item if the key already exists.
 
 <Tabs
   defaultValue="request"
@@ -69,7 +76,7 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
    // array of items to put
    "items": [
         {
-            "key": {key},//optional
+            "key": {key}, // optional, a random key is generated if not provided
             "field1": "value1",
             // rest of item
         },
@@ -82,29 +89,44 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 </TabItem>
 <TabItem value="response">
 
-#### `200 OK`
+#### `207 Multi Status`
 
 ```js
 {
     "processed": {
         "items": [
-            // items which were saved
+            // items which were stored 
         ]
+    },
+    "failed": {
+       "items": [
+           // items filed to be stored 
+       ]
     }
 }
 ```
+
+### Client errors
+
+In case of client errors, **no items** in the request are stored.
 
 #### `400 Bad Request`
 
 ```js
 {
-    "failed": {
-        "items": [
-          // items which have failed
-        ]
-    }
+    "errors" : [
+       // error messages
+    ] 
 }
 ```
+
+Bad requests occur in the following cases: 
+- if an item has a non-string key
+- if the number of items in the requests exceeds 25
+- if total request size exceeds 16 MB
+- if any individual item in exceed 400KB
+- if there are two items with identical keys 
+- if an item with a key does not follow the [naming constraints](###naming-constraints)
 
 </TabItem>
 
@@ -115,6 +137,7 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 
 **`GET /items/{key}`**
 
+Get a stored item.
 
 <Tabs
   defaultValue="request"
@@ -133,9 +156,8 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 
 </TabItem>
 <TabItem value="response">
-You will get one of two responses:
 
-#### 1. `200 OK`
+#### `200 OK`
 
 ```js
 {
@@ -144,7 +166,12 @@ You will get one of two responses:
 }
 ```
 
-#### 2. `404 Not Found`
+#### `404 Not Found`
+```js
+{
+  "key": {key},
+}
+```
 
 </TabItem>
 </Tabs>
@@ -154,7 +181,7 @@ You will get one of two responses:
 
 **`DELETE /items/{key}`**
 
-
+Delete a stored item.
 
 <Tabs
   defaultValue="request"
@@ -189,6 +216,8 @@ The server will always return `200` regardless if an item with that `key` existe
 
 **`POST /items`**
 
+Creates a new item only if the an item with the same key does not already exist. 
+
 <Tabs
   defaultValue="request"
   values={[
@@ -218,8 +247,6 @@ The server will always return `200` regardless if an item with that `key` existe
 </TabItem>
 <TabItem value="response">
 
-You will get one of two responses:
-
 #### 1. `201 Created`
 
 ```json
@@ -233,6 +260,12 @@ You will get one of two responses:
 ```
 
 #### 2. `409 Conflict` (if key already exists)
+
+```json
+{
+  "key": {key}
+}
+```
 
 
 </TabItem>
