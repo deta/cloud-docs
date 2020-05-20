@@ -726,10 +726,10 @@ Queries are regular json objects / Python dicts with conventions for different o
 ##### Equal
 
 ```json
-{"age": 22, "name": "Aavash"}
+{"age": 111, "name": "Beverly"}
 
 // hierarchical
-{"user.prof.age": 22, "user.prof.name": "Aavash"}
+{"user.prof.age": 111, "user.prof.name": "Beverly"}
 ```
 
 ```json
