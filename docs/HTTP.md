@@ -126,7 +126,7 @@ Bad requests occur in the following cases:
 - if total request size exceeds 16 MB
 - if any individual item in exceed 400KB
 - if there are two items with identical keys 
-- if any item does not follow the [naming constraints](###naming-constraints)
+- if any item does not follow the [naming constraints](#naming-constraints)
 
 </TabItem>
 </Tabs>
@@ -280,7 +280,7 @@ Creates a new item only if no item with the same `key` exists.
 Bad requests occur in the following cases: 
 - if the item has a non-string key
 - if size of the item exceeds 400KB
-- if the item does not follow the [naming constraints](###naming-constraints)
+- if the item does not follow the [naming constraints](#naming-constraints)
 
 </TabItem>
 </Tabs>
