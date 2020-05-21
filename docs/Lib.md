@@ -64,7 +64,7 @@ Deta Bases are created for you automatically when you start using them.
 const Deta = require('deta'); // import Deta
 
 // Initialize with a Project Key
-const deta = new Deta('project key'); 
+const deta = Deta('project key'); 
 
 // This how to connect to or create a database.
 const db = deta.Base('simple_db'); 
@@ -95,7 +95,7 @@ books = deta.Base("books")
 </Tabs>
 
 :::note
-A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will grow with your app's needs.
+A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will will grow with your app's needs.
 :::
 
 
@@ -106,7 +106,7 @@ Deta's **`Base`** class offers the following methods to interact with your Deta 
   - [**`put`**](#put) – Stores an item in the database. It will update an item if the key already exists.
   - [**`insert`**](#insert) – Stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
   - [**`get`**](#get) – Retrieves an item from the database by its key.
-  - [**`fetch`**](#insert) – Retrieves multiple items from the database based on the provided (optional) query. 
+  - [**`fetch`**](#insert) – Retrieves multiple items from the database based on the provided (optional) filters. 
   - [**`delete`**](#delete) – Deletes an item from the database.
 
 ### Put
@@ -328,7 +328,7 @@ Always returns `None`, even if the key does not exist.
 
 ### Insert
 
-The `insert` method inserts a single item into a **Base**, but is unique from [`put`](#put) in that it will raise an error if the `key` already exists in the database.
+The `insert` method inserts a single item into a **Base**, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database.
 
 `insert` is roughly 2x slower than [`put`](#put). 
 
@@ -576,16 +576,16 @@ For the following examples, let's assume we have a **Base** of the following str
 
 - `limit`: is the maximum number of items which can be returned.
 
-- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more than 1mb of data, so you could buffer the results in smaller chunks.
+- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
 
 ```js
-const myFirstSet = await db.fetch({"age?lt": 30});
-const mySecondSet = await db.fetch([
-  { "age?lt": 30 },
+const {value: myFirstSet} = await db.fetch({"age?lt": 30}).next();
+const {value: mySecondSet} = await db.fetch([
+  { "age?gt": 50 },
   { "hometown": "Greenville" }
-]);
+]).next();
 ```
 
 ... will come back with following data:
@@ -634,11 +634,11 @@ Iterating through the generator yields arrays containing objects, each array of 
 
 ```js
 const foo = async (myQuery, bar) => {
-  items = await db.fetch(myQuery, 100, 10) // items is up to the limit length, 100
 
-  for (const subArray of items) // each subArray is up to the buffer length, 10
+  items = db.fetch(myQuery, 100, 10) // items is up to the limit length, 100
+
+  for await (const subArray of items) // each subArray is up to the buffer length, 10
     bar(subArray)
-
 }
 ```
 </TabItem>
@@ -658,8 +658,8 @@ const foo = async (myQuery, bar) => {
 #### Code Example
 
 ```py
-my_first_set = db.fetch({"age?lt": 30})
-my_second_set = db.fetch([{"age?lt": 30}, {"hometown": "Greenville"}])
+my_first_set = next(db.fetch({"age?lt": 30}))
+my_second_set = next(db.fetch([{"age?gt": 50}, {"hometown": "Greenville"}]))
 ```
 
 ... will come back with following data:
@@ -726,10 +726,10 @@ Queries are regular json objects / Python dicts with conventions for different o
 ##### Equal
 
 ```json
-{"age": 111, "name": "Beverly"}
+{"age": 22, "name": "Aavash"}
 
 // hierarchical
-{"user.prof.age": 111, "user.prof.name": "Beverly"}
+{"user.prof.age": 22, "user.prof.name": "Aavash"}
 ```
 
 ```json
