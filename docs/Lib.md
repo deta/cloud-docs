@@ -64,7 +64,7 @@ Deta Bases are created for you automatically when you start using them.
 const Deta = require('deta'); // import Deta
 
 // Initialize with a Project Key
-const deta = Deta('project key'); 
+const deta = new Deta('project key'); 
 
 // This how to connect to or create a database.
 const db = deta.Base('simple_db'); 
