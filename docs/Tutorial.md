@@ -73,8 +73,8 @@ We'll expose this function to `POST` requests on the route `/users` to allow cre
 
 ```js
 app.post('/users', async (req, res) => {
-    let insertedUser = await createUser(req.body);
-    res.json(insertedUser);
+    const insertedUser = await createUser(req.body);
+    res.status(201).json(insertedUser);
 });
 ```
 
@@ -91,7 +91,7 @@ app.get('/users', async (req, res) => {
     if (user) {
         res.json(user);
     } else {
-        res.json({"message": "user not found"});
+        res.status(404).json({"message": "user not found"});
     }
 });
 ```
