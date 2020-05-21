@@ -6,7 +6,7 @@ import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
 
-## Building a Simple CRUD
+## Building a Simple CRUD with Deta Base
 
 
 ### Setup
@@ -40,49 +40,55 @@ For our database we are going to store records of users under a unique `key`. Us
 
 ```js
 {
-    "name": "string"
-    "age": number
+    "name": "string",
+    "age": number,
     "hometown": "string"
 }
 
 ```
 
-We'll create an id generating function `genId` to generate random `id`s and a `createUser` function that will ensure that a new user is input into our database under a unique `key`.
 
-```js
-const genId = () => {
-    return Math.random().toString(16).substr(2, 6);
-}
-
-
-const createUser = async payload => {
-    let insertedItem;
-    const { name, age, hometown } = payload;
-    const toCreate = {key: genId(), name, age, hometown};
-    try {
-        insertedItem = await db.insert(toCreate);
-        return insertedItem;
-    } catch (error) { // catches the edge case where the auto-generated key already exists
-        insertedItem = await createUser(payload);
-        return insertedItem;
-    }
-}
-```
-
-We'll expose this function to `POST` requests on the route `/users` to allow creation of users over HTTP.
+We'll expose a function that creates user records to HTTP `POST` requests on the route `/users`.
 
 ```js
 app.post('/users', async (req, res) => {
-    const insertedUser = await createUser(req.body);
+    const { name, age, hometown } = req.body;
+    const toCreate = { name, age, hometown};
+    const insertedUser = await db.put(toCreate); // put() will autogenerate a key for us
     res.status(201).json(insertedUser);
 });
+```
+
+#### Request
+
+`POST` a payload to the endpoint:
+
+```json
+{
+    "name": "Beverly",
+    "age": 44,
+    "hometown": "Copernicus City"
+}
+```
+
+#### Response
+
+Our server should respond with a status of `201` and a body of:
+
+```json
+{
+    "key": "dl9e6w6859a9",
+    "name": "Beverly",
+    "age": 44,
+    "hometown": "Copernicus City"
+}
 ```
 
 ### Reading Records
 
 To read records, we can simply use `Base.get(key)`. 
 
-If we tie a `GET` request to the `/users` path with a query param giving a user id (i.e. `/users?id=78jrji`), we can return a record of the user over HTTP.
+If we tie a `GET` request to the `/users` path with a query param giving a user id (i.e. `/users?id=dl9e6w6859a9`), we can return a record of the user over HTTP.
 
 ```js
 app.get('/users', async (req, res) => {
@@ -94,6 +100,25 @@ app.get('/users', async (req, res) => {
         res.status(404).json({"message": "user not found"});
     }
 });
+```
+
+#### Request
+
+Let's try reading the record we just created.
+
+Make a `GET` to the path `/users?id=dl9e6w6859a9`.
+
+#### Response
+
+The server should return the same record:
+
+```json
+{
+    "key": "dl9e6w6859a9",
+    "name": "Beverly",
+    "age": 44,
+    "hometown": "Copernicus City"
+}
 ```
 
 ### Updating Records
@@ -112,6 +137,31 @@ app.put('/users/:id', async (req, res) => {
 });
 ```
 
+#### Request
+
+We can update the record by passing a `PUT` to the path `/users/dl9e6w6859a9` with the following payload:
+
+```json
+{
+    "name": "Wesley",
+    "age": 24,
+    "hometown": "San Francisco"
+}
+```
+
+#### Response
+
+Our server should respond with the new body of:
+
+```json
+{
+    "key": "dl9e6w6859a9",
+    "name": "Wesley",
+    "age": 24,
+    "hometown": "San Francisco"
+}
+```
+
 
 ### Deleting Records
 
@@ -125,4 +175,26 @@ app.delete('/users/:id', async (req, res) => {
     await db.delete(id);
     res.json({"message": "deleted"})
 });
+```
+
+#### Request
+
+We can delete the record by passing a `DELETE` to the path `/users/dl9e6w6859a9`.
+
+```json
+{
+    "name": "Wesley",
+    "age": 24,
+    "hometown": "San Francisco"
+}
+```
+
+#### Response
+
+Our server should respond with:
+
+```json
+{
+    "message": "deleted"
+}
 ```
