@@ -782,6 +782,26 @@ Queries are regular json objects / Python dicts with conventions for different o
 {"user.age?r": [22, 30]}
 ```
 
+#### Contains
+
+```json
+{
+  // if user email contains the substring @deta.sh
+  "user.email?contains": "@deta.sh" 
+}
+```
+
+```json
+{
+  // if berlin is in a list of places lived 
+  "user.places_lived_list?contains": "berlin"
+}
+```
+
+:::note
+`?contains` only works for a list of strings if checking for membership in a list; it does not apply to list of other data types. You can store your lists always as a list of strings if you want to use this query.
+:::
+
 ## Contact
 
 `team@deta.sh`
