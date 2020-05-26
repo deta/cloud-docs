@@ -95,7 +95,7 @@ books = deta.Base("books")
 </Tabs>
 
 :::note
-A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will will grow with your app's needs.
+A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will grow with your app's needs.
 :::
 
 
@@ -729,7 +729,7 @@ Queries are regular json objects / Python dicts with conventions for different o
 {"age": 22, "name": "Aavash"}
 
 // hierarchical
-{"user.prof.age": 22, "user.prof.name": "Aavash"}
+{"user.profile.age": 22, "user.profile.name": "Beverly"}
 ```
 
 ```json
@@ -799,7 +799,7 @@ Queries are regular json objects / Python dicts with conventions for different o
 ```
 
 :::note
-`?contains` only works for a list of strings if checking for membership in a list; it does not apply to list of other data types. You can store your lists always as a list of strings if you want to use this query.
+`?contains` only works for a list of strings if checking for membership in a list; it does not apply to list of other data types. You can store your lists always as a list of strings if you want to check for membership.
 :::
 
 ## Contact
