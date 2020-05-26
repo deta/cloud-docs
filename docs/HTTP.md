@@ -106,7 +106,7 @@ Stores multiple items in a single request. This request overwrites an item if th
 }
 ```
 
-### Client errors
+#### Client errors
 
 In case of client errors, **no items** in the request are stored.
 
@@ -257,7 +257,7 @@ Creates a new item only if no item with the same `key` exists.
 }
 ```
 
-### Client errors  
+#### Client errors  
 
 #### `409 Conflict` (if key already exists)
 
@@ -347,7 +347,7 @@ For paginated responses, `last` will return the last key seen in the response. Y
 }
 ```
 
-### Client Errors 
+#### Client Errors 
 
 #### `400 Bad Request`
 
