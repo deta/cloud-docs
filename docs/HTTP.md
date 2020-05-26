@@ -267,7 +267,7 @@ Creates a new item only if no item with the same `key` exists.
 }
 ```
 
-#### `404 Bad Request`
+#### `400 Bad Request`
 
 ```json
 {
