@@ -572,9 +572,9 @@ Then the following update operation :
 const updates = {
   "profile.age": 33, // set profile.age to 33
   "profile.active": true, // set profile.active to true
-  "profile.email": "jimmy@deta.sh" // create a new attribute 'profile.email'
+  "profile.email": "jimmy@deta.sh", // create a new attribute 'profile.email'
   "profile.hometown": users.util.trim(), // remove 'profile.hometown'
-  "on_mobile": users.util.trim(), // remove 'on_mobile'
+  "on_mobile": users.util.trim() // remove 'on_mobile'
 }
 
 const res = await db.update(updates, "user-a");
@@ -589,7 +589,7 @@ Results in the following item
   "profile": {
     "age": 33,
     "active": true,
-    "email": "jimmy@deta.sh",
+    "email": "jimmy@deta.sh"
   }
 }
 ```
@@ -638,9 +638,9 @@ Then the following update operation:
 updates = {
   "profile.age": 33,  # set profile.age to 33
   "profile.active": true, # set profile.active to true
-  "profile.email": "jimmy@deta.sh" # create a new attribute 'profile.email'
+  "profile.email": "jimmy@deta.sh", # create a new attribute 'profile.email'
   "profile.hometown": users.util.trim(), # remove 'profile.hometown'
-  "on_mobile": users.util.trim(), # remove 'on_mobile'
+  "on_mobile": users.util.trim() # remove 'on_mobile'
 }
 
 db.update(updates, "user-a")
@@ -655,7 +655,7 @@ Results in the following item:
   "profile": {
     "age": 33,
     "active": true,
-    "email": "jimmy@deta.sh",
+    "email": "jimmy@deta.sh"
   }
 }
 ```

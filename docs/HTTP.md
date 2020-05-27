@@ -349,7 +349,7 @@ results in the following item in the database:
   "profile": {
     "age": 33,
     "active": true,
-    "email": "jimmy@deta.sh",
+    "email": "jimmy@deta.sh"
   }
 }
 ```
