@@ -371,7 +371,7 @@ results in the following item in the database:
 
 ### Client errors  
 
-#### `404 Not Found` (if key already exists)
+#### `404 Not Found` (if key does not exist)
 
 ```json
 {
