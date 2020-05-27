@@ -611,9 +611,9 @@ If the item is updated, the promise resolves to `null`. Otherwise, an error is r
     - Description: the key of the item to be updated.
 
 ##### Set and Trim
-- **Set** : `Set` is practiced through normal key-value pairs. The update operation changes the values of the attributes provided in the `updates` object if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
+- **Set** : `Set` is practiced through normal key-value pairs. The update operation changes the values of the attributes provided in the `updates` dict if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
 
-- **Trim**: For removing an attribute from an item, the util `base.util.trim()` must be used as the value of an attribute in the `updates` object.
+- **Trim**: For removing an attribute from an item, the util `base.util.trim()` must be used as the value of an attribute in the `updates` dict.
 
 #### Code Example
 
