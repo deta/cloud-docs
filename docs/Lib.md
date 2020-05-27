@@ -108,6 +108,7 @@ Deta's **`Base`** class offers the following methods to interact with your Deta 
   - [**`get`**](#get) – Retrieves an item from the database by its key.
   - [**`fetch`**](#insert) – Retrieves multiple items from the database based on the provided (optional) filters. 
   - [**`delete`**](#delete) – Deletes an item from the database.
+  - [**`update`**](#update) – Updates an item in the database.
 
 ### Put
 
@@ -517,6 +518,151 @@ Returns a promise which resolves to the put items on a successful insert, and ra
     }
 }
 ```
+
+</TabItem>
+</Tabs>
+
+### Update
+
+`update` updates an existing item from the database.
+
+<Tabs
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+    { label: 'Python', value: 'py', },
+  ]
+}>
+<TabItem value="js">
+
+**`async update(updates, key)`**
+
+#### Parameters
+
+- **`updates`** (required) - Accepts: `object` (JSON serializable)
+    - Description: a json object describing the updates on the item 
+- **`key`** (required) – Accepts: `string`
+    - Description: the key of the item to be updated.
+
+##### Set and Trim
+- **Set** : `Set` is practiced through normal key-value pairs. The update operation changes the values of the attributes provided in the `updates` object if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
+
+- **Trim**: For removing an attribute from an item, the util `base.util.trim()` must be used as the value of an attribute in the `updates` object.
+
+#### Code Example
+
+Consider we have the following item in a base `const users = deta.Base('users')`:
+
+```json
+{
+  "key": "user-a",
+  "username": "jimmy",
+  "profile": {
+    "age": 32,
+    "active": false,
+    "hometown": "pittsburgh" 
+  },
+  "on_mobile": true 
+}
+```
+
+Then the following update operation :
+
+```js
+const updates = {
+  "profile.age": 33, // set profile.age to 33
+  "profile.active": true, // set profile.active to true
+  "profile.email": "jimmy@deta.sh", // create a new attribute 'profile.email'
+  "profile.hometown": users.util.trim(), // remove 'profile.hometown'
+  "on_mobile": users.util.trim() // remove 'on_mobile'
+}
+
+const res = await db.update(updates, "user-a");
+```
+
+Results in the following item
+
+```json
+{
+  "key": "user-a",
+  "username": "jimmy",
+  "profile": {
+    "age": 33,
+    "active": true,
+    "email": "jimmy@deta.sh"
+  }
+}
+```
+
+#### Returns
+
+If the item is updated, the promise resolves to `null`. Otherwise, an error is raised.
+
+</TabItem>
+<TabItem value="py">
+
+**`update(updates:dict, key:str)`**
+
+#### Parameters
+
+- **`updates`** (required) - Accepts: `dict` (JSON serializable)
+    - Description: a dict describing the updates on the item 
+- **`key`** (required) – Accepts: `string`
+    - Description: the key of the item to be updated.
+
+##### Set and Trim
+- **Set** : `Set` is practiced through normal key-value pairs. The update operation changes the values of the attributes provided in the `updates` dict if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
+
+- **Trim**: For removing an attribute from an item, the util `base.util.trim()` must be used as the value of an attribute in the `updates` dict.
+
+#### Code Example
+
+Consider we have the following item in a base `users = deta.Base('users')`:
+
+```json
+{
+  "key": "user-a",
+  "username": "jimmy",
+  "profile": {
+    "age": 32,
+    "active": false,
+    "hometown": "pittsburgh" 
+  },
+  "on_mobile": true 
+}
+```
+
+Then the following update operation:
+
+```py
+updates = {
+  "profile.age": 33,  # set profile.age to 33
+  "profile.active": true, # set profile.active to true
+  "profile.email": "jimmy@deta.sh", # create a new attribute 'profile.email'
+  "profile.hometown": users.util.trim(), # remove 'profile.hometown'
+  "on_mobile": users.util.trim() # remove 'on_mobile'
+}
+
+db.update(updates, "user-a")
+```
+
+Results in the following item:
+
+```json
+{
+  "key": "user-a",
+  "username": "jimmy",
+  "profile": {
+    "age": 33,
+    "active": true,
+    "email": "jimmy@deta.sh"
+  }
+}
+```
+
+#### Returns
+
+If the item is updated, returns `None`. Otherwise, an exception is raised.
 
 </TabItem>
 </Tabs>

@@ -285,6 +285,120 @@ Bad requests occur in the following cases:
 </TabItem>
 </Tabs>
 
+### Update Item
+
+**`PATCH /items/{key}`**
+
+Updates an item only if an item with `key` exists. 
+
+<Tabs
+  defaultValue="request"
+  values={[
+    { label: 'Request', value: 'request', },
+    { label: 'Response', value: 'response', },
+  ]
+}>
+<TabItem value="request">
+
+
+| JSON Payload | Required | Type              | Description                              |
+|--------------|----------|-------------------|------------------------------------------|
+| `set`        | no       | `object`          | The attributes to be updated or created. |
+| `delete`     | no       | `string array`    | The attributes to be deleted.            |
+
+#### Example
+
+If the following item exists in the database
+
+```json
+{
+  "key": "user-a",
+  "username": "jimmy",
+  "profile": {
+    "age": 32,
+    "active": false,
+    "hometown": "pittsburgh" 
+  },
+  "on_mobile": true 
+}
+```
+
+Then the request
+
+```json
+{
+   "set" : {
+     // change ages to 33
+     "profile.age": 33, 
+     // change active to true
+     "profile.active": true, 
+     // add a new attribute `profile.email`
+     "profile.email": "jimmy@deta.sh"
+   },
+   // remove attributes 'profile.hometown' and 'on_mobile'
+   "delete": ["profile.hometown", "on_mobile"]
+}
+```
+
+results in the following item in the database:
+
+```json
+{
+  "key": "user-a",
+  "username": "jimmy",
+  "profile": {
+    "age": 33,
+    "active": true,
+    "email": "jimmy@deta.sh"
+  }
+}
+```
+
+</TabItem>
+<TabItem value="response">
+
+#### `200 OK`
+
+```json
+{
+   "key": {key},
+   "set": {
+     // identical to the request
+   },
+   "delete": ["field1", ..] // identical to the request 
+}
+```
+
+### Client errors  
+
+#### `404 Not Found` (if key does not exist)
+
+```json
+{
+  "errors": ["Key not found"] 
+}
+```
+
+#### `400 Bad Request`
+
+```json
+{
+  "errors": [
+     // error messages
+  ]
+}
+```
+
+Bad requests occur in the following cases: 
+- if you're updating or deleting the `key`  
+- if `set` and `delete` have conflicting attributes 
+- if you're setting a hierarchical attribute but an upper level attribute does not exist, for eg. `{"set": {"user.age": 22}}` but `user` is not an attribute of the item. 
+- if attributes in `set` do not follow the [naming constraints](#naming_constraints)
+
+</TabItem>
+</Tabs>
+
+
 ### Query Items
 
 **`POST /query`**
