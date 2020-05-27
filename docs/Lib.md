@@ -601,7 +601,7 @@ If the item is updated, the promise resolves to `null`. Otherwise, an error is r
 </TabItem>
 <TabItem value="py">
 
-**`async update(updates, key)`**
+**`update(updates:dict, key:str)`**
 
 #### Parameters
 
