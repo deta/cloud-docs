@@ -106,7 +106,7 @@ Deta's **`Base`** class offers the following methods to interact with your Deta 
   - [**`put`**](#put) – Stores an item in the database. It will update an item if the key already exists.
   - [**`insert`**](#insert) – Stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
   - [**`get`**](#get) – Retrieves an item from the database by its key.
-  - [**`fetch`**](#insert) – Retrieves multiple items from the database based on the provided (optional) filters. 
+  - [**`fetch`**](#fetch) – Retrieves multiple items from the database based on the provided (optional) filters. 
   - [**`delete`**](#delete) – Deletes an item from the database.
   - [**`update`**](#update) – Updates an item in the database.
 
