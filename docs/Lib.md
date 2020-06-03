@@ -944,8 +944,24 @@ Queries are regular json objects / Python dicts with conventions for different o
 }
 ```
 
+#### Not Contains
+
+```json
+{
+  // if user email does not contain @deta.sh
+  "user.email?not_contains": "@deta.sh" // 'user.email?!contains' also valid
+}
+```
+
+```json
+{
+  // if berlin is not in a list of places lived
+  "user.places_lived_list?not_contains": "berlin" // 'user.places_lived_list?!contains' also valid
+}
+```
+
 :::note
-`?contains` only works for a list of strings if checking for membership in a list; it does not apply to list of other data types. You can store your lists always as a list of strings if you want to check for membership.
+`?contains` and `?not_contains` only works for a list of strings if checking for membership in a list; it does not apply to list of other data types. You can store your lists always as a list of strings if you want to check for membership.
 :::
 
 ## Contact
