@@ -1,5 +1,5 @@
 ---
-id: Base
+id: about
 title: About Deta Base
 sidebar_label: About
 ---

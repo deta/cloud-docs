@@ -15,4 +15,4 @@ To accomplish this, we offer a set of minimal-config cloud primitives, letting y
 2. Using your app
 
 
-[Deta Base](Base), our NoSQL database, is our first product.
+[Deta Base](base/about), our NoSQL database, is our first product.
