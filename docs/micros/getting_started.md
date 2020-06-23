@@ -234,4 +234,3 @@ Successfully disabled http auth
 If we now refresh the endpoint in the browser, the Micro should respond with **Hello World**. 
 
 Congratulations, you have just deployed and published your first Micro!
-
