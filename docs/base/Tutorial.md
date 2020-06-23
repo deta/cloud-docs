@@ -24,7 +24,7 @@ To configure the app, import the dependencies and instantiate your database.
 const express = require('express');
 const Deta = require("deta");
 
-const deta = new Deta('myProjectKey'); // configure your Deta project
+const deta = Deta('myProjectKey'); // configure your Deta project
 const db = deta.Base('simpleDB');  // access your DB
 
 
