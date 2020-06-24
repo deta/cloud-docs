@@ -74,7 +74,7 @@ To create a micro, navigate in your Terminal to a parent directory for your firs
 <TabItem value="js">
 
 ```shell
-deta new --name first_micro --node first_micro
+deta new --name first_micro --node
 ```
 
 This will create a new Node.js Micro in the 'cloud' as well as a local copy inside a directory called `first_micro` which will contain an `index.js` file.
@@ -95,7 +95,7 @@ The CLI should respond:
 <TabItem value="py">
 
 ```shell
-deta new --name first_micro --python first_micro
+deta new --name first_micro --python
 ```
 
 This will create a new Python Micro in the 'cloud' as well as a local copy inside a directory called `first_micro` which will contain a `main.py` file.
@@ -131,7 +131,7 @@ Save this endpoint URL somewhere, as we will be visiting it shortly.
 
 #### Setup and Dependencies
 
-Within the directory `first_micro`, run the shell command:
+Enter the directory `first_micro`, and then run the shell command:
 
 ```shell
 npm init
@@ -184,7 +184,7 @@ found 0 vulnerabilities
 <TabItem value="py">
 
 #### Setup and Dependencies
-Within the directory `first_micro`, create a file, `requirements.txt`,  which tells Deta which dependencies to install.
+Enter the directory `first_micro`, and then create a file, `requirements.txt`,  which tells Deta which dependencies to install.
 
 Let's add *flask* to `requirements.txt` and save this file locally.
 
