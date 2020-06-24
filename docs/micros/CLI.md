@@ -21,6 +21,8 @@ To install the CLI, check out [Getting Started](getting_started).
 
 [`deta details`](#deta-details)	 - Get detailed information about a Deta Micro
 
+[`deta watch`](#deta-watch)	 - Auto-deploy local changes in real time to your Micro
+
 [`deta auth`](#deta-auth)	 - Change auth settings for a Deta Micro (public access, api keys)
 
 [`deta pull`](#deta-pull)	 - Pull the live code from a Deta Micro onto your local machine
@@ -109,11 +111,27 @@ deta details [flags] [path]
 ```
 
 
+## deta watch
+
+Auto-deploy locally saved changes in real time to your Deta micro. Ctrl+S & refresh.
+
+#### Command
+
+```
+deta watch [path] [flags]
+```
+
+#### Flags
+
+```
+  -h, --help   help for watch
+```
+
 
 
 ## deta auth
 
-Change auth settings for a deta micro
+Change auth settings for a Deta Micro
 
 #### Command
 
