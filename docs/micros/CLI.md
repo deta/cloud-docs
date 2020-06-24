@@ -76,7 +76,7 @@ deta new [flags] [path]
 
 The `path` defaults to the current working directory if not provided.
 
-`deta new` will first check `path` for a `main.py` or `index.js` file. If one is found, `deta new` will bootstrap the Micro runtime based on the local file. If `path` is an empty directory `deta` will create a starter app in `path`. 
+`deta new` will first check `path` for a `main.py` or `index.js` file. If one is found, `deta new` will bootstrap the Micro runtime based on the local file. If `path` is an empty directory, a runtime (with `--node` or `--python`) must be provided and `deta` will create a starter app in `path`. 
 
 If `path` is not an empty directory and does not have an entrypoint file (either `main.py` or `index.js`) a `name` must be provided, under which `deta` will create a micro with a starter app.
 
@@ -246,7 +246,7 @@ deta pull [flags] [path]
 
 ```
   -h, --help   help for pull
-      --name   deta micro name 
+      --name   deta micro name, required 
       --project deta project
 ```
 
