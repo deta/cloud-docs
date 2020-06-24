@@ -8,13 +8,37 @@ import TabItem from '@theme/TabItem';
 
 ### Configuring & Installing the Deta CLI
 
+
+<Tabs
+  defaultValue="linux"
+  values={[
+    { label: 'Mac', value: 'mac', },
+    { label: 'Linux', value: 'linux', },
+  ]
+}>
+<TabItem value="linux">
+
 To install the Deta CLI, open a Terminal and enter:
 
-```
-d
+```shell
+curl -fsSL https://get.deta.dev/cli.sh | sh
 ```
 
-This will download the binary which conatins the CLI code to `...` and add the `deta` system command to `~/usr/local/bin/`.
+
+</TabItem>
+<TabItem value="mac">
+
+To install the Deta CLI, open a Terminal and enter:
+
+```shell
+curl -fsSL https://get.deta.dev/cli.sh | sh
+```
+
+</TabItem>
+</Tabs>
+
+
+This will download the binary which conatins the CLI code. It will try to export the `deta` command to your path. If it does not succeed, follow the directions output by the install script to export `deta` to your path.
 
 ### Logging in to Deta via the CLI
 
