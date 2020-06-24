@@ -131,7 +131,7 @@ Save this endpoint URL somewhere, as we will be visiting it shortly.
 
 #### Setup and Dependencies
 
-Within the directory `first_micro`, run the shell command:
+Enter the directory `first_micro`, and then run the shell command:
 
 ```shell
 npm init -y
@@ -184,7 +184,7 @@ found 0 vulnerabilities
 <TabItem value="py">
 
 #### Setup and Dependencies
-Within the directory `first_micro`, create a file, `requirements.txt`,  which tells Deta which dependencies to install.
+Enter the directory `first_micro`, and then create a file, `requirements.txt`,  which tells Deta which dependencies to install.
 
 Let's add *flask* to `requirements.txt` and save this file locally.
 
