@@ -10,13 +10,14 @@ import TabItem from '@theme/TabItem';
 
 
 <Tabs
-  defaultValue="linux"
+  defaultValue="mac"
   values={[
     { label: 'Mac', value: 'mac', },
     { label: 'Linux', value: 'linux', },
+    { label: 'Windows', value: 'win', },
   ]
 }>
-<TabItem value="linux">
+<TabItem value="mac">
 
 To install the Deta CLI, open a Terminal and enter:
 
@@ -26,12 +27,21 @@ curl -fsSL https://get.deta.dev/cli.sh | sh
 
 
 </TabItem>
-<TabItem value="mac">
+<TabItem value="linux">
 
 To install the Deta CLI, open a Terminal and enter:
 
 ```shell
 curl -fsSL https://get.deta.dev/cli.sh | sh
+```
+
+</TabItem>
+<TabItem value="win">
+
+To install the Deta CLI, open PowerShell and enter:
+
+```shell
+iwr https://get.deta.dev/cli.ps1 -useb | iex
 ```
 
 </TabItem>
