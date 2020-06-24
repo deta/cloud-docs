@@ -33,6 +33,8 @@ To install the CLI, check out [Getting Started](getting_started).
 
 [`deta version`](#deta-version)	 - Print the Deta version
 
+[`deta watch`](#deta-watch) - Deploy changes in real time
+
 ## deta login
 
 Login to deta via the CLI. This is necessary before using any other commands.
@@ -72,10 +74,11 @@ deta new [flags] [path]
 
 #### Notes
 
-`deta new` will first check the current directory for a `main.py` or `index.js` file. If one is found, `deta new` will bootstrap the Micro runtime based on the local file.
+The `path` defaults to the current working directory if not provided.
 
+`deta new` will first check `path` for a `main.py` or `index.js` file. If one is found, `deta new` will bootstrap the Micro runtime based on the local file. If `path` is an empty directory, a runtime (with `--node` or `--python`) must be provided and `deta` will create a starter app in `path`. 
 
-If the current directory is not empty, a `[path]` must be provided.
+If `path` is not an empty directory and does not have an entrypoint file (either `main.py` or `index.js`) a `name` must be provided, under which `deta` will create a micro with a starter app.
 
 ## deta deploy
 
@@ -84,7 +87,7 @@ Deploy your local code (and dependencies) to your Deta Micro.
 #### Command
 
 ```
-deta deploy [flags]
+deta deploy [flags] [path]
 ```
 
 #### Flags
@@ -160,7 +163,7 @@ Disable Deta's *Http Auth* for a Deta Micro (this makes the HTTP endpoint public
 #### Command
 
 ```
-deta auth disable [value] [flags]
+deta auth disable [flags]
 ```
 
 #### Options
@@ -168,7 +171,6 @@ deta auth disable [value] [flags]
 ```
   -h, --help   help for disable
 ```
-
 
 
 ### deta auth enable
@@ -204,7 +206,7 @@ deta auth create-api-key [flags]
 ```
   -d, --desc string      api-key description
   -h, --help             help for create-api-key
-  -n, --name string      api-key name
+  -n, --name string      api-key name, required
   -o, --outfile string   file to save the api-key
 ```
 
@@ -225,7 +227,7 @@ deta auth delete-api-key [flags]
 ```
   -d, --desc string   api-key description
   -h, --help          help for delete-api-key
-  -n, --name string   api-key name
+  -n, --name string   api-key name, required
 ```
 
 
@@ -237,17 +239,16 @@ Pull the code from a Deta Micro to your local machine.
 
 
 ```
-deta pull [path_to_pull_to] [flags]
+deta pull [flags] [path]
 ```
 
 #### Flags
 
 ```
   -h, --help   help for pull
+      --name   deta micro name, required 
+      --project deta project
 ```
-
-#### Notes
-
 
 
 ## deta update
@@ -344,6 +345,22 @@ Print the Deta version
 
 ```
 deta version [flags]
+```
+
+#### Flags
+
+```
+  -h, --help   help for version
+```
+
+## deta watch
+
+Deploy changes in real time.
+
+#### Command
+
+```
+deta watch [flags] [path]
 ```
 
 #### Flags

@@ -74,7 +74,7 @@ To create a micro, navigate in your Terminal to a parent directory for your firs
 <TabItem value="js">
 
 ```shell
-deta new --name first_micro --node
+deta new --node first_micro
 ```
 
 This will create a new Node.js Micro in the 'cloud' as well as a local copy inside a directory called `first_micro` which will contain an `index.js` file.
@@ -95,7 +95,7 @@ The CLI should respond:
 <TabItem value="py">
 
 ```shell
-deta new --name first_micro --python
+deta new --python first_micro
 ```
 
 This will create a new Python Micro in the 'cloud' as well as a local copy inside a directory called `first_micro` which will contain a `main.py` file.
@@ -134,7 +134,7 @@ Save this endpoint URL somewhere, as we will be visiting it shortly.
 Enter the directory `first_micro`, and then run the shell command:
 
 ```shell
-npm init
+npm init -y
 ``` 
 
 This will initialize a Node.js project in your current directory with npm's wizard.
@@ -237,18 +237,22 @@ Installing collected packages: Werkzeug, itsdangerous, MarkupSafe, Jinja2, click
 </Tabs>
 
 #### Visiting our Endpoint
-Let's visit the endpoint the endpoint we saved earlier. 
+Let's visit the endpoint the endpoint we saved earlier.  
 
 (If you didn't save it, simply type `deta details` into the CLI, which will give you the endpoint alongside other information about your Micro).
 
-When visiting the endpoint in a browser, the response should be:
+Open up your endpoint in a browser. You might be prompted to log in to your deta account on visiting your endpoint for the first time.
+
+You should see **Hello, World**
+
+If you're accessing the endpoint from not in a browser (like from curl) or if you have disabled cookies in your browser, the response will be:
 ```json
 {
     "errors":["Unauthorized"]
 }
 ```
 
-This is because *Deta Auth* is protecting the endpoint from unauthorized access.
+This is because *Deta Auth* is protecting the endpoint from unauthorized access. 
 
 
 ### Opening Your Micro To the Public
@@ -264,7 +268,5 @@ The CLI should respond:
 ```shell
 Successfully disabled http auth
 ```
-
-If we now refresh the endpoint in the browser, the Micro should respond with **Hello World**. 
 
 Congratulations, you have just deployed and published your first Micro!
