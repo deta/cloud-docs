@@ -369,7 +369,7 @@ results in the following item in the database:
 }
 ```
 
-### Client errors  
+#### Client errors  
 
 #### `404 Not Found` (if key does not exist)
 
