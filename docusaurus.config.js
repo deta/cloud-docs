@@ -1,7 +1,7 @@
 module.exports = {
   title: 'Deta Docs',
   tagline: 'Deta Library and HTTP API docs.',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://docs.deta.sh',
   baseUrl: '/',
   favicon: 'img/logo.svg',
   organizationName: 'facebook', // Usually your GitHub org/user name.
