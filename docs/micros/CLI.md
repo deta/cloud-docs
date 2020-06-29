@@ -33,8 +33,6 @@ To install the CLI, check out [Getting Started](getting_started).
 
 [`deta version`](#deta-version)	 - Print the Deta version
 
-[`deta watch`](#deta-watch) - Deploy changes in real time
-
 ## deta login
 
 Login to deta via the CLI. This is necessary before using any other commands.
@@ -345,22 +343,6 @@ Print the Deta version
 
 ```
 deta version [flags]
-```
-
-#### Flags
-
-```
-  -h, --help   help for version
-```
-
-## deta watch
-
-Deploy changes in real time.
-
-#### Command
-
-```
-deta watch [flags] [path]
 ```
 
 #### Flags
