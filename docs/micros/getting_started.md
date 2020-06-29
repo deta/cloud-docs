@@ -65,6 +65,7 @@ Upon a successful login, you are ready to start building [Micros](about).
 To create a micro, navigate in your Terminal to a parent directory for your first micro and type:
 
 <Tabs
+  groupId="preferred-language"
   defaultValue="py"
   values={[
     { label: 'JavaScript', value: 'js', },
@@ -121,6 +122,7 @@ Save this endpoint URL somewhere, as we will be visiting it shortly.
 ### Updating your Micro: Dependencies and Code
 
 <Tabs
+  groupId="preferred-language"
   defaultValue="py"
   values={[
     { label: 'JavaScript', value: 'js', },
