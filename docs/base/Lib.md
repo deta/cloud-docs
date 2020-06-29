@@ -185,9 +185,9 @@ deta = Deta("project key")
 db = deta.Base("simple_db")
 
 # you can store objects
-db.put({"name": "alex", age: 77})  # A key will be automatically generated
-db.put({"name": "alex", age: 77}, "one")  # We will use "one" as a key
-db.put({"name": "alex", age: 77, key:"one"})  # The key could also be included in the object itself
+db.put({"name": "alex", "age": 77})  # A key will be automatically generated
+db.put({"name": "alex", "age": 77}, "one")  # We will use "one" as a key
+db.put({"name": "alex", "age": 77, "key": "one"})  # The key could also be included in the object itself
 
 # or store simple types:
 db.put("hello, worlds")
