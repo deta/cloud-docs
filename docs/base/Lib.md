@@ -14,6 +14,7 @@ The Deta library is the easiest way to store and retrieve data from your Deta Ba
 First, install the Deta library in your project's directory.
 
 <Tabs
+  groupId="preferred-language"
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
@@ -52,6 +53,7 @@ To start working with your Base, you need to import the `Deta` class and initial
 Deta Bases are created for you automatically when you start using them.
 
 <Tabs
+  groupId="preferred-language"
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
@@ -119,6 +121,7 @@ In the case you do not provide us with a key, we will auto generate a 12 char lo
 You should also use `put` when you want to update an item in the database.
 
 <Tabs
+  groupId="preferred-language"
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
@@ -207,6 +210,7 @@ db.put(["a", "b", "c"], "my_abc")
 `get` retrieves an item from the database by it's `key`.
 
 <Tabs
+  groupId="preferred-language"
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
@@ -274,6 +278,7 @@ If not found, the function will return `None`.
 `delete` deletes an item form the database provided a key.
 
 <Tabs
+  groupId="preferred-language"
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
@@ -336,6 +341,7 @@ The `insert` method inserts a single item into a **Base**, but is unique from [`
 
 
 <Tabs
+  groupId="preferred-language"
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
@@ -408,6 +414,7 @@ The Put Many method inserts up to 25 items into a Base at once on a single call.
 
 
 <Tabs
+  groupId="preferred-language"
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
@@ -478,14 +485,12 @@ Returns a promise which resolves to the put items on a successful insert, and th
 
 
 #### Code Example
-```js
-
+```py
 res_one = db.put_many([
   {"name": "Beverly", "hometown": "Copernicus City", "key": "one"}, // key provided
   "dude", // key auto-generated 
   ["Namaskāra", "marhabaan", "hello", "yeoboseyo"] // key auto-generated 
-]);
-
+])
 ```
 
 #### Returns
@@ -527,6 +532,7 @@ Returns a promise which resolves to the put items on a successful insert, and ra
 `update` updates an existing item from the database.
 
 <Tabs
+  groupId="preferred-language"
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
@@ -706,6 +712,7 @@ For the following examples, let's assume we have a **Base** of the following str
 
 
 <Tabs
+  groupId="preferred-language"
   defaultValue="js"
   values={[
     { label: 'JavaScript', value: 'js', },
