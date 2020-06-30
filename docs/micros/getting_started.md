@@ -58,7 +58,7 @@ From a Terminal, type `deta login`.
 
 This command will open your browser and authenticate your CLI through Deta's web application.
 
-Upon a successful login, you are ready to start building [Micros](about).
+Upon a successful login, you are ready to start building [Micros](about.md).
 
 ### Creating Your First Micro
 
