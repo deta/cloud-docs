@@ -1,7 +1,8 @@
 module.exports = {
   someSidebar: {
-    General: ['deta'],
-    ["Deta Base"]: ['base/about', 'base/lib', 'base/HTTP', 'base/Tutorial', 'base/py_tutorial'],
-    ["Deta Micros"]: ['micros/about', 'micros/getting_started', 'micros/CLI'],
+    General: ['home', 'faqs'],
+    ["Deta Base"]: ['base/about', 'base/sdk', 'base/http', 'base/node_tutorial', 'base/py_tutorial'],
+    ["Deta Micros"]: ['micros/about', 'micros/getting_started'],
+    ["Deta CLI"]: ['cli/install', 'cli/commands'],
   },
 };

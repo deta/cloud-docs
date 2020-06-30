@@ -1,6 +1,6 @@
 ---
-id: Tutorial
-title: Tutorial
+id: node_tutorial
+title: Node.js Tutorial
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';

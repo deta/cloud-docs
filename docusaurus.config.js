@@ -13,10 +13,10 @@ module.exports = {
         alt: 'Deta Logo',
         src: 'img/logo.svg',
       },
-      to: 'docs/deta',
+      to: 'docs/home',
       links: [
         {
-          to: 'docs/deta',
+          to: 'docs/home',
           activeBasePath: 'docs',
           label: 'Docs',
           position: 'left',

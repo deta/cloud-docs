@@ -1,7 +1,7 @@
 ---
-id: CLI
+id: commands
 title: Deta CLI Reference
-sidebar_label: Deta CLI
+sidebar_label: Command Reference
 ---
 
 ## Summary

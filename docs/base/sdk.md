@@ -1,6 +1,6 @@
 ---
-id: lib
-title: Deta Library
+id: sdk
+title: Deta Base SDK
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
