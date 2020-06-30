@@ -28,6 +28,10 @@ module.exports = {
         },
       ],
     },
+    algolia: {
+      apiKey: '4b3aaec0466a855ce8ec420d3baedde3',
+      indexName: 'deta',
+    },
     footer: {
       style: 'light',
       links: [
