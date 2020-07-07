@@ -12,8 +12,8 @@ module.exports = {
       logo: {
         alt: 'Deta Logo',
         src: 'img/logo.svg',
+        target: '/docs/home',
       },
-      to: 'docs/home',
       links: [
         {
           to: 'docs/home',

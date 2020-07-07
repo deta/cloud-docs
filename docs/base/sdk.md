@@ -100,17 +100,26 @@ books = deta.Base("books")
 A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will grow with your app's needs.
 :::
 
+:::warning
+Your project key is confidential and meant to be used by you. Anyone who has your project key can access your database. Please do not share it or commit it in your code.
+:::
+
 
 ## Using
 
 Deta's **`Base`** class offers the following methods to interact with your Deta Base:
 
-  - [**`put`**](#put) – Stores an item in the database. It will update an item if the key already exists.
-  - [**`insert`**](#insert) – Stores an item in the database but raises an error if the key already exists. `insert`is ~2x slower than `put`.
-  - [**`get`**](#get) – Retrieves an item from the database by its key.
-  - [**`fetch`**](#fetch) – Retrieves multiple items from the database based on the provided (optional) filters. 
-  - [**`delete`**](#delete) – Deletes an item from the database.
-  - [**`update`**](#update) – Updates an item in the database.
+[**`put`**](#put) – Stores an item in the database. It will update an item if the key already exists.
+
+[**`insert`**](#insert) – Stores an item in the database but raises an error if the key already exists. (2x slower than `put`).
+
+[**`get`**](#get) – Retrieves an item from the database by its key.
+
+[**`fetch`**](#fetch) – Retrieves multiple items from the database based on the provided (optional) filters. 
+
+[**`delete`**](#delete) – Deletes an item from the database.
+
+[**`update`**](#update) – Updates an item in the database.
 
 ### Put
 

@@ -3,16 +3,32 @@ id: home
 title: Home
 ---
 
+### Intro
+
 Deta is a micro-cloud crafted with the developer and user experience at heart.
 
 It is our mission is to dramatically reduce the gap between ideas and working cloud applications.
 
-To accomplish this, we offer a set of minimal-config cloud primitives:
+#### Resources
+
+To accomplish our mission, we offer a set of minimal-config cloud primitives:
 
 1. **[Deta Base](#deta-base)** (beta): Instantly useable database with a feature-rich API.
 2. **[Deta Micros](#deta-micros)** (beta): Deploy scalable Node & Python apps in seconds.
 3. **Deta Drive** (soon): Upload, host and serve images and files.
 4. **Deta Auth** (soon): Effortless signup, login & accounts for your apps.
+
+#### Local Development and the Deta CLI
+
+Most developers liketheir local development flow. We provide a CLI that ties your local development workflow into your micro cloud, see:
+
+- [Deta CLI](#deta-cli)
+
+#### Support
+
+If you have any questions, we provide a few ways to get help ASAP:
+
+- [Getting Help](#getting-help)
 
 
 ### Deta Base

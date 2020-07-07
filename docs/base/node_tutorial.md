@@ -88,7 +88,7 @@ Our server should respond with a status of `201` and a body of:
 
 To read records, we can simply use `Base.get(key)`. 
 
-If we tie a `GET` request to the `/users` path with a query param giving a user id (i.e. `/users/dl9e6w6859a9`), we can return a record of the user over HTTP.
+If we tie a `GET` request to the `/users` path with a path param giving a user id (i.e. `/users/dl9e6w6859a9`), we can return a record of the user over HTTP.
 
 ```js
 app.get('/users/:id', async (req, res) => {
@@ -106,7 +106,7 @@ app.get('/users/:id', async (req, res) => {
 
 Let's try reading the record we just created.
 
-Make a `GET` to the path `/users?id=dl9e6w6859a9`.
+Make a `GET` to the path `/users/dl9e6w6859a9`.
 
 #### Response
 
