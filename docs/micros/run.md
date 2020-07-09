@@ -6,9 +6,9 @@ sidebar_lable: Run
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-### Run a Deta Micro from the cli
+### Run from the CLI 
 
-A Deta Micro can be run directly from the `deta cli` with an input.
+A Deta Micro can be run directly from the `deta cli` using the command [deta run](../cli/commands#deta-run) with an input.
 
 In order to run a micro from the cli directly, the micro's code needs to define functions that will be run from the cli with the help of our library `deta`.
 
@@ -30,7 +30,7 @@ const { app } = require('deta');
 // the function must take an event as an argument
 app.lib.run(event => "Welcome to Deta!");
 
-module.exports = app
+module.exports = app;
 ```
 </TabItem>
 
@@ -88,10 +88,10 @@ app.lib.run(event => {
     return {
         // access input to your function with event.json
         message: `hello ${event.json.name}!`}
-    }
+    };
 });
 
-module.exports = app
+module.exports = app;
 ```
 </TabItem>
 
@@ -103,6 +103,7 @@ from deta import app
 @app.lib.run()
 def welcome(event):
     return {
+        # access input to your function with event.json
         "message": f"hello {event.json.get('name')}"
     }
 ```
@@ -120,7 +121,7 @@ And should see the following output.
 ```json
 Response:
     {
-        "message": "hello deta"
+        "message": "hello deta!"
     }
 ```
 
@@ -135,7 +136,7 @@ Boolean flags are provided with a single dash, string arguments with double dash
 For instance:
 
 ```shell
-$ deta run -- --name jimmy --age 33 --emails jimmy@deta.sh --emails alsoJimmy@deta.sh -active
+$ deta run -- --name jimmy --age 33 --emails jimmy@deta.sh --emails jim@deta.sh -active
 ```
 
 will provide the micro with the following input:
@@ -144,7 +145,7 @@ will provide the micro with the following input:
 {
     "name": "jimmy",
     "age": "33", // notice '33' here is a string not an int
-    "emails": ["jimmy@deta.sh", "alsoJimmy@deta.sh"],
+    "emails": ["jimmy@deta.sh", "jim@deta.sh"],
     "active": true
 }
 ```
@@ -155,7 +156,7 @@ You need to explicitly convert the string values to other types in your code if 
 
 Actions help you run different functions based on an `action` that you define for the function.
 
-The `action` defaults to am empty string if not provided
+The `action` defaults to an empty string if not provided.
 
 <Tabs
     defaultValue="js"
@@ -172,18 +173,18 @@ const { app } = require('deta');
 app.lib.run(event => {
     return {
         message: `hello ${event.json.name}!`}
-    }
+    };
     // action 'hello'
 }, "hello");
 
 app.lib.run(event => {
     return {
         message: `good morning ${event.json.name}!`}
-    }
+    };
     // action 'greet'
-}, "greet")
+}, "greet");
 
-module.exports = app
+module.exports = app;
 ```
 </TabItem>
 
@@ -193,6 +194,7 @@ module.exports = app
 from deta import app
 
 # action 'hello'
+# the action does not need to have the same name as the function
 @app.lib.run(action="hello")
 def welcome(event):
     return {
@@ -200,7 +202,6 @@ def welcome(event):
     }
 
 # action 'greet'
-# the action does not need to have the same name as the function
 @app.lib.run(action="greet")
 def greet(event):
     return {
@@ -236,13 +237,13 @@ you should see the following output:
 ```json
 Response:
     {
-        "message": "good morning deta" 
+        "message": "good morning deta!" 
     }
 ```
 
 ### Run and HTTP
 
-You can combine both run and and HTTP triggers in the same deta micro. For this you need to instantiate your app using the `deta` library that is pre-installed on a micro.   
+You can combine both run and HTTP triggers in the same deta micro. For this you need to instantiate your app using the `deta` library that is pre-installed on a micro.   
 
 <Tabs
     defaultValue="js"
@@ -259,10 +260,12 @@ const express = require('express');
 
 const app = App(express());
 
+// triggered with an HTTP request
 app.get('/', async(req, res) => {
-    res.send('Hello deta, i am running with HTTP')
+    res.send('Hello deta, i am running with HTTP');
 });
 
+// triggered from the cli
 app.lib.run(event => {
     return 'Hello deta, i am running from the cli';
 });
@@ -277,10 +280,12 @@ from fastapi import FastAPI
 
 app = App(FastAPI())
 
+# triggered with an HTTP request
 @app.get("/")
 def http():
     return "Hello deta, i am running with HTTP"
 
+# triggered from the cli
 @app.lib.run()
 def run(event):
     return "Hello deta, i am running from the cli'
@@ -290,7 +295,7 @@ def run(event):
 
 ### Run and Cron
 
-You can use both run and [cron](#cron.md) triggers in the same deta micro. You can also stack run and cron triggers for the same function.
+You can use both run and [cron](./cron) triggers in the same deta micro. You can also stack run and cron triggers for the same function.
 
 <Tabs
     defaultValue="js"
@@ -304,14 +309,14 @@ You can use both run and [cron](#cron.md) triggers in the same deta micro. You c
 ```js
 const { app } = require('deta');
 
-const sayHello = event => 'hello deta'
-const printTime = event => `it is ${(new Data).toTimeString()}`
+const sayHello = event => 'hello deta';
+const printTime = event => `it is ${(new Data).toTimeString()}`;
 
-app.lib.run(sayHello)
+app.lib.run(sayHello);
 
 // stacking run and cron
-app.lib.run(printTime, 'time') // action 'time'
-app.lib.cron(printTime)
+app.lib.run(printTime, 'time'); // action 'time'
+app.lib.cron(printTime);
 ```
 </TabItem>
 
@@ -321,6 +326,7 @@ app.lib.cron(printTime)
 from deta import app
 from datetime import datetime
 
+# only run
 @app.lib.run()
 def say_hello(event):
     return "hello deta"

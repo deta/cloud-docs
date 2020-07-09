@@ -1,6 +1,6 @@
 ---
-id: run
-title: Run
+id: cron
+title: Cron
 sidebar_lable: Run
 ---
 import Tabs from '@theme/Tabs';
@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 
 ### Deta Cron
 
-A Deta Micro can be set to run on a schedule from the `deta cli`.
+A Deta Micro can be set to run on a schedule from the `deta cli` using the [deta cron set](../cli/commands#deta-cron-set) command.
 
 In order to set a micro to run on a schedule, the micro's code needs to define a function that will be run on the schedule with the help of our library `deta`.
 
@@ -19,8 +19,6 @@ The `deta` library is pre-installed on a micro and can just be imported directly
 Use `deta cron set` to schedule the micro.
 
 You can set the cron in two ways:
-- [rate](#Rate)
-- [cron expressions](#Cron-expressions)
 
 #### Rate
 You can define the `rate` at which a micro should run. It is comprised of a `value` and `unit`.
@@ -96,9 +94,9 @@ const { app } = require('deta');
 
 // define a function to run on a schedule 
 // the function must take an event as an argument
-app.lib.cron(event => "running on a schedule")
+app.lib.cron(event => "running on a schedule");
 
-module.exports = app
+module.exports = app;
 ```
 </TabItem>
 
@@ -110,7 +108,7 @@ from deta import app
 # define a function to run on a schedule
 # the function must take an event as an argument
 @app.lib.cron()
-def cron_job():
+def cron_job(event):
     return "running on a schedule"
 ```
 </TabItem>
@@ -122,17 +120,21 @@ With this code deployed on a deta micro, the `deta cron set` commands will execu
 $ deta cron set "10 minutes"
 ```
 
-will set the function to run every 10 minutes. In order to see the execution logs, you can use the [visor](visor.md)
+will set the function to run every 10 minutes. In order to see the execution logs, you can use the [visor](./visor)
 
-#### Events
+### Events
 
 A function that is triggered from the cron must take an `event` as the only argument. The `event` will have the following attribute.
 
 - `event.type`: `string` type of an event, will be `cron` when triggered by a cron event
 
+### Remove Cron
+
+Use `deta cron remove` to remove a schedule from the micro.
+
 ### Cron and HTTP
 
-You can combine both run and and HTTP triggers in the same deta micro. For this you need to instantiate your app using the `deta` library that is pre-installed on a micro.   
+You can combine both cron and HTTP triggers in the same deta micro. For this you need to instantiate your app using the `deta` library that is pre-installed on a micro.   
 
 <Tabs
     defaultValue="js"
@@ -180,7 +182,7 @@ def cron_job(event):
 
 ### Cron and Run
 
-You can use both run and [cron](#cron.md) triggers in the same deta micro. You can also stack run and cron triggers for the same function.
+You can use both cron and [run](./run) triggers in the same deta micro. You can also stack run and cron triggers for the same function.
 
 <Tabs
     defaultValue="js"
@@ -197,6 +199,7 @@ const { app } = require('deta');
 const sayHello = event => 'hello deta'
 const printTime = event => `it is ${(new Data).toTimeString()}`
 
+// only run
 app.lib.run(sayHello)
 
 // stacking run and cron
@@ -211,6 +214,7 @@ app.lib.cron(printTime)
 from deta import app
 from datetime import datetime
 
+# only run
 @app.lib.run()
 def say_hello(event):
     return "hello deta"

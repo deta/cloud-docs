@@ -118,7 +118,7 @@ List deta projects
 deta projects [flags]
 ```
 
-### Flags
+#### Flags
 
 ```
   -h, --help   help for projects
@@ -390,6 +390,37 @@ Force pull latest changes of deta micro present in the current directory.
 Overwrites the files present in the current directory.
 ```
 
+## deta clone
+
+Clone a deta micro
+
+#### Command
+
+```
+deta clone [path] [flags]
+```
+
+#### Flags
+
+```
+  -h, --help             help for clone
+      --name string      deta micro name
+      --project string   deta project
+```
+
+#### Examples
+
+```
+1. deta clone --name my-micro
+
+Clone latest deployment of micro 'my-micro' from 'default' project to directory './my-micro'.
+
+2. deta clone --name my-micro --project my-project micros/my-micro-dir
+
+Clone latest deployment of micro 'my-micro' from project 'my-project' to directory './micros/my-micro-dir'.
+'./micros/my-micro-dir' must be an empty directory if it already exists. 
+```
+
 ## deta update
 
 Update a deta micro
@@ -469,7 +500,7 @@ deta visor open [flags]
 
 ### deta visor enable
 
-Enable the Visor for a Deta Micro
+Enable Visor for a Deta Micro
 
 
 #### Command
@@ -581,7 +612,7 @@ deta cron set [path] <expression> [flags]
   -h, --help   help for set
 ```
 
-### Examples
+#### Examples
 ```
 Rate:
 
@@ -595,7 +626,7 @@ Cron expressions:
 3. deta cron set "0/5 8-17 ? * MON-FRI *" : run every 5 minutes Monday through Friday between 8:00 am and 5:55 pm(UTC)
 ```
 
-## deta cron remove
+### deta cron remove
 
 Remove a schedule from a deta micro
 
