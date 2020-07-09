@@ -14,14 +14,6 @@ In order to set a micro to run on a schedule, the micro's code needs to define a
 
 The `deta` library is pre-installed on a micro and can just be imported directly.
 
-<Tabs
-    defaultValue="js"
-    values={[
-        {label: 'JavaScript', value:'js', },
-        {label: 'Python', value: 'python',},
-    ]}
->
-
 ### Set Cron
 
 Use `deta cron set` to schedule the micro.
@@ -90,6 +82,13 @@ Cron expressions allow you more flexibility and precision when setting a cron jo
 
 ### Code
 
+<Tabs
+    defaultValue="js"
+    values={[
+        {label: 'JavaScript', value:'js', },
+        {label: 'Python', value: 'python',},
+    ]}
+>
 <TabItem value="js">
 
 ```js
@@ -114,8 +113,8 @@ from deta import app
 def cron_job():
     return "running on a schedule"
 ```
-
 </TabItem>
+</Tabs>
 
 With this code deployed on a deta micro, the `deta cron set` commands will execute the function based on the cron rate or expression. For example
 
@@ -135,6 +134,13 @@ A function that is triggered from the cron must take an `event` as the only argu
 
 You can combine both run and and HTTP triggers in the same deta micro. For this you need to instantiate your app using the `deta` library that is pre-installed on a micro.   
 
+<Tabs
+    defaultValue="js"
+    values={[
+        {label: 'JavaScript', value:'js', },
+        {label: 'Python', value: 'python',},
+    ]}
+>
 <TabItem value="js">
 
 ```js
@@ -170,11 +176,19 @@ def cron_job(event):
     return "Hello deta, i am a cron job'
 ```
 </TabItem>
+</Tabs>
 
 ### Cron and Run
 
 You can use both run and [cron](#cron.md) triggers in the same deta micro. You can also stack run and cron triggers for the same function.
 
+<Tabs
+    defaultValue="js"
+    values={[
+        {label: 'JavaScript', value:'js', },
+        {label: 'Python', value: 'python',},
+    ]}
+>
 <TabItem value="js">
 
 ```js
@@ -208,3 +222,4 @@ def print_time(event):
     return f"it is {datetime.now()}" 
 ```
 </TabItem>
+</Tabs>

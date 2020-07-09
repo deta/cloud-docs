@@ -21,7 +21,6 @@ The `deta` library is pre-installed on a micro and can just be imported directly
         {label: 'Python', value: 'python',},
     ]}
 >
-
 <TabItem value="js">
 
 ```js
@@ -47,6 +46,7 @@ def welcome(event):
     return "Welcome to Deta!"
 ```
 </TabItem>
+</Tabs>
 
 With this code deployed on a micro, you can simply run 
 
@@ -72,6 +72,13 @@ You can provide an input from the cli to the function which will be passed on as
 - `event.action`: `string` the [action](#Actions) provided from the cli, defaults to an empty string   
 
 
+<Tabs
+    defaultValue="js"
+    values={[
+        {label: 'JavaScript', value:'js', },
+        {label: 'Python', value: 'python',},
+    ]}
+>
 <TabItem value="js">
 
 ```js
@@ -100,6 +107,7 @@ def welcome(event):
     }
 ```
 </TabItem>
+</Tabs>
 
 With this code deployed on a micro, you can run
 
@@ -149,6 +157,13 @@ Actions help you run different functions based on an `action` that you define fo
 
 The `action` defaults to am empty string if not provided
 
+<Tabs
+    defaultValue="js"
+    values={[
+        {label: 'JavaScript', value:'js', },
+        {label: 'Python', value: 'python',},
+    ]}
+>
 <TabItem value="js">
 
 ```js
@@ -193,6 +208,7 @@ def greet(event):
     }
 ```
 </TabItem>
+</Tabs>
 
 With this code deployed on a deta micro, if you run
 
@@ -228,6 +244,13 @@ Response:
 
 You can combine both run and and HTTP triggers in the same deta micro. For this you need to instantiate your app using the `deta` library that is pre-installed on a micro.   
 
+<Tabs
+    defaultValue="js"
+    values={[
+        {label: 'JavaScript', value:'js', },
+        {label: 'Python', value: 'python',},
+    ]}
+>
 <TabItem value="js">
 
 ```js
@@ -263,11 +286,19 @@ def run(event):
     return "Hello deta, i am running from the cli'
 ```
 </TabItem>
+</Tabs>
 
 ### Run and Cron
 
 You can use both run and [cron](#cron.md) triggers in the same deta micro. You can also stack run and cron triggers for the same function.
 
+<Tabs
+    defaultValue="js"
+    values={[
+        {label: 'JavaScript', value:'js', },
+        {label: 'Python', value: 'python',},
+    ]}
+>
 <TabItem value="js">
 
 ```js
@@ -301,3 +332,4 @@ def print_time(event):
     return f"it is {datetime.now()}" 
 ```
 </TabItem>
+</Tabs>
