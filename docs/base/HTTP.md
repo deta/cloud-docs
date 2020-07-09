@@ -403,7 +403,7 @@ Bad requests occur in the following cases:
 
 **`POST /query`**
 
-List items that match a [query](./lib#queries).
+List items that match a [query](./sdk#queries).
 
 <Tabs
   defaultValue="request"

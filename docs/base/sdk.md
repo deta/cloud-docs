@@ -982,4 +982,4 @@ Queries are regular json objects / Python dicts with conventions for different o
 
 ## Contact
 
-`team@deta.sh`
+`hello@deta.sh`
