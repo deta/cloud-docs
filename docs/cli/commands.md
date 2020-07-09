@@ -204,7 +204,8 @@ Deploy a deta micro rooted in 'micros/my-micro-1' directory.
 
 #### Notes
 
-- `deta deploy` will ignore the following files and folders when deploying a micro.
+`deta deploy` will ignore the following files and folders when deploying a micro:
+
   - all files and folders with names starting with a `.` (both in unix and windows systems) 
   - all files and folders with *hidden* attribute in windows systems
   - vim swap files
@@ -212,7 +213,7 @@ Deploy a deta micro rooted in 'micros/my-micro-1' directory.
   - `__pycache__` directory for `python` runtime
   - `.pyc` and `.rst` files for `python` runtimes 
 
-- `deta deploy` does not respect `.gitignore`.
+`deta deploy` does not respect `.gitignore`.
 
 
 ## deta details
@@ -635,7 +636,7 @@ Remove a schedule from a deta micro
 deta cron remove [path] [flags]
 ```
 
-### Flags
+#### Flags
 
 ```
   -h, --help   help for remove

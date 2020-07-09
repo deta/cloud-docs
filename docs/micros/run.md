@@ -15,6 +15,7 @@ In order to run a micro from the cli directly, the micro's code needs to define 
 The `deta` library is pre-installed on a micro and can just be imported directly.
 
 <Tabs
+    groupId="preferred-language"
     defaultValue="js"
     values={[
         {label: 'JavaScript', value:'js', },
@@ -73,6 +74,7 @@ You can provide an input from the cli to the function which will be passed on as
 
 
 <Tabs
+    groupId="preferred-language"
     defaultValue="js"
     values={[
         {label: 'JavaScript', value:'js', },
@@ -159,6 +161,7 @@ Actions help you run different functions based on an `action` that you define fo
 The `action` defaults to an empty string if not provided.
 
 <Tabs
+    groupId="preferred-language"
     defaultValue="js"
     values={[
         {label: 'JavaScript', value:'js', },
@@ -246,6 +249,7 @@ Response:
 You can combine both run and HTTP triggers in the same deta micro. For this you need to instantiate your app using the `deta` library that is pre-installed on a micro.   
 
 <Tabs
+    groupId="preferred-language"
     defaultValue="js"
     values={[
         {label: 'JavaScript', value:'js', },
@@ -298,6 +302,7 @@ def run(event):
 You can use both run and [cron](./cron) triggers in the same deta micro. You can also stack run and cron triggers for the same function.
 
 <Tabs
+    groupId="preferred-language"
     defaultValue="js"
     values={[
         {label: 'JavaScript', value:'js', },
