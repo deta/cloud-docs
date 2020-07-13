@@ -81,6 +81,7 @@ Cron expressions allow you more flexibility and precision when setting a cron jo
 ### Code
 
 <Tabs
+    groupId="preferred-language"
     defaultValue="js"
     values={[
         {label: 'JavaScript', value:'js', },
@@ -137,6 +138,7 @@ Use `deta cron remove` to remove a schedule from the micro.
 You can combine both cron and HTTP triggers in the same deta micro. For this you need to instantiate your app using the `deta` library that is pre-installed on a micro.   
 
 <Tabs
+    groupId="preferred-language"
     defaultValue="js"
     values={[
         {label: 'JavaScript', value:'js', },
@@ -185,6 +187,7 @@ def cron_job(event):
 You can use both cron and [run](./run) triggers in the same deta micro. You can also stack run and cron triggers for the same function.
 
 <Tabs
+    groupId="preferred-language"
     defaultValue="js"
     values={[
         {label: 'JavaScript', value:'js', },
