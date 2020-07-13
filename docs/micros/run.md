@@ -273,6 +273,9 @@ app.get('/', async(req, res) => {
 app.lib.run(event => {
     return 'Hello deta, i am running from the cli';
 });
+
+module.exports = app;
+
 ```
 </TabItem>
 
@@ -322,6 +325,8 @@ app.lib.run(sayHello);
 // stacking run and cron
 app.lib.run(printTime, 'time'); // action 'time'
 app.lib.cron(printTime);
+
+module.exports = app;
 ```
 </TabItem>
 
