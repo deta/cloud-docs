@@ -154,7 +154,7 @@ const express = require('express');
 const app = App(express());
 
 app.get('/', async(req, res) => {
-    res.send('Hello deta, i am running with HTTP')
+    res.send('Hello deta, i am running with HTTP');
 });
 
 app.lib.cron(event => {
@@ -177,7 +177,7 @@ def http():
 
 @app.lib.cron()
 def cron_job(event):
-    return "Hello deta, i am a cron job'
+    return "Hello deta, i am a cron job"
 ```
 </TabItem>
 </Tabs>
