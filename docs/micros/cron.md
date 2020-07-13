@@ -196,15 +196,15 @@ You can use both cron and [run](./run) triggers in the same deta micro. You can 
 ```js
 const { app } = require('deta');
 
-const sayHello = event => 'hello deta'
-const printTime = event => `it is ${(new Data).toTimeString()}`
+const sayHello = event => 'hello deta';
+const printTime = event => `it is ${(new Data).toTimeString()}`;
 
 // only run
-app.lib.run(sayHello)
+app.lib.run(sayHello);
 
 // stacking run and cron
-app.lib.run(printTime, 'time') // action 'time'
-app.lib.cron(printTime)
+app.lib.run(printTime, 'time'); // action 'time'
+app.lib.cron(printTime);
 ```
 </TabItem>
 

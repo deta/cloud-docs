@@ -104,7 +104,7 @@ from deta import app
 def welcome(event):
     return {
         # access input to your function with event.json
-        "message": f"hello {event.json.get('name')}"
+        "message": f"hello {event.json.get('name')}!"
     }
 ```
 </TabItem>
@@ -172,14 +172,14 @@ const { app } = require('deta');
 
 app.lib.run(event => {
     return {
-        message: `hello ${event.json.name}!`}
+        message: `hello ${event.json.name}!`
     };
     // action 'hello'
 }, "hello");
 
 app.lib.run(event => {
     return {
-        message: `good morning ${event.json.name}!`}
+        message: `good morning ${event.json.name}!`
     };
     // action 'greet'
 }, "greet");
@@ -198,14 +198,14 @@ from deta import app
 @app.lib.run(action="hello")
 def welcome(event):
     return {
-        "message": f"hello {event.json.get('name')}"
+        "message": f"hello {event.json.get('name')}!"
     }
 
 # action 'greet'
 @app.lib.run(action="greet")
 def greet(event):
     return {
-        "message": f"good morning {event.json.get('name')}"
+        "message": f"good morning {event.json.get('name')}!"
     }
 ```
 </TabItem>
