@@ -559,10 +559,16 @@ Returns a promise which resolves to the put items on a successful insert, and ra
 - **`key`** (required) – Accepts: `string`
     - Description: the key of the item to be updated.
 
-##### Set and Trim
-- **Set** : `Set` is practiced through normal key-value pairs. The update operation changes the values of the attributes provided in the `updates` object if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
+##### Update operations
+- **Set** : `Set` is practiced through normal key-value pairs. The operation changes the values of the attributes provided in the `set` object if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
 
-- **Trim**: For removing an attribute from an item, the util `base.util.trim()` must be used as the value of an attribute in the `updates` object.
+- **Increment**: `Increment` incrementes the value of an attribute. The attribute's value *must be a number*. The util `base.util.increment(value)` should be used to increment the value. The *default value is 1* if not provided and it can also be negative.
+
+- **Append**: `Append` appends to a list. The util `base.util.append(value)` should be used to append the value. The value can be a `primitive type` or an `array`.
+
+- **Prepend**: `Prepend` prepends to a list. The util `base.util.prepend(value)` should be used to prepend the value. The value can be a `primitive type` or an `array`.
+
+- **Trim**: `Trim` removes an attribute from the item, the util `base.util.trim()` should be used as the value of an attribute.
 
 #### Code Example
 
@@ -577,7 +583,9 @@ Consider we have the following item in a base `const users = deta.Base('users')`
     "active": false,
     "hometown": "pittsburgh" 
   },
-  "on_mobile": true 
+  "on_mobile": true,
+  "likes": ["anime"],
+  "purchases": 1
 }
 ```
 
@@ -589,13 +597,15 @@ const updates = {
   "profile.active": true, // set profile.active to true
   "profile.email": "jimmy@deta.sh", // create a new attribute 'profile.email'
   "profile.hometown": users.util.trim(), // remove 'profile.hometown'
-  "on_mobile": users.util.trim() // remove 'on_mobile'
+  "on_mobile": users.util.trim(), // remove 'on_mobile'
+  "purchases": users.util.increment(2), // increment 'purchases' by 2, default value is 1
+  "likes": users.util.append("ramen") // append 'ramen' to 'likes', also accepts an array 
 }
 
 const res = await db.update(updates, "user-a");
 ```
 
-Results in the following item
+Results in the following item in the base:
 
 ```json
 {
@@ -605,7 +615,9 @@ Results in the following item
     "age": 33,
     "active": true,
     "email": "jimmy@deta.sh"
-  }
+  },
+  "likes": ["anime", "ramen"],
+  "purchases": 3
 }
 ```
 
@@ -625,10 +637,16 @@ If the item is updated, the promise resolves to `null`. Otherwise, an error is r
 - **`key`** (required) – Accepts: `string`
     - Description: the key of the item to be updated.
 
-##### Set and Trim
-- **Set** : `Set` is practiced through normal key-value pairs. The update operation changes the values of the attributes provided in the `updates` dict if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
+##### Update operations
+- **Set** : `Set` is practiced through normal key-value pairs. The operation changes the values of the attributes provided in the `set` dict if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
 
-- **Trim**: For removing an attribute from an item, the util `base.util.trim()` must be used as the value of an attribute in the `updates` dict.
+- **Increment**: `Increment` incrementes the value of an attribute. The attribute's value *must be a number*. The util `base.util.increment(value)` should be used to increment the value. The *default value is 1* if not provided and it can also be negative.
+
+- **Append**: `Append` appends to a list. The util `base.util.append(value)` should be used to append the value. The value can be a `primitive type` or a `list`.
+
+- **Prepend**: `Prepend` prepends to a list. The util `base.util.prepend(value)` should be used to prepend the value. The value can be a `primitive type` or a `list`.
+
+- **Trim**: `Trim` removes an attribute from the item, the util `base.util.trim()` should be used as the value of an attribute.
 
 #### Code Example
 
@@ -643,7 +661,9 @@ Consider we have the following item in a base `users = deta.Base('users')`:
     "active": false,
     "hometown": "pittsburgh" 
   },
-  "on_mobile": true 
+  "on_mobile": true,
+  "likes": ["anime"],
+  "purchases": 1 
 }
 ```
 
@@ -652,16 +672,18 @@ Then the following update operation:
 ```py
 updates = {
   "profile.age": 33,  # set profile.age to 33
-  "profile.active": true, # set profile.active to true
+  "profile.active": True, # set profile.active to true
   "profile.email": "jimmy@deta.sh", # create a new attribute 'profile.email'
   "profile.hometown": users.util.trim(), # remove 'profile.hometown'
-  "on_mobile": users.util.trim() # remove 'on_mobile'
+  "on_mobile": users.util.trim(), # remove 'on_mobile'
+  "purchases": users.util.increment(2), # increment by 2, default value is 1
+  "likes": users.util.append("ramen") # append 'ramen' to 'likes', also accepts a list 
 }
 
 db.update(updates, "user-a")
 ```
 
-Results in the following item:
+Results in the following item in the base:
 
 ```json
 {
@@ -671,7 +693,9 @@ Results in the following item:
     "age": 33,
     "active": true,
     "email": "jimmy@deta.sh"
-  }
+  },
+  "likes":["anime", "ramen"],
+  "purchases": 3
 }
 ```
 

@@ -301,10 +301,13 @@ Updates an item only if an item with `key` exists.
 <TabItem value="request">
 
 
-| JSON Payload | Required | Type              | Description                              |
-|--------------|----------|-------------------|------------------------------------------|
-| `set`        | no       | `object`          | The attributes to be updated or created. |
-| `delete`     | no       | `string array`    | The attributes to be deleted.            |
+| JSON Payload | Required | Type              | Description                                                          |
+|--------------|----------|-------------------|----------------------------------------------------------------------|
+| `set`        | no       | `object`          | The attributes to be updated or created.                             |
+| `increment`  | no       | `object`          | The attributes to be incremented. Increment value can be negative.   |
+| `append`     | no       | `object`          | The attributes to append a value to. Appended value must be a list.  |
+| `prepend`    | no       | `object`          | The attributes to prepend a value to. Prepended value must be a list.|
+| `delete`     | no       | `string array`    | The attributes to be deleted.                                        |
 
 #### Example
 
@@ -319,7 +322,9 @@ If the following item exists in the database
     "active": false,
     "hometown": "pittsburgh" 
   },
-  "on_mobile": true 
+  "on_mobile": true,
+  "likes": ["anime"],
+  "purchases": 1
 }
 ```
 
@@ -335,6 +340,17 @@ Then the request
      // add a new attribute `profile.email`
      "profile.email": "jimmy@deta.sh"
    },
+
+   "increment" :{
+     // increment purchases by 2
+     "purchases": 2
+   },
+
+   "append": {
+     // append to 'likes' 
+     "likes": ["ramen"]
+   },
+
    // remove attributes 'profile.hometown' and 'on_mobile'
    "delete": ["profile.hometown", "on_mobile"]
 }
@@ -350,7 +366,9 @@ results in the following item in the database:
     "age": 33,
     "active": true,
     "email": "jimmy@deta.sh"
-  }
+  },
+  "likes": ["anime", "ramen"],
+  "purchases": 3
 }
 ```
 
