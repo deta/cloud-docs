@@ -23,6 +23,6 @@ Your data is encrypted and stored safely on AWS. Encryption keys are managed by 
 ## How do I start?
 
 1. Log in to [Deta](https://web.deta.sh).
-2. Grab your **Project Key** and your **Project ID** and start writing code in [Python](sdk.md), [Node.js](sdk.md), or over [HTTP](http.md) wherever you need persistent data storage.
+2. Grab your **Project Key** and your **Project ID** and start writing code in [Python](sdk.md), [Node.js](sdk.md), or over [HTTP](HTTP.md) wherever you need persistent data storage.
 
 
