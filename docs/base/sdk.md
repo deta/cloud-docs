@@ -7,6 +7,10 @@ import TabItem from '@theme/TabItem';
 
 The Deta library is the easiest way to store and retrieve data from your Deta Base. Currently we support JavaScript (Node + Browser) and Python 3. [Drop us a line](#contact) if you want us to support your favorite language.
 
+:::note
+A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will grow with your app's needs.
+:::
+
 <!-- TODO: validation errors for put, put_many, insert and fetch. -->
 
 ## Installing the Deta Library
@@ -63,7 +67,7 @@ Deta Bases are created for you automatically when you start using them.
 <TabItem value="js">
 
 ```js
-const Deta = require('deta'); // import Deta
+const { Deta } = require('deta'); // import Deta
 
 // Initialize with a Project Key
 const deta = Deta('project key'); 
@@ -74,6 +78,15 @@ const db = deta.Base('simple_db');
 // You can create as many as you want without additional charges.
 const books = deta.Base('books'); 
 ```
+
+:::note
+  If you are using the `deta` npm package of `0.0.6` or below, `Deta` is the sinlge default export and should be imported as such.
+
+  ```js
+  const Deta = require('deta');
+```
+:::
+
 </TabItem>
 
 
@@ -95,10 +108,6 @@ books = deta.Base("books")
 
 </TabItem>
 </Tabs>
-
-:::note
-A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will grow with your app's needs.
-:::
 
 :::warning
 Your project key is confidential and meant to be used by you. Anyone who has your project key can access your database. Please do not share it or commit it in your code.
