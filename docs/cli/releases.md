@@ -4,7 +4,13 @@ title: CLI Releases
 sidebar_label: Releases
 ---
 
-## v1.1.0 Beta
+## v1.1.1-beta
+
+### Fixes
+- `deta new`: Fix issues with incomplete/failed deployment if application code already exists in the root directory
+- recognize `.mo` files as binary files
+
+## v1.1.0-beta
 
 `deta run`: Run a micro from the the CLI.  Docs at https://docs.deta.sh/docs/micros/run
 
