@@ -6,7 +6,7 @@ sidebar_label: About
 
 ### Summary
 
-Deta Micros(*ervers*) are a leightweight but scalable cloud runtime tied to an HTTP endpoint. They are meant to get your apps up and running *blazingly fast*. Focus on writing your code and Deta will take care of everything else. 
+Deta Micros(*ervers*) are a lightweight but scalable cloud runtime tied to an HTTP endpoint. They are meant to get your apps up and running *blazingly fast*. Focus on writing your code and Deta will take care of everything else. 
 
 ### Technical Specifications
 
