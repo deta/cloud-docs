@@ -295,7 +295,7 @@ def http():
 # triggered from the cli
 @app.lib.run()
 def run(event):
-    return "Hello deta, i am running from the cli'
+    return "Hello deta, i am running from the cli"
 ```
 </TabItem>
 </Tabs>
