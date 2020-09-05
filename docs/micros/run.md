@@ -89,7 +89,7 @@ const { app } = require('deta');
 app.lib.run(event => {
     return {
         // access input to your function with event.json
-        message: `hello ${event.json.name}!`}
+        message: `hello ${event.json.name}!`
     };
 });
 
