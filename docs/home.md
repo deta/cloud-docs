@@ -20,7 +20,7 @@ To accomplish our mission, we offer a set of minimal-config cloud primitives:
 
 #### Local Development and the Deta CLI
 
-Most developers liketheir local development flow. We provide a CLI that ties your local development workflow into your micro cloud, see:
+Most developers like their local development flow. We provide a CLI that ties your local development workflow into your micro cloud, see:
 
 - [Deta CLI](#deta-cli)
 
