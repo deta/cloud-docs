@@ -241,7 +241,6 @@ Creates a new item only if no item with the same `key` exists.
 }
 ```
 
-
 </TabItem>
 <TabItem value="response">
 
@@ -249,11 +248,9 @@ Creates a new item only if no item with the same `key` exists.
 
 ```json
 {
-    "item": {
-        "key": {key}, // auto generated key if key was not provided in the request
-        "field1": "value1",
-        // the rest of the item
-    } 
+  "key": {key}, // auto generated key if key was not provided in the request
+  "field1": "value1",
+  // the rest of the item
 }
 ```
 
