@@ -37,7 +37,7 @@ Deta Base is our instantly usable NoSQL database.
 
 - [About Deta Base](base/about.md): General Information about Bases
 - [Base SDK](base/sdk.md): SDK for using a Base in Node.js and Python.
-- [HTTP API](base/http.md): API for interacting with a Base over HTTP.
+- [HTTP API](base/HTTP.md): API for interacting with a Base over HTTP.
 - [Node.js Tutorial](base/node_tutorial.md): Build a micro-crud in Node.js using Base and Express.js.
 - [Python Tutorial](base/py_tutorial.md): Build a micro-crud in Python using Base and Flask.
 
