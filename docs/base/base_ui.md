@@ -54,3 +54,11 @@ To delete items, click on the checkbox(es) for any item(s) and then click the **
 You can revert your local changes, restoring the BaseUI state to the last fetch by clicking the **Undo** button.
 
 <img src="/img/base_ui/base_ui_8.png" alt="base_ui_8" width="200"/>
+
+### Final Notes
+
+We hope you enjoy Base UI!
+
+A final note. Base UI is still in Beta; it has been internally tested but may have some uncaught bugs / issues. 
+
+We'd love to hear from you: please reach us at `hello@deta.sh` or on Slack if you have any feedback!
