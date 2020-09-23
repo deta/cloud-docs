@@ -25,7 +25,7 @@ You can expand any cell if you want to do advanced editing (JSON object & array 
 
 ### Queries
 
-If you don't want to deal with all your data at once, you can use Deta Base's queries to get a filtered view. Click the **Query** button, enter your query, and hitting enter or clicking **Fetch**.
+If you don't want to deal with all your data at once, you can use Deta Base's queries to get a filtered view. Click the **Query** button, enter your query, and hit enter or click **Fetch**.
 
 <img src="/img/base_ui/base_ui_4.png" alt="base_ui_4" width="600"/>
 
@@ -59,6 +59,6 @@ You can revert your local changes, restoring the BaseUI state to the last fetch 
 
 We hope you enjoy Base UI!
 
-A final note. Base UI is still in Beta; it has been internally tested but may have some uncaught bugs / issues. 
+Base UI is still in Beta; it has been internally tested but may have some uncaught bugs / issues. 
 
 We'd love to hear from you: please reach us at `hello@deta.sh` or on Slack if you have any feedback!
