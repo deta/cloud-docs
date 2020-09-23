@@ -6,20 +6,20 @@ sidebar_label: Base UI
 
 Base UI let's you inspect, add, modify and delete records from a Base via a GUI.
 
-### Triggering Base UI
+### Opening Base UI
 
-You can launch an individual Base UI within any project by clicking on the Base name in the project sidebar.
+You can open an individual Base's UI within any project by clicking on the Base name in the project sidebar.
 
 <img src="/img/base_ui/base_ui_1.png" alt="base_ui_1" width="200"/>
 
-All the data from your Base should load into the table view when clicked. You can edit within an individual cell if it is not an array or an object.
+All the data from your Base should load into the table view when clicked. You can edit within an individual cell, if it is not an array or an object.
 
 <img src="/img/base_ui/base_ui_2.png" alt="base_ui_2" width="500"/>
 
 
 ### Advanced Editing
 
-You can expand any cell if you want to do advanced editing (JSON object & array edits or type changes).
+You can expand any cell if you want to do advanced editing (object & array editing or type changes).
 
 <img src="/img/base_ui/base_ui_3.png" alt="base_ui_3" width="500"/>
 
