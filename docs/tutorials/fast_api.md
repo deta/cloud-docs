@@ -33,7 +33,7 @@ The guide assumes you have already signed up for Deta and have the [Deta CLI](..
 
 4. Deploy your application with `deta new`.
 
-    ```python
+    ```shell
     $ deta new
     Successfully created a new micro
     {
