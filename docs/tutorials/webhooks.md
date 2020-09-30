@@ -175,7 +175,7 @@ We are going to use `fastapi` with our Deta Micro and deploy a simple `python` w
     app = FastAPI()
 
     # a POST route for our webhook events
-    @app.post("/"):
+    @app.post("/")
     def webhook_handler(req: Request):
         # verify signature if needed
         # add logic to handle the request
