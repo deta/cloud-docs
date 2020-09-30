@@ -79,7 +79,7 @@ We are going to use `express` with our Deta Micro and deploy a simple `nodejs` w
     ```
 
     :::note
-    Usually for security, a secret token is shared between the sender and the receiver and a hmac signature is calculated from the payload and the shared secret. The algorihtm to caclculate the signature varies based on the sender. You should consult the documentation of how the signature is calculated for the system you are receiving events from.
+    Usually for security, a secret token is shared between the sender and the receiver and a hmac signature is calculated from the payload and the shared secret. The algorithm to calculate the signature varies based on the sender. You should consult the documentation of how the signature is calculated for the system you are receiving events from.
     :::
 
 7. Add a `POST` route to `index.js`. Most webhook callbacks send a `POST` request on the webhook URL with the payload containing information about the event that triggered the webhook. 
