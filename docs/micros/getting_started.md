@@ -48,7 +48,7 @@ iwr https://get.deta.dev/cli.ps1 -useb | iex
 </Tabs>
 
 
-This will download the binary which conatins the CLI code. It will try to export the `deta` command to your path. If it does not succeed, follow the directions output by the install script to export `deta` to your path.
+This will download the binary which contains the CLI code. It will try to export the `deta` command to your path. If it does not succeed, follow the directions output by the install script to export `deta` to your path.
 
 ### Logging in to Deta via the CLI
 
@@ -247,7 +247,7 @@ Open up your endpoint in a browser. You might be prompted to log in to your deta
 
 You should see **Hello, World**
 
-If you're accessing the endpoint from not in a browser (like from curl) or if you have disabled cookies in your browser, the response will be:
+If you're not accessing the endpoint from a browser (like from curl) or if you have disabled cookies in your browser, the response will be:
 ```json
 {
     "errors":["Unauthorized"]
