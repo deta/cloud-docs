@@ -151,6 +151,8 @@ We are going to deploy an `express` app for the form endpoint.
     Successfully deployed changes
     ```
 
+Your endpoint will now accept form `POST` data and save it to a database. 
+
 You can use [Deta Base's UI](../base/base_ui) to easily see what data has been stored in the database. Navigate to your `project` and click on your base name under `bases` in your browser to use the Base UI.
 
 Here's an example view of the UI.
