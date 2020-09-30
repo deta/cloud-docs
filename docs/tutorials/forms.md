@@ -151,9 +151,11 @@ We are going to deploy an `express` app for the form endpoint.
     Successfully deployed changes
     ```
 
-Your endpoint will now accept form `POST` data and save it to a database. 
+You can use [Deta Base's UI](../base/base_ui) to easily see what data has been stored in the database. Navigate to your `project` and click on your base name under `bases` in your browser to use the Base UI.
 
-You can use Deta Base's UI to easily see what data has been stored in the database. Navigate to your `project` and click on your base name under `bases` in your browser to use the Base UI.
+Here's an example view of the UI.
+
+<img src="/img/quickstart/contact_form.png" width="1000"/>
 </TabItem>
 
 <TabItem value="py">
@@ -249,7 +251,11 @@ We are going to deploy a `flask` app for the form endpoint.
 
 Your endpoint will now accept form `POST` data and save it to a database. 
 
-You can use Deta Base's UI to easily see what data has been stored in the database. Navigate to your `project` and click on your base name under `bases` in your browser to use the Base UI.
+You can use [Deta Base's UI](../base/base_ui) to easily see what data has been stored in the database. Navigate to your `project` and click on your base name under `bases` in your browser to use the Base UI.
+
+Here's an example view of the UI.
+
+<img src="/img/quickstart/contact_form.png" width="1000"/>
 
 </TabItem>
 </Tabs>
