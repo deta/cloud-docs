@@ -115,7 +115,7 @@ We have a micro which prints "running on a schedule" every five minutes. You sho
 
     # use app.lib.cron decorator for the function that runs on the schedule
     # the function takes an `event` as an argument
-    @app.lib.cron():
+    @app.lib.cron()
     def cron_task(event):
         print("running on a schedule") 
     ```
