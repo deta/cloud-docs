@@ -4,8 +4,8 @@ module.exports = {
   url: 'https://docs.deta.sh',
   baseUrl: '/',
   favicon: 'img/logo.svg',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'Deta', 
+  projectName: 'deta-docs',
   themeConfig: {
     navbar: {
       title: 'Deta',

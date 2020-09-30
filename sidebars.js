@@ -4,5 +4,6 @@ module.exports = {
     ["Deta Base"]: ['base/about', 'base/sdk', 'base/http', 'base/node_tutorial', 'base/py_tutorial'],
     ["Deta Micros"]: ['micros/about', 'micros/getting_started', 'micros/run', 'micros/cron'],
     ["Deta CLI"]: ['cli/install', 'cli/commands', 'cli/releases'],
+    ["QuickStart"]: ['tutorials/fast-api-guide', 'tutorials/webhooks-guide', 'tutorials/cron-guide', 'tutorials/form-endpoints-guide'],
   },
 };
