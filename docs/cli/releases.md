@@ -12,25 +12,6 @@ sidebar_label: Releases
 
 ## v1.1.0-beta
 
-`deta run`: Run a micro from the the CLI.  Docs at https://docs.deta.sh/docs/micros/run
-
-`deta cron`: Set a micro to run on a schedule. Docs at https://docs.deta.sh/docs/micros/cron
-
-In order to use the new features, please upgrade the CLI to the latest new version.
-
-On linux/macOS platforms: 
-
-```
-curl -fsSL https://get.deta.dev/cli.sh | sh
-```
-
-On windows: 
-```
-iwr https://get.deta.dev/cli.ps1 -useb | iex
-```
-
-The CLI has updates for the new features as well as some other updates.
-
 ### New Commands
 
 `deta clone`:  Clone an existing micro
@@ -56,5 +37,3 @@ The CLI has updates for the new features as well as some other updates.
 `deta deploy`: Fix issues with deploying binary files (edited)
 
 `deta details`: Fix issue with displaying wrong values of visor and http_auth
-
-The docs for the CLI commands:  https://docs.deta.sh/docs/cli/commands
