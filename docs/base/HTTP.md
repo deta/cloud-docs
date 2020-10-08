@@ -40,13 +40,6 @@ Example `'X-API-Key: a0abcyxz_aSecretValue'`.
 
 We only accept JSON payloads. Make sure you set the headers correctly: `'Content-Type: application/json'`
 
-### Naming Constraints
-
-- All user provided **keys** in an item can only contain alphanumeric(`a-z,A-Z,0-9`), underscore(`_`), dot(`.`), dash(`-`) and tilde (`~`) characters. For instance a `random key$` is not a valid key because it contains a space and a `$`. 
-
-- Object attributes cannot contain the question mark character(`?`). For eg an object like `{"val?ue": 1}` can not be stored in the detabase.
-
-
 ## Endpoints
 
 ### Put Item
@@ -137,6 +130,10 @@ Bad requests occur in the following cases:
 
 Get a stored item.
 
+:::note
+If the *key* contains url unsafe or reserved characters, make sure to url-encode the *key*. Otherwise, it will lead to unexpected behavior.
+:::
+
 <Tabs
   defaultValue="request"
   values={[
@@ -180,6 +177,10 @@ Get a stored item.
 **`DELETE /items/{key}`**
 
 Delete a stored item.
+
+:::note
+If the *key* contains url unsafe or reserved characters, make sure to url-encode the *key*. Otherwise, it will lead to unexpected behavior.
+:::
 
 <Tabs
   defaultValue="request"
@@ -287,6 +288,10 @@ Bad requests occur in the following cases:
 **`PATCH /items/{key}`**
 
 Updates an item only if an item with `key` exists. 
+
+:::note
+If the *key* contains url unsafe or reserved characters, make sure to url-encode the *key*. Otherwise, it will lead to unexpected behavior.
+:::
 
 <Tabs
   defaultValue="request"
