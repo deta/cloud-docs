@@ -44,7 +44,7 @@ Deta Base is our instantly usable NoSQL database.
 
 ### Deta Micros
 
-Deta Micros(ervers) are a leightweight but scalable cloud runtime tied to an HTTP endpoint. Currently Node.js and Python Micros are supported.
+Deta Micros(ervers) are a lightweight but scalable cloud runtime tied to an HTTP endpoint. Currently Node.js and Python Micros are supported.
 
 - [About Deta Micros](micros/about.md): General Information about Micros.
 - [Getting Started with Micros](micros/getting_started.md): Get your first Micro live.
