@@ -4,6 +4,18 @@ title: CLI Releases
 sidebar_label: Releases
 ---
 
+## v1.1.2-beta
+
+### Updates
+- add access token authentication
+- `deta watch` does an initial deployment
+- show login page url if failed to open login page in browser
+- suppress usage messages on errors
+
+### Fixes
+- fix cases of corrupted deployments on `deta watch`
+- fix parsing environment key value pairs
+
 ## v1.1.1-beta
 
 ### Fixes
