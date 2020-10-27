@@ -16,7 +16,7 @@ If the login page could not be opened automatically for some reason, the cli wil
 
 ### Deta Access Tokens
 
-The deta cli also authenticates with deta access tokens. You can create an access token under the `Settings` page in your [homepage](https://web.deta.sh). The access tokens are **valid for a year**.
+The deta cli also authenticates with deta access tokens. You can create an access token under the `Settings` view in your [homepage](https://web.deta.sh). The access tokens are **valid for a year**.
 
 :::note
 The access token can only be retreived once after creation. Please, store it in a safe place after the token has been created.
@@ -36,3 +36,25 @@ The access token (called *Access Token* when you create the token from the UI) c
         "deta_access_token": "your_access_token"
     }
     ```
+
+#### Using Deta in GitPod with Access Tokens
+
+To use the Deta CLI in GitPod, first install the Deta CLI to your GitPod terminal:
+
+```shell
+curl -fsSL https://get.deta.dev/cli.sh | sh
+```
+
+Then add the `deta` command to the path of the Gitpod environment:
+
+```shell
+source ~/.bashrc
+```
+
+Finally, add your authentication token to the GitPod environment, which will authenticate the Deta CLI commands against our backend:
+
+```shell
+export DETA_ACCESS_TOKEN=<access_token_here>
+```
+
+You are now free to use the `deta` command within GitPod!
