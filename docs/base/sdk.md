@@ -194,9 +194,9 @@ You can also use `put` when you want to update an item in the database.
 
 #### Parameters
 
-- **`data`** (required) – Accepts: `object` (serializable), `string`, `number`, `boolean` and `array`.
+- **data** (required) – Accepts: `object` (serializable), `string`, `number`, `boolean` and `array`.
     - Description: The data to be stored.
-- **`key`** (optional) – Accepts: `string` and `null`
+- **key** (optional) – Accepts: `string` and `null`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
 
@@ -231,9 +231,9 @@ db.put(["a", "b", "c"], "my_abc")
 
 #### Parameters
 
-- **`data`** (required) – Accepts: `dict`, `str`, `int`, `float`, `bool` and `list`.
+- **data** (required) – Accepts: `dict`, `str`, `int`, `float`, `bool` and `list`.
     - Description: The data to be stored.
-- **`key`** (optional) – Accepts: `str` and `None`
+- **key** (optional) – Accepts: `str` and `None`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
 
@@ -357,7 +357,7 @@ Returns the `key` of the item stored and an `error`. Possible error values:
 
 #### Parameters
 
-- **`key`** (required) – Accepts: `string`
+- **key** (required) – Accepts: `string`
     - Description: the key of which item is to be retrieved.
 
 #### Code Example
@@ -480,7 +480,7 @@ Returns an `error`. Possible error values:
 **`async delete(key)`**
 
 #### Parameters
-- **`key`** (required) – Accepts: `string`
+- **key** (required) – Accepts: `string`
     - Description: the key of which item is to be deleted.
 
 #### Code Example
@@ -502,7 +502,7 @@ Always returns a promise which resolves to `null`, even if the key does not exis
 **`delete(key: str)`**
 
 #### Parameters
-- **`key`** (required) – Accepts: `str`
+- **key** (required) – Accepts: `str`
     - Description: the key of which item is to be deleted.
 
 #### Code Example
@@ -569,9 +569,9 @@ The `insert` method inserts a single item into a **Base**, but is unique from [`
 
 #### Parameters
 
-- **`data`** (required) – Accepts: `object` (serializable), `string`, `number`, `boolean` and `array`.
+- **data** (required) – Accepts: `object` (serializable), `string`, `number`, `boolean` and `array`.
     - Description: The data to be stored.
-- **`key`** (optional) – Accepts: `string` and `null`
+- **key** (optional) – Accepts: `string` and `null`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
 
@@ -598,9 +598,9 @@ Returns a promise which resolves to the item on a successful insert, and throws 
 
 #### Parameters
 
-- **`data`** (required) – Accepts: `dict`, `str`, `int`, `float`, `bool` and `list`.
+- **data** (required) – Accepts: `dict`, `str`, `int`, `float`, `bool` and `list`.
     - Description: The data to be stored.
-- **`key`** (optional) – Accepts: `str` and `None`
+- **key** (optional) – Accepts: `str` and `None`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
 
@@ -702,7 +702,7 @@ The Put Many method puts up to 25 items into a Base at once on a single call.
 
 #### Parameters
 
-- **`items`** (required) – Accepts: `Array` of items, where each "item" can be an `object` (serializable), `string`, `number`, `boolean` or `array`.
+- **items** (required) – Accepts: `Array` of items, where each "item" can be an `object` (serializable), `string`, `number`, `boolean` or `array`.
     - Description: The list of items to be stored.
 
 
@@ -755,7 +755,7 @@ Returns a promise which resolves to the put items on a successful insert, and th
 
 #### Parameters
 
-- **`data`** (required) – Accepts: `list` of items, where each "item" can be an `dict` (JSON serializable), `str`, `int`, `bool`, `float` or `list`.
+- **items** (required) – Accepts: `list` of items, where each "item" can be an `dict` (JSON serializable), `str`, `int`, `bool`, `float` or `list`.
     - Description: The list of items to be stored.
 
 
@@ -887,9 +887,9 @@ Returns the list of keys of the items stored and an `error`. In case of an error
 
 #### Parameters
 
-- **`updates`** (required) - Accepts: `object` (JSON serializable)
+- **updates** (required) - Accepts: `object` (JSON serializable)
     - Description: a json object describing the updates on the item 
-- **`key`** (required) – Accepts: `string`
+- **key** (required) – Accepts: `string`
     - Description: the key of the item to be updated.
 
 ##### Update operations
@@ -965,9 +965,9 @@ If the item is updated, the promise resolves to `null`. Otherwise, an error is r
 
 #### Parameters
 
-- **`updates`** (required) - Accepts: `dict` (JSON serializable)
+- **updates** (required) - Accepts: `dict` (JSON serializable)
     - Description: a dict describing the updates on the item 
-- **`key`** (required) – Accepts: `string`
+- **key** (required) – Accepts: `string`
     - Description: the key of the item to be updated.
 
 ##### Update operations
@@ -1044,8 +1044,8 @@ If the item is updated, returns `None`. Otherwise, an exception is raised.
 
 #### Parameters
 
-- **updates** : updates applied to the item, is of type `deta.Updates` which is a `map[string]interface{}`
 - **key**: the key of the item to update
+- **updates** : updates applied to the item, is of type `deta.Updates` which is a `map[string]interface{}`
 
 ##### Update operations
 - **Set** : `Set` is practiced through normal key-value pairs. The operation changes the values of the attributes provided if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
@@ -1175,11 +1175,11 @@ For the examples, let's assume we have a **Base** with the following data:
 
 #### Parameters
 
-- `query`: is a single [query object](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
+- **query**: is a single [query object](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 
-- `limit`: is the maximum number of items which can be returned.
+- **limit**: is the maximum number of items which can be returned.
 
-- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more than 1mb of data, so you could buffer the results in smaller chunks.
+- **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more than 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
 
@@ -1252,11 +1252,11 @@ const foo = async (myQuery, bar) => {
 
 #### Parameters
 
-- `query`: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
+- **query**: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 
-- `limit`: is the maximum number of items which can be returned.
+- **limit**: is the maximum number of items which can be returned.
 
-- `buffer`: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
+- **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
 
@@ -1324,7 +1324,7 @@ def foo(my_query, bar):
 
 #### Parameters
 
-- `i`: is a pointer to a `FetchInput`
+- **i**: is a pointer to a `FetchInput`
 
   ```go
   // FetchInput input to Fetch operation
