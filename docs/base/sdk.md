@@ -138,7 +138,7 @@ func main(){
 
   // initialize with base name
   // returns ErrBadBaseName if base name is invalid
-  db, err := deta.NewBase("base_name")
+  db, err := d.NewBase("base_name")
   if err != nil {
     fmt.Println("failed to init new Base instance:", err)
     return
