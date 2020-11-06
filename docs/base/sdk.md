@@ -124,6 +124,7 @@ books = deta.Base("books")
 
 ```go
 import (
+  "fmt"
   "github.com/deta/deta-go"
 )
 
