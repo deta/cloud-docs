@@ -385,7 +385,7 @@ If not found, the promise will resolve to `null`.
 
 #### Parameter Types
 
-- **`key`** (required) – Accepts: `str`
+- **key** (required) – Accepts: `str`
     - Description: the key of which item is to be retrieved.
 
 #### Code Example
