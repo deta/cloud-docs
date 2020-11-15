@@ -165,7 +165,7 @@ We are going to use `fastapi` with our Deta Micro and deploy a simple `python` w
     Usually for security, a secret token is shared between the sender and the receiver and a hmac signature is calculated from the payload and the shared secret. The algorithm to calculate the signature varies based on the sender. You should consult the documentation of how the signature is calculated for the system you are receiving events from.
     :::
 
-7. Add a `POST` route to `index.js`. Most webhook callbacks send a `POST` request on the webhook URL with the payload containing information about the event that triggered the webhook. 
+7. Add a `POST` route to `main.py`. Most webhook callbacks send a `POST` request on the webhook URL with the payload containing information about the event that triggered the webhook. 
 
     Open `main.py` and add the handler to handle webhook events.
 
