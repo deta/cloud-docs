@@ -18,7 +18,7 @@ pip install deta flask
 ```
 
 
-To configure the app, import thedependencies and instantiate your database.
+To configure the app, import the dependencies and instantiate your database.
 
 ```py
 from flask import Flask, request, jsonify
