@@ -11,7 +11,7 @@ import TabItem from '@theme/TabItem';
 
 ### Setup
 
-Two dependencies are needed for this project, `deta` and `flask:
+Two dependencies are needed for this project, `deta` and `flask`:
 
 ```shell
 pip install deta flask
