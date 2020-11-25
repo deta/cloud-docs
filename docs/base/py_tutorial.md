@@ -11,14 +11,14 @@ import TabItem from '@theme/TabItem';
 
 ### Setup
 
-Two dependencies are needed for this project, `deta` and `flask:
+Two dependencies are needed for this project, `deta` and `flask`:
 
 ```shell
 pip install deta flask
 ```
 
 
-To configure the app, import thedependencies and instantiate your database.
+To configure the app, import the dependencies and instantiate your database.
 
 ```py
 from flask import Flask, request, jsonify
