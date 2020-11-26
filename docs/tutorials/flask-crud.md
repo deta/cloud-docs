@@ -1,6 +1,7 @@
 ---
-id: py_tutorial
-title: Python Tutorial
+id: flask-crud
+title: Flask Tutorial
+sidebar_label: Flask CRUD
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
