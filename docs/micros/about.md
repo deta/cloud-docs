@@ -20,10 +20,13 @@ Deta Micros(*ervers*) are a lightweight but scalable cloud runtime tied to an HT
 - HTTP Payload size limit is 5.5 MB.
 
 ### Important Notes
-
+- Micros automatically respond to your incoming requests and go to sleep when there's nothing to do. You do not have to manage their lifecycle manually.
+- You (and nobody) has access to the VM, which means there's no SSH access.
 - You are supposed to see the VM filesystem, it's not a security vulnerability.
 - Deta Micros do not support connecting to MongoDB at the moment. We recommend using Deta Base instead.
-- Source code + assets upload is limited to 250mb
+- We belive Micro won't work well with RDMBS like PostgreSQL and MySQL unless you use a pool manager.
+- Micros only support read-only SQLite, which you could deploy with your code.
+- Source code + assets upload is limited to 250mb.
 - Depandancies (pip, npm, etc) also can't exceed a combined size of 250mb.
 
 
