@@ -4,7 +4,7 @@ module.exports = {
   url: 'https://docs.deta.sh',
   baseUrl: '/',
   favicon: 'img/logo.svg',
-  organizationName: 'Deta', 
+  organizationName: 'Deta',
   projectName: 'deta-docs',
   themeConfig: {
     navbar: {
@@ -14,7 +14,7 @@ module.exports = {
         src: 'img/logo.svg',
         target: '/docs/home',
       },
-      links: [
+      items: [
         {
           to: 'docs/home',
           activeBasePath: 'docs',
