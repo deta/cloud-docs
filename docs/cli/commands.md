@@ -6,9 +6,9 @@ sidebar_label: Command Reference
 
 ## Summary
 
-**deta** is a CLI for managing [Deta Micros](about).
+**deta** is a CLI for managing [Deta Micros](/docs/micros/about).
 
-To install the CLI, check out [Getting Started](getting_started).
+To install the CLI, check out [Installing the CLI](install).
 
 
 #### Commands

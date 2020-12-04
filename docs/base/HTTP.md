@@ -436,7 +436,7 @@ List items that match a [query](./sdk#queries).
 
 | JSON Payload    | Required | Type     | Description                                    |
 |-----------------|----------|----------|------------------------------------------------|
-| `query`         | No       | `list`   | a [query](./lib#queries)                       |
+| `query`         | No       | `list`   | a [query](./sdk#queries)                       |
 | `limit`         | No       | `int`    | no of items to return. min value 1 if used     |
 | `last`          | No       | `string` | last key seen in a previous paginated response |
 
