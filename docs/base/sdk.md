@@ -1171,14 +1171,12 @@ For the examples, let's assume we have a **Base** with the following data:
 }>
 <TabItem value="js">
 
-**`async fetch(query, limit=null, buffer=null)`**
+**`async fetch(query, pages=10, buffer=null)`**
 
 #### Parameters
 
 - **query**: is a single [query object](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
-
-- **limit**: is the maximum number of items which can be returned.
-
+- **pages** how many pages of items should be returned.
 - **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more than 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
@@ -1228,19 +1226,19 @@ const {value: mySecondSet} = await db.fetch([
 
 A promise which resolves to a generator of objects that meet the `query` criteria.
 
-The total number of items will not exceed the defined `limit`.
+The total number of items will not exceed the defined using `buffer` and `pages. Max. number of items
 
 Iterating through the generator yields arrays containing objects, each array of max length `buffer`.
 
 
-#### Example using buffer, limit
+#### Example using buffer, pages
 
 ```js
 const foo = async (myQuery, bar) => {
 
-  items = db.fetch(myQuery, 100, 10) // items is up to the limit length, 100
+  items = db.fetch(myQuery, 10, 20) // items is up to the limit length (10*20)
 
-  for await (const subArray of items) // each subArray is up to the buffer length, 10
+  for await (const subArray of items) // each subArray is up to the buffer length, 20
     bar(subArray)
 }
 ```
@@ -1248,14 +1246,12 @@ const foo = async (myQuery, bar) => {
 
 <TabItem value="py">
 
-**`fetch(query=None, limit=2000, buffer=None):`**
+**`fetch(query=None, buffer=None, pages=10):`**
 
 #### Parameters
 
 - **query**: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
-
-- **limit**: is the maximum number of items which can be returned.
-
+- **pages** how many pages of items should be returned.
 - **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
@@ -1301,16 +1297,16 @@ my_second_set = next(db.fetch([{"age?gt": 50}, {"hometown": "Greenville"}]))
 
 A generator of objects that meet the `query` criteria.
 
-The total number of items will not exceed the defined `limit`.
+The total number of items will not exceed the defined using `buffer` and `pages. Max. number of items
 
 Iterating through the generator yields lists containing objects, each list of max length `buffer`.
 
 
-#### Example using buffer, limit
+#### Example using buffer, pages
 
 ```py
 def foo(my_query, bar):
-  items = db.fetch(my_query, limit=100, buffer=10) # items is up to the limit length, 100
+  items = db.fetch(my_query, pages=10, buffer=20) # items is up to the limit length (10*20)
 
   for sub_list in items: # each sub_list is up to the buffer length, 10
     bar(sub_list)
