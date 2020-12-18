@@ -1132,6 +1132,28 @@ A query is composed of a single [query](#queries) object or a list of [queries](
 
 In the case of a list, the indvidual queries are OR'ed.
 
+
+<Tabs
+  groupId="preferred-language"
+  defaultValue="js"
+  values={[
+    { label: 'JavaScript', value: 'js', },
+    { label: 'Python', value: 'py', },
+    { label: 'Go', value: 'go', },
+  ]
+}>
+<TabItem value="js">
+
+**`async fetch(query, pages=10, buffer=null)`**
+
+#### Parameters
+
+- **query**: is a single [query object](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
+- **pages** how many pages of items should be returned.
+- **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more than 1mb of data, so you could buffer the results in smaller chunks.
+
+#### Code Example
+
 For the examples, let's assume we have a **Base** with the following data:
 
 ```json
@@ -1158,28 +1180,6 @@ For the examples, let's assume we have a **Base** with the following data:
 ]
 
 ```
-
-
-<Tabs
-  groupId="preferred-language"
-  defaultValue="js"
-  values={[
-    { label: 'JavaScript', value: 'js', },
-    { label: 'Python', value: 'py', },
-    { label: 'Go', value: 'go', },
-  ]
-}>
-<TabItem value="js">
-
-**`async fetch(query, pages=10, buffer=null)`**
-
-#### Parameters
-
-- **query**: is a single [query object](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
-- **pages** how many pages of items should be returned.
-- **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more than 1mb of data, so you could buffer the results in smaller chunks.
-
-#### Code Example
 
 ```js
 const {value: myFirstSet} = await db.fetch({"age?lt": 30}).next();
@@ -1255,6 +1255,33 @@ const foo = async (myQuery, bar) => {
 - **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
+
+For the examples, let's assume we have a **Base** with the following data:
+
+```json
+
+[
+  {
+    "key": "key-1",
+    "name": "Wesley",
+    "age": 27,
+    "hometown": "San Francisco",
+  },
+  {
+    "key": "key-2",
+    "name": "Beverly",
+    "age": 51,
+    "hometown": "Copernicus City",
+  },
+  {
+    "key": "key-3",
+    "name": "Kevin Garnett",
+    "age": 43,
+    "hometown": "Greenville",
+  }
+]
+
+```
 
 ```py
 my_first_set = next(db.fetch({"age?lt": 30}))
