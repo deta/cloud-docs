@@ -24,7 +24,7 @@ Deta Micros(*ervers*) are a lightweight but scalable cloud runtime tied to an HT
 - You (and nobody) has access to the VM, which means there's no SSH access.
 - You are supposed to see the VM filesystem, it's not a security vulnerability.
 - Deta Micros do not support connecting to MongoDB at the moment. We recommend using Deta Base instead.
-- We belive Micro won't work well with RDMBS like PostgreSQL and MySQL unless you use a pool manager.
+- We believe Micro won't work well with RDMBS like PostgreSQL and MySQL unless you use a pool manager.
 - Micros only support read-only SQLite, which you could deploy with your code.
 - Source code + assets upload is limited to 250mb.
 - Dependancies (pip, npm, etc) also can't exceed a combined size of 250mb.
