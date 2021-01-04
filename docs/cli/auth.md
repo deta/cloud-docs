@@ -58,3 +58,7 @@ export DETA_ACCESS_TOKEN=<access_token_here>
 ```
 
 You are now free to use the `deta` command within GitPod!
+
+#### Using Deta in GitHub Actions with Access Tokens
+
+Use this ready-to-use [GitHub action](https://github.com/marketplace/actions/deploy-to-deta) to deploy your app to Deta.
