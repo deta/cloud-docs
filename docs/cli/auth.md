@@ -61,4 +61,4 @@ You are now free to use the `deta` command within GitPod!
 
 #### Using Deta in GitHub Actions with Access Tokens
 
-A usable example of using Deta within GitHub actions is [here](https://github.com/BogDAAAMN/deta-deploy-action).
+Use this ready-to-use [GitHub action](https://github.com/marketplace/actions/deploy-to-deta) to deploy deploy your app to Deta.
