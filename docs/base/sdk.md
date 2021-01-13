@@ -21,6 +21,7 @@ If your database keys have special characters (like `&`,`/`, `@` etc) that are u
 
 First, install the Deta library in your project's directory.
 
+<br />
 <Tabs
   groupId="preferred-language"
   defaultValue="js"
@@ -41,7 +42,6 @@ Using Yarn:
  ```shell
 yarn add deta
 ```
-
 </TabItem>
 <TabItem value="py">
 
@@ -67,6 +67,7 @@ To start working with your Base, you need to import the `Deta` class and initial
 
 Deta Bases are created for you automatically when you start using them.
 
+<br />
 <Tabs
   groupId="preferred-language"
   defaultValue="js"
@@ -90,6 +91,16 @@ const db = deta.Base('simple_db');
 // You can create as many as you want without additional charges.
 const books = deta.Base('books'); 
 ```
+
+:::note
+  If you are using Deta Base within a [Deta Micro](/docs/micros/about), the **Deta SDK** comes pre-installed and a valid project key is pre-set in the Micro's environment. There is no need to install the SDK or pass a key in the initialization step.
+
+  ```js
+  const { Deta } = require('deta');
+
+  const deta = Deta(); 
+```
+:::
 
 :::note
   If you are using the `deta` npm package of `0.0.6` or below, `Deta` is the sinlge default export and should be imported as such.
@@ -117,6 +128,16 @@ db = deta.Base("simple_db")
 books = deta.Base("books")
 
 ```
+
+:::note
+  If you are using Deta Base within a [Deta Micro](/docs/micros/about), the **Deta SDK** comes pre-installed and a valid project key is pre-set in the Micro's environment. There is no need to install the SDK or pass a key in the the initialization step.
+
+  ```py
+  from deta import Deta
+
+  deta = Deta()
+```
+:::
 
 </TabItem>
 
@@ -178,6 +199,7 @@ In the case you do not provide us with a key, we will auto generate a 12 char lo
 
 You can also use `put` when you want to update an item in the database.
 
+<br />
 <Tabs
   groupId="preferred-language"
   defaultValue="js"
@@ -342,6 +364,7 @@ Returns the `key` of the item stored and an `error`. Possible error values:
 
 `get` retrieves an item from the database by it's `key`.
 
+<br />
 <Tabs
   groupId="preferred-language"
   defaultValue="js"
@@ -465,6 +488,7 @@ Returns an `error`. Possible error values:
 ### Delete
 `delete` deletes an item form the database provided a key.
 
+<br />
 <Tabs
   groupId="preferred-language"
   defaultValue="js"
@@ -554,6 +578,7 @@ The `insert` method inserts a single item into a **Base**, but is unique from [`
 
 `insert` is roughly 2x slower than [`put`](#put). 
 
+<br />
 <Tabs
   groupId="preferred-language"
   defaultValue="js"
@@ -686,7 +711,7 @@ Returns the `key` of the item inserted and an `error`. Possible error values:
 
 The Put Many method puts up to 25 items into a Base at once on a single call.
 
-
+<br />
 <Tabs
   groupId="preferred-language"
   defaultValue="js"
@@ -872,6 +897,7 @@ Returns the list of keys of the items stored and an `error`. In case of an error
 
 `update` updates an existing item from the database.
 
+<br />
 <Tabs
   groupId="preferred-language"
   defaultValue="js"
@@ -1133,6 +1159,7 @@ A query is composed of a single [query](#queries) object or a list of [queries](
 In the case of a list, the indvidual queries are OR'ed.
 
 
+<br />
 <Tabs
   groupId="preferred-language"
   defaultValue="js"

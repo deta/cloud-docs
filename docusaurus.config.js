@@ -81,4 +81,7 @@ module.exports = {
       },
     ],
   ],
+  stylesheets: [
+    'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono&family=Karla&display=swap',
+  ],
 };
