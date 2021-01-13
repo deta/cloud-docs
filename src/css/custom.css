@@ -9,6 +9,8 @@
 
 
 
+
+
 body {
   font-family: 'Karla', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
 }
@@ -35,10 +37,7 @@ h4 {
   --ifm-color-primary-lightest: #afcdff;
   --ifm-code-font-size: 95%;
   --ifm-font-family-monospace: "IBM Plex Mono", SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-}
-
-html[data-theme="dark"] {
-  --ifm-color-emphasis-100: #20232B !important;
+  --ifm-global-radius: 0.25rem !important;
 }
 
 .twentypx {
@@ -46,15 +45,10 @@ html[data-theme="dark"] {
 }
 
 
-.codeBlockLines_node_modules-\@docusaurus-theme-classic-src-theme-CodeBlock- {
-  font-family: var(--ifm-font-family-monospace);
-  font-size: 14px !important;
-  background-color: #183055 !important;
-  line-height: var(--ifm-pre-line-height);
-  white-space: pre;
-  float: left;
-  min-width: 100%;
-  padding: var(--ifm-pre-padding);
+
+
+.codeBlockLines_node_modules-\@docusaurus-theme-classic-lib-theme-CodeBlock-, .codeBlockLines_b7E3 {
+  background-color: #163466 !important; 
 }
 
 html[data-theme="dark"] {
@@ -74,4 +68,5 @@ html[data-theme="dark"] {
   --ifm-hover-overlay: rgba(255, 255, 255, 0.05);
   --ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg alt="Arrow" xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(255,255,255,0.6)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>');
   --ifm-color-content-secondary: #D6D6D6;
+  --ifm-color-emphasis-100: #20232B !important;
 }
