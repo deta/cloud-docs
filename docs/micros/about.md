@@ -27,6 +27,6 @@ Deta Micros(*ervers*) are a lightweight but scalable cloud runtime tied to an HT
 - We believe Micro won't work well with RDMBS like PostgreSQL and MySQL unless you use a pool manager.
 - Micros only support read-only SQLite, which you could deploy with your code.
 - Source code + assets upload is limited to 250mb.
-- Dependancies (pip, npm, etc) also can't exceed a combined size of 250mb.
+- Dependencies (pip, npm, etc) also can't exceed a combined size of 250mb.
 
 
