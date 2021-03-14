@@ -7,7 +7,7 @@ title: Home
 
 Deta is a micro-cloud crafted with the developer and user experience at heart.
 
-It is our mission is to dramatically reduce the gap between ideas and working cloud applications.
+It is our mission to dramatically reduce the gap between ideas and working cloud applications.
 
 #### Resources
 
