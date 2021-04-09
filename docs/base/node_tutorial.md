@@ -102,7 +102,7 @@ app.get('/users/:id', async (req, res) => {
 });
 ```
 
-Another option is to use `Base.fetch(query)` to search for records to return, like so:
+Another option would to use `Base.fetch(query)` to search for records to return, like so:
 
 ```js
 app.get('/search-by-age/:age, async (req, res) => {
