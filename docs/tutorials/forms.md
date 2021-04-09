@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem';
 
 [Deta Micros](../micros/about.md) can be used to easily deploy form endpoints and the form data can be stored easily with [Deta Base](../base/about.md).
 
-In this guide, we are going to deploy a Deta Micro that offers a form endpoint for a simple contact form and stores the information in Deta Base. 
+In this guide, we are going to deploy a Deta Micro that offers a form endpoint for a simple contact form and stores the information in a Deta Base. 
 
 The guide assumes you have already signed up for Deta and have the [Deta CLI](../cli/install.md) installed.
 
@@ -65,7 +65,7 @@ We are going to deploy an `express` app for the form endpoint.
     {
         "name": "express-form",
         "runtime": "nodejs12.x",
-        "endpoint": "https://ma3sst.deta.dev",
+        "endpoint": "https://{micro_name}.deta.dev",
         "visor": "enabled",
         "http_auth": "enabled"
     }
@@ -186,7 +186,7 @@ We are going to deploy a `flask` app for the form endpoint.
     {
         "name": "flask-form",
         "runtime": "python3.7",
-        "endpoint": "https://ma3sst.deta.dev",
+        "endpoint": "https://{micro_name}.deta.dev",
         "visor": "enabled",
         "http_auth": "enabled"
     }
@@ -212,7 +212,7 @@ We are going to deploy a `flask` app for the form endpoint.
     ```python
     from flask import Flask, request
 
-    #flas app
+    #flask app
     app = Flask(__name__)
 
     @app.route("/", methods=["POST"])
