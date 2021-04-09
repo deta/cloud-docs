@@ -55,7 +55,7 @@ The guide assumes you have already signed up for Deta and have the [Deta CLI](..
     {
         "name": "cron-job",
         "runtime": "nodejs12.x",
-        "endpoint": "https://ma3sst.deta.dev",
+        "endpoint": "https://{micro_name}.deta.dev",
         "visor": "enabled",
         "http_auth": "enabled"
     }
@@ -78,7 +78,7 @@ The guide assumes you have already signed up for Deta and have the [Deta CLI](..
     {
         "name": "cron-job",
         "runtime": "nodejs12.x",
-        "endpoint": "https://ma3sst.deta.dev",
+        "endpoint": "https://{micro_name}.deta.dev",
         "visor": "enabled",
         "http_auth": "enabled",
         "cron": "5 minutes"
@@ -128,7 +128,7 @@ We have a micro which prints "running on a schedule" every five minutes. You sho
     {
         "name": "cron-job",
         "runtime": "python3.7",
-        "endpoint": "https://ma3sst.deta.dev",
+        "endpoint": "https://{micro_name}.deta.dev",
         "visor": "enabled",
         "http_auth": "enabled"
     }
@@ -151,7 +151,7 @@ We have a micro which prints "running on a schedule" every five minutes. You sho
     {
         "name": "cron-job"
         "runtime": "python3.7",
-        "endpoint": "https://ma3sst.deta.dev",
+        "endpoint": "https://{micro_name}.deta.dev",
         "visor": "enabled",
         "http_auth": "enabled",
         "cron": "5 minutes"
