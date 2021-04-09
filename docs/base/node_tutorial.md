@@ -102,6 +102,20 @@ app.get('/users/:id', async (req, res) => {
 });
 ```
 
+Another option is to use `Base.fetch(query)` to search for records to return, like so:
+
+```js
+app.get('/search-by-age/:age, async (req, res) => {
+    const { age } = req.params;
+    const users = await db.fetch({'age': age});
+    if (users) {
+        res.json(user);
+    } else {
+        res.status(404).json({"message": "no users ${age} years old found"});
+    }
+});
+```
+
 #### Request
 
 Let's try reading the record we just created.
