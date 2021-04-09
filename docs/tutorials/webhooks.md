@@ -58,7 +58,7 @@ We are going to use `express` with our Deta Micro and deploy a simple `nodejs` w
     {
         "name": "express-webhook",
         "runtime": "nodejs12.x",
-        "endpoint": "https://ma3sst.deta.dev",
+        "endpoint": "https://{micro_name}.deta.dev",
         "visor": "enabled",
         "http_auth": "enabled"
     }
@@ -142,7 +142,7 @@ We are going to use `fastapi` with our Deta Micro and deploy a simple `python` w
     {
         "name": "fastapi-webhook",
         "runtime": "python3.7",
-        "endpoint": "https://ma3sst.deta.dev",
+        "endpoint": "https://{micro_name}.deta.dev",
         "visor": "enabled",
         "http_auth": "enabled"
     }
