@@ -154,11 +154,11 @@ const express = require('express');
 const app = App(express());
 
 app.get('/', async(req, res) => {
-    res.send('Hello deta, i am running with HTTP');
+    res.send('Hello Deta, I am running with HTTP');
 });
 
 app.lib.cron(event => {
-    return 'Hello deta, i am cron job';
+    return 'Hello Deta, I am a cron job';
 });
 
 module.exports = app;
@@ -175,11 +175,11 @@ app = App(FastAPI())
 
 @app.get("/")
 def http():
-    return "Hello deta, i am running with HTTP"
+    return "Hello Deta, I am running with HTTP"
 
 @app.lib.cron()
 def cron_job(event):
-    return "Hello deta, i am a cron job"
+    return "Hello Deta, I am a cron job"
 ```
 </TabItem>
 </Tabs>
@@ -201,7 +201,7 @@ You can use both cron and [run](./run) triggers in the same deta micro. You can 
 ```js
 const { app } = require('deta');
 
-const sayHello = event => 'hello deta';
+const sayHello = event => 'hello Deta';
 const printTime = event => `it is ${(new Data).toTimeString()}`;
 
 // only run
