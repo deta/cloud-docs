@@ -8,6 +8,10 @@ sidebar_label: Advanced Usage
 
 Ready to take your Micro usage to the next level? Have a look at the following advanced features offered by Micros:
 
+ * [Pre-set Environment Variables](micros/advanced/#pre-set-environment-variables) - learn about the environment variables pre-set in your Micro.
+ * [Using API Keys](micros/advanced/#using-api-keys) - Learn how to secure your Micro and use an API key to authenticate therewith.
+ * [Visor](micros/advanced/#visor) - find and use Visor, a troubleshooting and testing tool.
+
 ### Pre-set Environment Variables
 
 The `DETA_PATH` and `DETA_RUNTIME` environent variables are set in every Micro's environment. 
