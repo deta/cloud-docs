@@ -9,20 +9,23 @@ Deta is a micro-cloud crafted with the developer and user experience at heart.
 
 It is our mission to dramatically reduce the gap between ideas and working cloud applications.
 
+
 #### Resources
 
 To accomplish our mission, we offer a set of minimal-config cloud primitives:
 
-1. **[Deta Base](#deta-base)** (beta): Instantly useable database with a feature-rich API.
+1. **[Deta Base](#deta-base)** (beta): Instantly usable database with a feature-rich API.
 2. **[Deta Micros](#deta-micros)** (beta): Deploy scalable Node & Python apps in seconds.
 3. **Deta Drive** (soon): Upload, host and serve images and files.
 4. **Deta Auth** (soon): Effortless signup, login & accounts for your apps.
+
 
 #### Local Development and the Deta CLI
 
 Most developers like their local development flow. We provide a CLI that ties your local development workflow into your micro cloud, see:
 
 - [Deta CLI](#deta-cli)
+
 
 #### Support
 
@@ -35,7 +38,7 @@ If you have any questions, we provide a few ways to get help ASAP:
 
 Deta Base is our instantly usable NoSQL database.
 
-- [About Deta Base](base/about.md): General Information about Bases
+- [About Deta Base](base/about.md): General Information about Bases.
 - [Base SDK](base/sdk.md): SDK for using a Base in Node.js and Python.
 - [HTTP API](base/HTTP.md): API for interacting with a Base over HTTP.
 - [Node.js Tutorial](base/node_tutorial.md): Build a micro-crud in Node.js using Base and Express.js.
@@ -44,10 +47,11 @@ Deta Base is our instantly usable NoSQL database.
 
 ### Deta Micros
 
-Deta Micros(ervers) are a lightweight but scalable cloud runtime tied to an HTTP endpoint. Currently Node.js and Python Micros are supported.
+Deta Micros(servers) are a lightweight but scalable cloud runtime tied to an HTTP endpoint. Currently Node.js and Python Micros are supported.
 
 - [About Deta Micros](micros/about.md): General Information about Micros.
 - [Getting Started with Micros](micros/getting_started.md): Get your first Micro live.
+
 
 ### Deta CLI
 
@@ -57,7 +61,6 @@ You create and update micros using the CLI.
 
 - [Install the Deta CLI](cli/install.md)
 - [Complete CLI Reference](cli/commands.md)
-
 
 
 ### Getting Help

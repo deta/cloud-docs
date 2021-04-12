@@ -13,7 +13,7 @@ Each Deta Micro has a unique HTTPS endpoint which can be used as the webhook URL
 
 You can use your favorite web application framework for your webhook server.
 
-The guide assumes you have already signed up for Deta and have the [Deta CLI](../cli/install.md) installed
+The guide assumes you have already signed up for Deta and have the [Deta CLI](../cli/install.md) installed.
 
 <Tabs
     groupId="preferred-language"
@@ -42,7 +42,7 @@ We are going to use `express` with our Deta Micro and deploy a simple `nodejs` w
     $ npm init -y
     ```
 
-    You can skip the `-y` flag, if you want to fill the details about the pacakge interactively through npm's wizard.
+    You can skip the `-y` flag, if you want to fill the details about the package interactively through npm's wizard.
 
 4. Install `express` locally for your project.
 
@@ -50,7 +50,7 @@ We are going to use `express` with our Deta Micro and deploy a simple `nodejs` w
     $ npm install express
     ```
 
-5. Create a new `nodejs` micro with `deta new`. This will create a new `nodejs` micro for you and automatically install `express` as a dependecy.
+5. Create a new `nodejs` micro with `deta new`. This will create a new `nodejs` micro for you and automatically install `express` as a dependency.
 
     ```shell
     $ deta new
@@ -128,13 +128,13 @@ We are going to use `fastapi` with our Deta Micro and deploy a simple `python` w
 
 2. Create an empty `main.py` file (we will add the code that handles the logic later).
 
-3. Create a `requirements.txt` file and add `fastapi` as a dependecy.
+3. Create a `requirements.txt` file and add `fastapi` as a dependency.
     
     ```
     fastapi
     ```
 
-5. Create a new `python` micro with `deta new`. This will create a new `python` micro for you and automatically install `fastapi` as a dependecy.
+5. Create a new `python` micro with `deta new`. This will create a new `python` micro for you and automatically install `fastapi` as a dependency.
 
     ```shell
     $ deta new
