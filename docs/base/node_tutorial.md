@@ -107,12 +107,7 @@ Another option would to use `Base.fetch(query)` to search for records to return,
 ```js
 app.get('/search-by-age/:age, async (req, res) => {
     const { age } = req.params;
-    const users = await db.fetch({'age': age});
-    if (users) {
-        res.json(user);
-    } else {
-        res.status(404).json({"message": "no users ${age} years old found"});
-    }
+    return (await db.fetch({'age': age}).next()).value;
 });
 ```
 
