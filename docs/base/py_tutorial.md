@@ -111,8 +111,7 @@ We could also use the `db.fetch(query)` method to return the same data:
 @app.route("/users/<key>")
 def get_user():
     key = request.json.get("key")
-    user = db_user.fetch({'key': id})
-    return user if user else jsonify({"error": "Not found"}, 404)
+    return list(db_user.fetch({'key': id}))
 ```
 
 
