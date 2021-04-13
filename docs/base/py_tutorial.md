@@ -104,6 +104,17 @@ def get_user():
     return user if user else jsonify({"error": "Not found"}, 404)
 ```
 
+We could also use the `db.fetch(query)` method to return the same data:
+
+
+```py
+@app.route("/users/<key>")
+def get_user():
+    key = request.json.get("key")
+    return list(db_user.fetch({'key': id}))
+```
+
+
 #### Request
 
 Let's try reading the record we just created.

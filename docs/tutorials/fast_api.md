@@ -39,7 +39,7 @@ The guide assumes you have already signed up for Deta and have the [Deta CLI](..
     {
             "name": "fastapi-app",
             "runtime": "python3.7",
-            "endpoint": "https://nmoth4.deta.dev",
+            "endpoint": "https://{micro_name}.deta.dev",
             "visor": "enabled",
             "http_auth": "enabled"
     }
@@ -49,6 +49,6 @@ The guide assumes you have already signed up for Deta and have the [Deta CLI](..
     Successfully installed fastapi-0.61.1 pydantic-1.6.1 starlette-0.13.6
     ```
 
-We have now a fastAPI application deployed. 
+We now have a FastAPI application deployed. 
 
 If you visit the `endpoint` shown in the output (your endpoint will be different from this one) in your browser, you should see a `Hello World!` response.

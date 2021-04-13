@@ -29,10 +29,10 @@ This URL is the base for all your HTTP requests:
 
 **`https://database.deta.sh/v1/{project_id}/{base_name}`**
 
-> The `base_name` is the name for your database. If you already have a **Base**, then you can go ahead and provide it's name here. Additionally, you could provide any name here when doing any `PUT` or `POST` request and our backend will automatically create a new base for you if it does not exist. There is no limit on how many "Bases" you can create.
+> The `base_name` is the name given to your database. If you already have a **Base**, then you can go ahead and provide it's name here. Additionally, you could provide any name here when doing any `PUT` or `POST` request and our backend will automatically create a new base for you if it does not exist. There is no limit on how many "Bases" you can create.
 
 ### Auth
-A **Project Key** _must_ to be provided in the request **headers** `X-API-Key` for authentication. This is how we authorize your requests.
+A **Project Key** _must_ to be provided in the request **headers** as a value for the `X-API-Key` key for authentication. This is how we authorize your requests.
 
 Example `'X-API-Key: a0abcyxz_aSecretValue'`.
 

@@ -5,14 +5,14 @@ title: Deta Base SDK
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-The Deta library is the easiest way to store and retrieve data from your Deta Base. Currently we support JavaScript (Node + Browser), Python 3 and Go. [Drop us a line](#contact) if you want us to support your favorite language.
+The Deta library is the easiest way to store and retrieve data from your Deta Base. Currently, we support JavaScript (Node + Browser), Python 3 and Go. [Drop us a line](#contact) if you want us to support your favorite language.
 
 :::note
-A "Deta Base" instance is a collection of data not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will grow with your app's needs.
+A "Deta Base" instance is a collection of data, not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will grow with your app's needs.
 :::
 
 :::note
-If your database keys have special characters (like `&`,`/`, `@` etc) that are url-reserved or url-unsafe, please use the latest sdk versions to prevent unexpected behavior.
+If your database keys have special characters (like `&`,`/`, `@`, etc.) that are url-reserved or url-unsafe, please use the latest sdk version to prevent unexpected behavior.
 :::
  
 <!-- TODO: validation errors for put, put_many, insert and fetch. -->
@@ -280,7 +280,7 @@ db.put(["a", "b", "c"], "my_abc")
 
 #### Returns
 
-`put` returns the item on a successful put, otherwise it raises an Error.
+`put` returns the item on a successful put, otherwise it raises an error.
 
 </TabItem>
 
@@ -486,7 +486,7 @@ Returns an `error`. Possible error values:
 
 
 ### Delete
-`delete` deletes an item form the database provided a key.
+`delete` deletes an item from the database that matches the key provided.
 
 <br />
 <Tabs
@@ -527,7 +527,7 @@ Always returns a promise which resolves to `null`, even if the key does not exis
 
 #### Parameters
 - **key** (required) – Accepts: `str`
-    - Description: the key of which item is to be deleted.
+    - Description: the key of the item that is to be deleted.
 
 #### Code Example
 

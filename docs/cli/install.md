@@ -49,11 +49,11 @@ iwr https://get.deta.dev/cli.ps1 -useb | iex
 </Tabs>
 
 
-This will download the binary which contains the CLI code. It will try to export the `deta` command to your path. If it does not succeed, follow the directions output by the install script to export `deta` to your path.
+This will download the binary which contains the CLI code. It will try to export the `deta` command to your path. If it does not succeed, follow the directions outputted by the install script to export `deta` to your path.
 
 ### Logging into Deta via the CLI
 
-Once you have successfully installed the Deta CLI, you need to log in to Deta.
+Once you have successfully installed the Deta CLI, you'll need to log in to Deta.
 
 From a Terminal, type `deta login`.
 
