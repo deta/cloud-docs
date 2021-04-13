@@ -8,9 +8,9 @@ sidebar_label: Advanced Usage
 
 Ready to take your Micro usage to the next level? Have a look at the following advanced features offered by Micros:
 
- * [Pre-set Environment Variables](advanced/#pre-set-environment-variables) - learn about the environment variables pre-set in your Micro.
- * [Using API Keys](advanced/#using-api-keys) - Learn how to secure your Micro and use an API key to authenticate therewith.
- * [Visor](advanced/#visor) - find and use Visor, a troubleshooting and testing tool.
+ * [Pre-set Environment Variables](advanced.md/#pre-set-environment-variables) - learn about the environment variables pre-set in your Micro.
+ * [Using API Keys](advanced.md/#using-api-keys) - Learn how to secure your Micro and use an API key to authenticate therewith.
+ * [Visor](advanced.md/#visor) - find and use Visor, a troubleshooting and testing tool.
 
 ### Pre-set Environment Variables
 
