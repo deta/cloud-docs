@@ -14,21 +14,26 @@ Something not working? Use Visor to see a live view of the result of every reque
 <Tabs 
     defaultValue="browser" 
     values={[
-    {label: 'Browser', value: 'browser'},
-    {label: 'Terminal', value: 'terminal'}
-    ]}>
-    <TabItem value="browser">
-        Start off by logging into your console at [deta.sh](https://deta.sh).
+    { label: 'Browser', value: 'browser' },
+    { label: 'Terminal', value: 'terminal' },
+    ]
+}>
+<TabItem value="browser">
 
-        Once that's done, choose a micro to view by clicking on its name (under the _"Micros"_ tab).
+Start off by logging into your console at [deta.sh](https:deta.sh).
 
-        Now click on _"Visor"_
-    </TabItem>
-    <TabItem value="terminal">
-        Start your terminal in the root directory of your deployed Deta project.
+Once that's done, choose a micro to view by clicking on itname (under the _"Micros"_ tab).
 
-        Run `deta visor open`.
-    </TabItem>
+Now click on _"Visor"_
+
+</TabItem>
+<TabItem value="terminal">
+
+Start your terminal in the root directory of your deployed Detproject.
+
+Run `deta visor open`.
+
+</TabItem>
 </Tabs>
 
 ### Using Visor
