@@ -20,7 +20,7 @@ Something not working? Use Visor to see a live view of the result of every reque
 }>
 <TabItem value="browser">
 
-Start off by logging into your console at [deta.sh](https:deta.sh).
+Start off by logging into your console at [deta.sh](https://deta.sh).
 
 Once that's done, choose a micro to view by clicking on itname (under the _"Micros"_ tab).
 
