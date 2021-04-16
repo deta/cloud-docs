@@ -6,9 +6,9 @@ sidebar_label: Visor
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-### Visor
+### Why Visor?
 
-Something not working? Use Visor to see a live view of the result of every request processed! Using Visor, you can also test your endpoints by sending your Micro requests!
+If something's not working, use Visor to see a live view of the result of every request processed! Using Visor, you can also test your endpoints by sending your Micro requests!
 
 ### Opening Visor
 <Tabs 
