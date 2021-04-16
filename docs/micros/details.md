@@ -18,7 +18,7 @@ Let's run through a few examples.
 ##### DETA_PATH
 Let's say you're building a resource that needs to respond with an absolute link to some of the content it is hosting, along with the relative resource link. This can be done with the following code:
 
-```python3
+```py
 # Get and store hostname for later use
 path = os.environ.get('DETA_PATH')
 hostname = ""
@@ -39,7 +39,7 @@ async def get_resource_location(resource_id):
 ##### DETA_RUNTIME
 Let's say you're running a `fastapi` project on your Micro and that you've got an endpoint that dumps very sensitive debug informaton like so:
 
-```python3
+```py
 @app.get("/debug_info")
 async def debug_info():
    return get_debug_info()
@@ -49,7 +49,7 @@ This would be alright for local testing, but would mean that anyone would be abl
 
 A solution to this could be to check the environment variable (using `os.getenv` from the `os` import) to see if this is running on Deta or not.
 
-```python3
+```py
 @app.get("/debug_info")
 async def debug_info():
    if (os.getenv('DETA_RUNTIME', False)):
