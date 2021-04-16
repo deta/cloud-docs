@@ -76,10 +76,10 @@ Simply specify the request method, path, headers and body and hit the _Send_ but
 
 <img src="/img/visor/visor_7.png" alt="visor_7" width="600"/>
 
-The content-type can be changed from JSON to Text too, using theselection box on the bottom left of this window.
+The content-type can be changed from JSON to Text too, using the selection box on the bottom left of this window.
 
 <img src="/img/visor/visor_8.png" alt="visor_8" width="600"/>
 
 
-#### Still confused?
+### Still confused?
 We made a video about it too: https://www.youtube.com/watch?v=kAwV7-bEtb0
