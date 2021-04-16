@@ -48,22 +48,38 @@ When viewing the Visor page, you'll see a link to your Micro in the top right, a
 <img src="/img/visor/visor_4.png" alt="visor_4" width="800"/>
 
 #### The Event List
-Every event has the returned status code, the path, the protocol, the method and the time logged above it. Under this information are three  tabs, letting you view the response given by the Micro, the Request sent to the Micro and logs (normally displaying errors if they were to occur).
+Every event has the returned status code, the path, the protocol, the method and the time logged above it. Under this information are three  tabs, letting you view the response given by the Micro: 
 
 <img src="/img/visor/visor_9.png" alt="visor_9" width="800"/>
+
+the Request sent to the Micro:
+
 <img src="/img/visor/visor_10.png" alt="visor_10" width="800"/>
+
+ and logs (normally displaying errors if they were to occur).
+
 <img src="/img/visor/visor_11.png" alt="visor_11" width="800"/>
+
+On the top right of every event are two icons:
+
 <img src="/img/visor/visor_12.png" alt="visor_12" width="800"/>
 
-On the top right of every event are two icons, the first of which lets you edit the request before re-sending it to your micro and the second of which lets you send the same request again.
+The pen icon lets you edit the request before re-sending it to your micro and the _"redo"_ icon lets you send the same request again.
+
 
 #### The HTTP Client
 After clicking on the _"HTTP Client"_ button, a new window will appear, that lets you create an HTTP request that can be sent to your Micro!
 
 <img src="/img/visor/visor_6.png" alt="visor_6" width="600"/>
+
+Simply specify the request method, path, headers and body and hit the _Send_ button to send it off!
+
 <img src="/img/visor/visor_7.png" alt="visor_7" width="600"/>
+
+The content-type can be changed from JSON to Text too, using theselection box on the bottom left of this window.
+
 <img src="/img/visor/visor_8.png" alt="visor_8" width="600"/>
 
-Simply specify the request method, path, headers and body and hit _Send_ to send it off! The content-type can be changed from JSON to Text too, using the selection box on the bottom left of this window.
 
+#### Still confused?
 We made a video about it too: https://www.youtube.com/watch?v=kAwV7-bEtb0
