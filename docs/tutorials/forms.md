@@ -167,7 +167,7 @@ We are going to deploy a `flask` app for the form endpoint.
 1. Create a directory `flask-form` and change the current directory to it.
 
     ```shell
-    $ mkdir flask-from && cd flask-form
+    $ mkdir flask-form && cd flask-form
     ```
 
 2. Create an empty `main.py` file (we will add the code that handles the logic later).
