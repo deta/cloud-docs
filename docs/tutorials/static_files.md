@@ -1,6 +1,6 @@
 ---
 id: static-files-guide
-title: Deploy static files (Including static React, Vue, Svelte apps)
+title: Deploy Static Files (Including static React, Vue, Svelte apps)
 sidebar_label: Static Files
 ---
 
@@ -8,7 +8,7 @@ You can deploy static React, Vue, Svelte, or just Vanilla JavaScript apps on Det
 
 The guide assumes you have a `build` folder with your static app and have the [Deta CLI](../cli/install.md) installed.
 
-#### Setup
+## Setup
 
 Create a directory `static-app` and change the current directory to it.
   ```shell
@@ -16,7 +16,7 @@ Create a directory `static-app` and change the current directory to it.
   ```
 Copy your `build` folder into the `static-app` directory.
 
-#### Updating code
+## Updating code
 Create a `main.py` file with the following snippet:
 
   ```python
@@ -24,15 +24,16 @@ Create a `main.py` file with the following snippet:
   from fastapi.staticfiles import StaticFiles
 
   app = FastAPI()
-  app.mount("/", StaticFiles(directory="build"), name="static")
+  app.mount("/", StaticFiles(directory="build", html=True), name="static")
   ```
 
 We are mounting the build folder, and serving the files using `FastAPI`.
 
-#### Updating dependencies
+## Updating dependencies
 Now create a `requirements.txt` with the following line:
   ```
   fastapi 
+  aiofiles
   ``` 
 
 Here is a look at the folder structure at the end:
@@ -43,7 +44,7 @@ Here is a look at the folder structure at the end:
       └── build/...
   ```
 
-#### Deploying Local Changes
+## Deploying Local Changes
 Deploy your application with `deta new`
   ```
   $ deta new
@@ -56,12 +57,12 @@ Deploy your application with `deta new`
           "http_auth": "enabled"
   }
   Adding dependencies...
-  Collecting starlette
+  Collecting fastapi
   ...
   Successfully installed fastapi-0.61.1 pydantic-1.6.1 starlette-0.13.6
   ```
 
-#### Visiting our endpoint
+## Visiting our endpoint
 We now have a static web application running on Deta using a simple FastAPI wrapper.
 
 If you visit the `endpoint` shown in the output (your endpoint will be different from this one) in your browser, you should see your application. 
