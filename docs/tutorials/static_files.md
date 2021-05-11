@@ -7,16 +7,14 @@ sidebar_label: Static Files
 You can deploy static React, Vue, Svelte, or just Vanilla JavaScript apps on Deta very easily by wraping it around a simple python snippet.
 
 The guide assumes you have a `build` folder with your static app and have the [Deta CLI](../cli/install.md) installed.
-
-## Setup
-
+### Setup
 Create a directory `static-app` and change the current directory to it.
   ```shell
   $ mkdir static-app && static-app
   ```
 Copy your `build` folder into the `static-app` directory.
 
-## Updating code
+### Updating code
 Create a `main.py` file with the following snippet:
 
   ```python
@@ -29,7 +27,7 @@ Create a `main.py` file with the following snippet:
 
 We are mounting the build folder, and serving the files using `FastAPI`.
 
-## Updating dependencies
+### Updating dependencies
 Now create a `requirements.txt` with the following line:
   ```
   fastapi 
@@ -44,7 +42,7 @@ Here is a look at the folder structure at the end:
       └── build/...
   ```
 
-## Deploying Local Changes
+### Deploying Local Changes
 Deploy your application with `deta new`
   ```
   $ deta new
@@ -62,7 +60,7 @@ Deploy your application with `deta new`
   Successfully installed fastapi-0.61.1 pydantic-1.6.1 starlette-0.13.6
   ```
 
-## Visiting our endpoint
+### Visiting our endpoint
 We now have a static web application running on Deta using a simple FastAPI wrapper.
 
 If you visit the `endpoint` shown in the output (your endpoint will be different from this one) in your browser, you should see your application. 
