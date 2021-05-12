@@ -4,11 +4,11 @@ title: API Keys
 sidebar_label: API Keys
 ---
 
-API keys are a great way to protect you APIs, this is why Deta has them built into Micros. API keys will work with with any frameork that runs on the Micros with – no coding required from your end! 
+API keys are a great way to protect your APIs, which is why Deta has them built into Micros. API keys will work with any framework that runs on the Micros – no coding required from your end! 
 
 
 ### 1. Enable Deta Access
-To use API keys with your API, first you need to enable __Deta Access__, you do that by running the following command from the root of the source code directory you've deployed to your Micro.
+To use API keys with your Micro, first you need to enable __Deta Access__ by running the following command from the root directory of your Micro's source code.  
 
 ```
 deta auth enable
@@ -60,4 +60,5 @@ curl --request GET \
   --header 'X-API-Key: awEGbjqg.D1sETRFJKHWtcxSRSmofY2-akZjqFPh7j'
 ```
 
-Your Micro is now protected!
+That is all you need to protect your APIs!
+
