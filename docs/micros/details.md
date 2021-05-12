@@ -1,17 +1,22 @@
 ---
 id: details
-title: Technical Details
-sidebar_label: Technical Details
+title: Pre-set Environment Variables
+sidebar_label: Pre-set Environment Variables
 ---
 
-### Pre-set Environment Variables
-#### Learn more about environment variables pre-set in every Micro
 
- * `DETA_PATH`: contains an identifying string for your Micro.
-   * If your `DETA_PATH` contained a value of `sdgfh` then your Micro is accessible at https://sdgfh.deta.dev.
+### What are they?
+Pre-set environment variables are essentially just pieces of information about your Micro and project, permanently stored in your Micro's environment. 
 
- * `DETA_RUNTIME`: boolean value that indicates if your script is running on a Micro.
-    * When accessing this variable in a Micro, expect to get a `True` from it. 
+:::warning
+These env vars are required for your Micro to work and can't be changed by you. You should also treat them as secrets, so never expose them to your users. 
+:::
+
+In some cases, pre-set environment variables can be useful in your code. This guide will help you learn more about some of these variables and their use cases. 
+### Path
+
+`DETA_PATH` is one of the pre-set environment variables that contains an identifying string for your Micro. For example, if your `DETA_PATH` variable contained a value of `sdfgh` then your Micro is accessible at https://sdfgh.deta.dev.
+
 
 #### Use cases
 ##### Absolute link
@@ -36,8 +41,11 @@ async def get_resource_location(resource_id):
        }
 ```
 
+### Runtime
+`DETA_RUNTIME` contains a boolean value that indicates if your script is running on a Micro. When accessing this variable in a Micro, expect to get a `True` from it. 
+#### Use cases
 ##### Check if a script is running on Micro
-In some cases, you might need to run some code exclusively in local development or in a Micro. For example, if you're running a `fastapi` project on your Micro, and you've got an endpoint that dumps very sensitive debug information like so:
+In some cases, you might need to run some code exclusively in local development or in a Micro. For example, if you're running a FastAPI project on your Micro, and you've got an endpoint that dumps very sensitive debug information like so:
 
 ```py
 @app.get("/debug_info")
