@@ -18,20 +18,36 @@ Copy your `build` folder into the `static-app` directory.
 Create a `main.py` file with the following snippet:
 
   ```python
-  from fastapi import FastAPI
-  from fastapi.staticfiles import StaticFiles
-
-  app = FastAPI()
-  app.mount("/", StaticFiles(directory="build", html=True), name="static")
+import os
+from starlette.applications import Starlette
+from starlette.routing import Mount
+from starlette.staticfiles import StaticFiles
+from starlette.types import Receive, Scope, Send
+class CustomStatic(StaticFiles):
+    async def __call__(self, scope: Scope, receive: Receive, send: Send) -> None:
+        """
+        The ASGI entry point.
+        """
+        assert scope["type"] == "http"
+        if not self.config_checked:
+            await self.check_config()
+            self.config_checked = True
+        path = self.get_path(scope)
+        response = await self.get_response(path, scope)
+        await response(scope, receive, send)
+routes = [
+    Mount('/', app=CustomStatic(directory='build', html=True), name="static"),
+]
+app = Starlette(routes=routes)
   ```
 
-We are mounting the build folder, and serving the files using `FastAPI`.
+We are mounting the build folder, and serving the files using `Starlette`.
 
 ### Updating dependencies
 Now create a `requirements.txt` with the following line:
   ```
-  fastapi 
-  aiofiles
+starlette
+aiofiles
   ``` 
 
 Here is a look at the folder structure at the end:
@@ -55,12 +71,14 @@ Deploy your application with `deta new`
           "http_auth": "enabled"
   }
   Adding dependencies...
-  Collecting fastapi
-  ...
-  Successfully installed fastapi-0.61.1 pydantic-1.6.1 starlette-0.13.6
+    Downloading aiofiles-0.6.0-py3-none-any.whl (11 kB)
+  Collecting starlette
+    Downloading starlette-0.14.2-py3-none-any.whl (60 kB)
+  Installing collected packages: starlette, aiofiles
+  Successfully installed aiofiles-0.6.0 starlette-0.14.2
   ```
 
 ### Visiting our endpoint
-We now have a static web application running on Deta using a simple FastAPI wrapper.
+We now have a static web application running on Deta using a simple python snippet.
 
 If you visit the `endpoint` shown in the output (your endpoint will be different from this one) in your browser, you should see your application. 
