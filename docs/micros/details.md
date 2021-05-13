@@ -8,7 +8,7 @@ sidebar_label: Pre-set Environment Variables
 ### What are they?
 Pre-set environment variables are essentially just pieces of information about your Micro and project, permanently stored in your Micro's environment. 
 
-:::warning
+:::note 
 These env vars are required for your Micro to work and can't be changed by you. You should also treat them as secrets, so never expose them to your users. 
 :::
 
