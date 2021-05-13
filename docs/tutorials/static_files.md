@@ -44,7 +44,7 @@ app = Starlette(routes=routes)
 We are mounting the build folder, and serving the files using `Starlette`.
 
 ### Updating dependencies
-Now create a `requirements.txt` with the following line:
+Now create a `requirements.txt` with the following lines:
   ```
 starlette
 aiofiles
