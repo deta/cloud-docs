@@ -17,6 +17,7 @@ $ mkdir image-server && cd image-server
 Before we begin, let's install all the necessary dependencies for this project. Create a `requirements.txt` with the following lines:
 ```json
 fastapi
+uvicorn
 deta
 python-multipart
 ```
@@ -71,24 +72,7 @@ def upload_img(file: UploadFile = File(...)):
 
 Thanks to the amazing tools from FastAPI, we can simply wrap the input around `UploadFile` and `File` to access the image data. We can retrieve the name as well as bytes from `file` and store it in Drive. 
 
-#### Request
-
-```json
-curl -X 'POST' \
-  'http://127.0.0.1:8000/upload' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'file=@space.png;type=image/png'
-```
-
-#### Response
-
-```json
-"space.png"
-```
-
-
-### Downloading Images
+### Downloading images
 To download images, we can simply use `drive.get(name)`
 
 If we tie a `GET` request to the `/download` path with a param giving a name (i.e `/download/space.png`), we can return the image over HTTP.
@@ -101,16 +85,34 @@ def download_img(name: str):
 
 You can learn more about `StreamingResponse` [here](https://fastapi.tiangolo.com/advanced/custom-response/#streamingresponse).
 
-#### Request
-Let's try downloading the image that we just uploaded.
+### Running the server 
+To run the server locally, navigate to the terminal in the project directory (`image-server`) and run the following command:
+```shell
+$ uvicorn main:app
+```
 
-Make a `GET` request to the path (for example `/download/space.png`)
+Your image server is now ready! You can interact with it at `/` and check it out!
 
-```json
+```shell
+
+curl -X 'POST' \
+  'http://127.0.0.1:8000/upload' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@space.png;type=image/png'
+
+Response 
+"space.png"
+
+
 curl -X 'GET' \
   'http://127.0.0.1:8000/download/space.png' \
   -H 'accept: application/json'
+
+Response 
+The server should respond with the image.
 ```
 
-#### Response
-The server should return a response with the image.
+
+<img src="/img/drive/drive-put-tut.gif" alt="base_ui_2" width="1000"/>
+
