@@ -228,7 +228,7 @@ def say_hello(event):
 
 # stacking run and cron
 @app.lib.run(action='time') # action 'time'
-@app.lib.cron():
+@app.lib.cron()
 def print_time(event):
     return f"it is {datetime.now()}" 
 ```
