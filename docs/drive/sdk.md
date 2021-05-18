@@ -269,7 +269,7 @@ Returns a instance of a `DriveStreamingBody` class which has the following metho
 
 - `iter_chunks(chunk_size:int=1024)` : Returns an iterator that yields chunks of bytes of `chunk_size` at a time.
 
-- `iter_lines(chunk_size:int=1024)` : Returns an iterator that yields lines from the stream. Bytes of `chunk_size` at a time is read from the raw stream and lines are yielded from there. The line delimieter is always `b'\n'`.
+- `iter_lines(chunk_size:int=1024)` : Returns an iterator that yields lines from the stream. Bytes of `chunk_size` at a time is read from the raw stream and lines are yielded from there. The line delimiter is always `b'\n'`.
 
 - `close()` : Closes the stream.
 

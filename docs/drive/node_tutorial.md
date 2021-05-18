@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 ### Setup
 To get started, create a directory `image-server` and change the current directory into it.
 ```shell
-$ mkdir image-server && image-server
+$ mkdir image-server && cd image-server
 ```
 Before we begin, let's install all the necessary dependencies for this project. 
 
@@ -67,7 +67,7 @@ app.post("/upload", async (req, res) => {
 ```
 We can access the image details from `req` and store it in Drive. 
 
-### Request
+#### Request
 
 ```json
 curl -X 'POST' \
@@ -77,7 +77,7 @@ curl -X 'POST' \
   -F 'file=@space.png;type=image/png'
 ```
 
-### Response
+#### Response
 ```json
 "space.png"
 ```
@@ -95,7 +95,7 @@ app.get("/download/:name", async (req, res) => {
 }); 
 ```
 
-### Request
+#### Request
 Let's try downloading the image that we just uploaded.
 
 Make a `GET` request to the path (for example `/download/space.png`)
@@ -106,5 +106,5 @@ curl -X 'GET' \
   -H 'accept: application/json'
 ```
 
-### Response
+#### Response
 The server should return a response with the image.

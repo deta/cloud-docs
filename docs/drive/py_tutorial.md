@@ -12,7 +12,7 @@ import TabItem from '@theme/TabItem';
 ### Setup
 To get started, create a directory `image-server` and change the current directory into it.
 ```shell
-$ mkdir image-server && image-server
+$ mkdir image-server && cd image-server
 ```
 Before we begin, let's install all the necessary dependencies for this project. Create a `requirements.txt` with the following lines:
 ```json
@@ -71,7 +71,7 @@ def upload_img(file: UploadFile = File(...)):
 
 Thanks to the amazing tools from FastAPI, we can simply wrap the input around `UploadFile` and `File` to access the image data. We can retrieve the name as well as bytes from `file` and store it in Drive. 
 
-### Request
+#### Request
 
 ```json
 curl -X 'POST' \
@@ -81,7 +81,7 @@ curl -X 'POST' \
   -F 'file=@space.png;type=image/png'
 ```
 
-### Response
+#### Response
 
 ```json
 "space.png"
@@ -101,7 +101,7 @@ def download_img(name: str):
 
 You can learn more about `StreamingResponse` [here](https://fastapi.tiangolo.com/advanced/custom-response/#streamingresponse).
 
-### Request
+#### Request
 Let's try downloading the image that we just uploaded.
 
 Make a `GET` request to the path (for example `/download/space.png`)
@@ -112,5 +112,5 @@ curl -X 'GET' \
   -H 'accept: application/json'
 ```
 
-### Response
+#### Response
 The server should return a response with the image.
