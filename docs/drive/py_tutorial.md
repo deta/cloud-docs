@@ -93,6 +93,10 @@ $ uvicorn main:app
 
 Your image server is now ready! You can interact with it at `/` and check it out!
 
+<img src="/img/drive/drive-py-tut.png" alt="/"/>
+<img src="/img/drive/drive-py-tut-1.png" alt="/download/tut.jpg"/>
+
+
 ```shell
 
 curl -X 'POST' \
