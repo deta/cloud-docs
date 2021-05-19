@@ -17,9 +17,7 @@ If your database keys have special characters (like `&`,`/`, `@`, etc.) that are
  
 <!-- TODO: validation errors for put, put_many, insert and fetch. -->
 
-## Installing the Deta Library
-
-First, install the Deta library in your project's directory.
+## Installing
 
 <br />
 <Tabs
@@ -103,7 +101,7 @@ const books = deta.Base('books');
 :::
 
 :::note
-  If you are using the `deta` npm package of `0.0.6` or below, `Deta` is the sinlge default export and should be imported as such.
+  If you are using the `deta` npm package of `0.0.6` or below, `Deta` is the single default export and should be imported as such.
 
   ```js
   const Deta = require('deta');
@@ -199,7 +197,6 @@ In the case you do not provide us with a key, we will auto generate a 12 char lo
 
 You can also use `put` when you want to update an item in the database.
 
-<br />
 <Tabs
   groupId="preferred-language"
   defaultValue="js"
