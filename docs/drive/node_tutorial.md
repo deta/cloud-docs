@@ -87,6 +87,10 @@ To run the server locally, navigate to the terminal in the project directory (`i
 $ node index.js
 ```
 
+<img src="/img/drive/drive-py-tut.png" alt="/"/>
+<img src="/img/drive/drive-py-tut-1.png" alt="/download/tut.jpg"/>
+
+
 ```shell
 curl -X 'POST' \
   'http://127.0.0.1:3000/upload' \
