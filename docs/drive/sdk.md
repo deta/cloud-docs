@@ -71,7 +71,9 @@ const docs = deta.Drive('docs');
 ```
 
 :::note
-  If you are using Deta Drive within a [Deta Micro](/docs/micros/about), a valid project key is pre-set in the Micro's environment. There is no need to pass a key in the initialization step.
+  If you are using Deta Drive within a [Deta Micro](/docs/micros/about), you must include `deta` in your `package.json` file to install the lastest sdk version.
+  
+  A valid project key is pre-set in the Micro's environment. There is no need to pass a key in the initialization step.
 
   ```js
   const { Drive } = require('deta');
@@ -108,7 +110,9 @@ docs = deta.Drive("docs")
 ```
 
 :::note
-  If you are using Deta Drive within a [Deta Micro](/docs/micros/about), a valid project key is pre-set in the Micro's environment. There is no need to pass a key in the the initialization step.
+  If you are using Deta Drive within a [Deta Micro](/docs/micros/about), you must include `deta` in your `requirements.txt` file to install the lastest sdk version. 
+  
+  A valid project key is pre-set in the Micro's environment. There is no need to pass a key in the the initialization step.
 
   ```py
   from deta import Drive 
