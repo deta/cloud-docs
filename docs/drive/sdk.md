@@ -156,7 +156,7 @@ Deta's **`Drive`** offres the following methods to interact with your Deta Drive
 #### Parameters
 - **name** (required) - `string`
   - Description: The name of the file.
-- **options** (required) - `{data : string | Buffer, path: string, contentType: string}`
+- **options** (required) - `{data : string | Uint8Array | Buffer, path: string, contentType: string}`
   - Description: An object with three optional parameters.
     - **data** - `string` or `Buffer`
       - Description: Either the data string or a buffer.
@@ -245,7 +245,7 @@ drive.put('hello.txt', path='./hello.txt')
   - Description: The `name` of the file to get.
 
 #### Returns
-Returns a promise that resolves to a `Buffer` of data if found, else `null`. 
+Returns a promise that resolves to a `blob` of data if found, else `null`. 
 Throws an `Error` on errors.
 
 #### Example
