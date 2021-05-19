@@ -67,22 +67,6 @@ app.post("/upload", async (req, res) => {
 ```
 We can access the image details from `req` and store it in Drive. 
 
-#### Request
-
-```json
-curl -X 'POST' \
-  'http://127.0.0.1:3000/upload' \
-  -H 'accept: application/json' \
-  -H 'Content-Type: multipart/form-data' \
-  -F 'file=@space.png;type=image/png'
-```
-
-#### Response
-```json
-"space.png"
-```
-
-
 ### Downloading Images
 To download images, we can simply use `drive.get(name)`
 
@@ -93,18 +77,30 @@ app.get("/download/:name", async (req, res) => {
     const img = await drive.get(name);
     res.send(img);
 }); 
+
+app.listen(3000);
 ```
 
-#### Request
-Let's try downloading the image that we just uploaded.
+### Running the server
+To run the server locally, navigate to the terminal in the project directory (`image-server`) and run the following command:
+```shell
+$ node index.js
+```
 
-Make a `GET` request to the path (for example `/download/space.png`)
+```shell
+curl -X 'POST' \
+  'http://127.0.0.1:3000/upload' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: multipart/form-data' \
+  -F 'file=@space.png;type=image/png'
 
-```json
+Response 
+"space.png"
+
 curl -X 'GET' \
   'http://127.0.0.1:3000/download/space.png' \
   -H 'accept: application/json'
-```
 
-#### Response
-The server should return a response with the image.
+Response 
+The server should respond with the image. 
+```
