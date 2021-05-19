@@ -112,7 +112,3 @@ curl -X 'GET' \
 Response 
 The server should respond with the image.
 ```
-
-
-<img src="/img/drive/drive-put-tut.gif" alt="base_ui_2" width="1000"/>
-
