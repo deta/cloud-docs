@@ -4,6 +4,17 @@ title: CLI Releases
 sidebar_label: Releases
 ---
 
+## v1.1.3-beta
+
+### Updates 
+- add support for `.detaignore` file
+- always show login url when logging in with `deta login`
+- confirm a new version is not a pre-release version on new version check
+
+### Fixes
+- fix parsing of environment variables with double quotes
+- fix issues with intermittent discrepancy of local and server state of a micros' details
+
 ## v1.1.2-beta
 
 ### Updates
