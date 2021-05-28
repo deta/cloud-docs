@@ -204,17 +204,33 @@ Deploy a deta micro rooted in 'micros/my-micro-1' directory.
 
 #### Notes
 
-`deta deploy` will ignore the following files and folders when deploying a micro:
+`deta deploy` will ignore the following files and folders by default when deploying a micro:
 
   - all files and folders with names starting with a `.` (both in unix and windows systems) 
   - all files and folders with *hidden* attribute in windows systems
   - vim swap files
   - `node_modules` directory for `node` runtime  
   - `__pycache__` directory for `python` runtime
+  - `env` and `venv` directories for `python` runtime
   - `.pyc` and `.rst` files for `python` runtimes 
 
-`deta deploy` does not respect `.gitignore`.
+#### Deta Ignore
 
+`deta deploy` respects a `.detaignore` file. You can specify paths additional to the default ignore paths in this file. 
+
+For eg, a `.detaignore` file with the following content will ignore the `test` and `docs` paths when deploying your micro.
+```
+test
+docs
+```
+
+You can also use the `!` character to include paths that are ignored by default by the cli. 
+
+For eg, a `.detaignore` file with the following content will not ignore the `.env` file when deploying your micro.
+
+```
+!.env
+```
 
 ## deta details
 
