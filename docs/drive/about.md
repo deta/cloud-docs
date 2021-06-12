@@ -6,9 +6,14 @@ sidebar_label: About
 
 Deta Drive is a managed, secure and scalabale file storage service with a focus on end-user simplcity.
 
-### Is my data secure ? 
+### Is my data secure? 
 
 Your data is encrypted and stored safely at rest. Encryption keys are managed by us. 
+
+
+### What's the storage limit?
+
+10GB per Deta account.
 
 ### How do I start? 
 
