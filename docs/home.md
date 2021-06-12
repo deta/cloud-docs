@@ -3,11 +3,21 @@ id: home
 title: Home
 ---
 
-### Intro
+#### Intro
 
-Deta is a micro-cloud crafted with the developer and user experience at heart.
+Deta is a free cloud crafted with the developer and user experience at heart.
 
 It is our mission to dramatically reduce the gap between ideas and working cloud applications.
+
+
+#### Why is Deta Cloud free for ever?
+
+We want anyone, at any age from anywhere in the would to experiment and build their ideas without worrying about limits of credit cards.
+
+#### How are you going to make money?
+
+We're working on a big, parallel product that we will be announcing soon. This product will be responsible for generating revenue.
+Stay tuned!
 
 
 #### Resources
