@@ -29,6 +29,6 @@ Deta Micros(*ervers*) are a lightweight but scalable cloud runtime tied to an HT
 - Micros only support read-only SQLite, which you could deploy with your code.
 - The total upload size of your source code and assets is limited to 250 MB.
 - Dependencies (pip, npm, etc) also can't exceed a combined size of 250mb.
-- For some unknown reason Google and Firebase packages for Python do not install successfully on Micros.
+- For unknown reasons, Google and Firebase packages for Python do not install successfully on Micros.
 
 
