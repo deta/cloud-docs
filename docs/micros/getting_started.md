@@ -170,7 +170,7 @@ After you have updated your dependencies (documented in a `package.json` file) a
 ```shell
 deta deploy
 ```
-The Deta CLI will notify you if your code has updated as well as if the dependcies were installed
+The Deta CLI will notify you if your code has updated as well as if the dependencies were installed
 
 ```shell
 Deploying...
@@ -239,7 +239,7 @@ Installing collected packages: Werkzeug, itsdangerous, MarkupSafe, Jinja2, click
 </Tabs>
 
 #### Visiting our Endpoint
-Let's visit the endpoint ( from the endpoint URL we saved earlier).  
+Let's visit the endpoint (from the endpoint URL we saved earlier).  
 
 (If you didn't save it, simply type `deta details` into the CLI, which will give you the endpoint alongside other information about your Micro).
 
