@@ -12,7 +12,7 @@ It is our mission to dramatically reduce the gap between ideas and working cloud
 
 #### Why is Deta Cloud free for ever?
 
-We want anyone, at any age from anywhere in the would to experiment and build their ideas without worrying about limits of credit cards.
+We want anyone, at any age from anywhere in the world to experiment and build their ideas without worrying about limits of credit cards.
 
 #### How are you going to make money?
 
