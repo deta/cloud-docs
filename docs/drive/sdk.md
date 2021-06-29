@@ -544,7 +544,7 @@ while (last){
   # provide last from previous call
   result = drive.list(last=last)
 
-  allFiles = allFiles.concat(result.names) 
+  all_files += result.get("names")
 
   # update last
   last = result.paging.last

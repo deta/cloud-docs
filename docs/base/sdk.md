@@ -1168,12 +1168,23 @@ In the case of a list, the indvidual queries are OR'ed.
 }>
 <TabItem value="js">
 
+<Tabs
+  groupId="js-version"
+  defaultValue="new"
+  values={[
+    { label: 'version < 1.0.0', value: 'legacy', },
+    { label: 'version >= 1.0.0', value: 'new', },
+  ]
+}>
+
+<TabItem value="legacy">
+
 **`async fetch(query, pages=10, buffer=null)`**
 
 #### Parameters
 
 - **query**: is a single [query object](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
-- **pages** how many pages of items should be returned.
+- **pages**: how many pages of items should be returned.
 - **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more than 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
@@ -1268,14 +1279,135 @@ const foo = async (myQuery, bar) => {
 ```
 </TabItem>
 
+<TabItem value="new">
+
+**`async fetch(query, options)`**
+
+#### Parameters
+
+- **query**: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb or max 1000 items).
+- **options**: optional params:
+  - `limit`: the limit of the number of items you want to retreive, min value `1` if used.
+  - `last`: the last key seen in a previous paginated response, provide this in a subsequent call to fetch further items.
+
+#### Returns
+
+A promise which resolves to an object with the following attributes:
+
+- `count` : The number of items in the response.
+
+- `last`: The last key seen in the fetch response. If `last` is not `undefined` further items are to be retreived.
+
+- `items`: The list of items retreived.
+
+
+#### Example
+
+For the examples, let's assume we have a **Base** with the following data:
+
+```json
+
+[
+  {
+    "key": "key-1",
+    "name": "Wesley",
+    "age": 27,
+    "hometown": "San Francisco",
+  },
+  {
+    "key": "key-2",
+    "name": "Beverly",
+    "age": 51,
+    "hometown": "Copernicus City",
+  },
+  {
+    "key": "key-3",
+    "name": "Kevin Garnett",
+    "age": 43,
+    "hometown": "Greenville",
+  }
+]
+
+```
+
+```js
+const { items: myFirstSet } = await db.fetch({"age?lt": 30});
+const { items: mySecondSet } = await db.fetch([
+  { "age?gt": 50 },
+  { "hometown": "Greenville" }
+])
+```
+
+... will come back with following data:
+
+##### `myFirstSet`:
+
+```json
+[
+  {
+    "key": "key-1",
+    "name": "Wesley",
+    "age": 27,
+    "hometown": "San Francisco",
+  }
+]
+```
+
+##### `mySecondSet`:
+
+```json
+[
+  {
+    "key": "key-2",
+    "name": "Beverly",
+    "age": 51,
+    "hometown": "Copernicus City",
+  },
+  {
+    "key": "key-3",
+    "name": "Kevin Garnett",
+    "age": 43,
+    "hometown": "Greenville",
+  },
+]
+```
+
+#### Fetch All Items
+
+```js
+let res = await db.fetch();
+let allItems = res.items;
+
+// continue fetching until last is not seen
+while (res.last){
+  res = await db.fetch({}, {last: res.last});
+  allItems = allItems.concat(res.items);
+}
+```
+
+</TabItem>
+</Tabs>
+</TabItem>
+
 <TabItem value="py">
+
+<Tabs
+  groupId="py-version"
+  defaultValue="new"
+  values={[
+    { label: 'version < 1.0', value: 'legacy', },
+    { label: 'version >= 1.0', value: 'new', },
+  ]
+}>
+
+<TabItem value="legacy">
 
 **`fetch(query=None, buffer=None, pages=10):`**
 
 #### Parameters
 
 - **query**: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
-- **pages** how many pages of items should be returned.
+- **pages**: how many pages of items should be returned.
 - **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
 
 #### Code Example
@@ -1362,7 +1494,112 @@ def foo(my_query, bar):
   for sub_list in items: # each sub_list is up to the buffer length, 10
     bar(sub_list)
 ```
+</TabItem>
 
+<TabItem value="new">
+
+**`fetch(query=None, limit=1000, last=None):`**
+
+#### Parameters
+
+- **query**: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb or max 1000 items).
+- **limit**: the limit of the number of items you want to retreive, min value `1` if used
+- **last**: the last key seen in a previous paginated response
+
+#### Returns
+
+Returns an instance of a `FetchResponse` class which has the following properties.
+
+- `count` : The number of items in the response.
+
+- `last`: The last key seen in the fetch response. If `last` is not `None` further items are to be retreived
+
+- `items`: The list of items retreived.
+
+#### Code Example
+
+For the examples, let's assume we have a **Base** with the following data:
+
+```json
+
+[
+  {
+    "key": "key-1",
+    "name": "Wesley",
+    "age": 27,
+    "hometown": "San Francisco",
+  },
+  {
+    "key": "key-2",
+    "name": "Beverly",
+    "age": 51,
+    "hometown": "Copernicus City",
+  },
+  {
+    "key": "key-3",
+    "name": "Kevin Garnett",
+    "age": 43,
+    "hometown": "Greenville",
+  }
+]
+
+```
+
+```py
+first_fetch_res = db.fetch({"age?lt": 30})
+second_fetch_res = db.fetch([{"age?gt": 50}, {"hometown": "Greenville"}])
+```
+
+... will come back with following data:
+
+##### `first_fetch_res.items`:
+```json
+[
+  {
+    "key": "key-1",
+    "name": "Wesley",
+    "age": 27,
+    "hometown": "San Francisco",
+  }
+]
+```
+
+##### `second_fetch.res.items`:
+```json
+[
+  {
+    "key": "key-2",
+    "name": "Beverly",
+    "age": 51,
+    "hometown": "Copernicus City",
+  },
+  {
+    "key": "key-3",
+    "name": "Kevin Garnett",
+    "age": 43,
+    "hometown": "Greenville",
+  },
+]
+```
+
+
+#### Fetch All Items
+
+```py
+res = db.fetch()
+all_items = res.items
+
+# fetch until last is 'None'
+while res.last:
+  res = db.fetch(last=res.last)
+  all_items += res.items
+```
+
+</TabItem>
+
+
+
+</Tabs>
 </TabItem>
 
 <TabItem value='go'>
