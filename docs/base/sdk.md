@@ -57,6 +57,10 @@ go get github.com/deta/deta-go
 </TabItem>
 </Tabs>
 
+:::note
+  If you are using the Deta SDK within a [Deta Micro](/docs/micros/about), you must include `deta` in your dependencies file (`package.json` or `requirements.txt`) to install the latest sdk version.
+:::
+
 
 ## Instantiating
 
