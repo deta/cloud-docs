@@ -6,7 +6,7 @@ sidebar_label: FAQs
 
 ### Can I use my own custom domain or subdomain?
 
-Custom subdomains are already in alpha. If you need one for your project, please let us know.
+Yes, please refer to the [documentation](./micros/custom_domains.md).
 
 ### What are all the different 'keys' for?
 
