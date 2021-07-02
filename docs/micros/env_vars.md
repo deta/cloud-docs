@@ -94,7 +94,7 @@ async def debug_info():
 
 Each micro has its own project key and this **should not be shared publicly**.
 
-While using our SDKs within a Deta Micro, you can omit specifying the project key when instantiating a service instance.
+While using our SDKs(the latest versions) within a Deta Micro, you can omit specifying the project key when instantiating a service instance.
 
 <Tabs
     groupId="preferred-language"
