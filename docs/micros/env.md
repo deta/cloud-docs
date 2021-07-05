@@ -4,7 +4,7 @@ title: Custom Environment Variables
 sidebar_lable: Custom Environment Variables
 ---
 
-# Set/update your Env Vars (Environment Variables)
+## Set/update your Env Vars (Environment Variables)
 
 Store your variables in a file called `.env`.
 
