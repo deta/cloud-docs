@@ -1,5 +1,5 @@
 ---
-id: details
+id: pre_set
 title: Pre-set Environment Variables
 sidebar_label: Pre-set Environment Variables
 ---
