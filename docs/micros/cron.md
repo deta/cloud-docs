@@ -202,7 +202,7 @@ You can use both cron and [run](./run) triggers in the same deta micro. You can 
 const { app } = require('deta');
 
 const sayHello = event => 'hello Deta';
-const printTime = event => `it is ${(new Data).toTimeString()}`;
+const printTime = event => `it is ${(new Date()).toTimeString()}`;
 
 // only run
 app.lib.run(sayHello);
