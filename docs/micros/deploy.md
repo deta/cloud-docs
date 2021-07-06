@@ -9,12 +9,12 @@ A Deta Micro is a micro server where you can deploy you Python or Node web app w
 ## Python
 
 Most Python micro frameworks are supported, like FastAPI & Flask. Deta should run both pure WSGI & ASGI apps wihtout any issue.
-Full frameworks like Django are not fully supported yet, as they require various other command.
+Full frameworks like Django are not fully supported yet, as they require various other commands.
 
 For Deta to be able to run you code, you need to call your app instance `app` and it has to be in a file called `main.py`, which is the only required file for a Python Micro. Of course you could add more files and folders.
 
 No need to use a server like `uvicorn`, Deta has it's own global server.
-Make sure you have the framwwork in your `requirements.txt`.
+Make sure you have the framework in your `requirements.txt`.
 
 Example code
 
