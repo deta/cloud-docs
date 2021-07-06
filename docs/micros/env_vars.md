@@ -9,12 +9,12 @@ import TabItem from '@theme/TabItem';
 
 ### Setting Environment Variables
 
-Environment variables can be set to your Micro through the Deta cli's [update command](../cli/commands.md#deta-update).
+Environment variables can be set to your Micro through the Deta cli's [update command](../cli/commands.md#deta-update). These variables are encrypted at rest.
 
 You need to create a file where you specify your environment variables with their values. 
 
 :::note
-We stronlgy recommend creating a file called `.env` so that this file is skipped by the Deta cli and not deployed with your Micro's code.
+We stronlgy recommend creating a file called `.env` so that this file is skipped by the Deta cli and not deployed with your Micro's code. Also, please do not share/commit your env file publicly. 
 :::
 
 You can use the following command to update your enviornment variables:
