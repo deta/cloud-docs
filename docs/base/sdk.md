@@ -1399,8 +1399,8 @@ while (res.last){
   groupId="py-version"
   defaultValue="new"
   values={[
-    { label: 'version < 1.0', value: 'legacy', },
-    { label: 'version >= 1.0', value: 'new', },
+    { label: 'version < 1.0.0', value: 'legacy', },
+    { label: 'version >= 1.0.0', value: 'new', },
   ]
 }>
 
