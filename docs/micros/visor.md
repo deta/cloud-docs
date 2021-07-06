@@ -1,13 +1,13 @@
 ---
 id: visor
-title: Visor
+title: Visor (logs)
 sidebar_label: Visor
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-#### Learn about using Visor 
-The Deta Visor offers a user interface for you to see a live view of all the events processed by your Micro. You can use it to monitor and debug your requests, test your endpoints by sending requests, and more.
+The Deta Visor offers a user interface for you to see a live view of all the events (logs) processed by your Micro. You can use it to monitor and debug your requests, test your endpoints by sending requests, and more.
+
 ### Opening Visor
 <Tabs 
     defaultValue="browser" 

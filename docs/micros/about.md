@@ -13,7 +13,7 @@ Deta Micros(*ervers*) are a lightweight but scalable cloud runtime tied to an HT
 - Micros support either Python 3.7 or Node.js 12.x code for now.
 - Every Micro you use gets its own sandboxed Linux VM.
 - Each Micro has a key and secret keys set in the environment, these are specific to your Micro and not the Deta system. Make sure to not share them to keep your own data safe.
-- An execution times out after 10s. Contact us for an increase (up to 30 seconds).
+- An execution times out after 10s. Contact us for an increase (up to 20 seconds).
 - 128 MB of RAM for *each* execution. Contact us for increase (up to 1 GB/execution).
 - Read-only file system. **Only `/tmp` can be written to**. It has a 512 MB storage limit.
 - Invocations have an execution processes/threads limit of 1024.
@@ -30,5 +30,7 @@ Deta Micros(*ervers*) are a lightweight but scalable cloud runtime tied to an HT
 - The total upload size of your source code and assets is limited to 250 MB.
 - Dependencies (pip, npm, etc) also can't exceed a combined size of 250mb.
 - For unknown reasons, Google and Firebase packages for Python do not install successfully on Micros.
+- Currently, all requests received by Micros do not contain the client IP adresses. This make most rate-limiting logic and other IP-dependant logic not work on Micros.
+- Micros support most micro web framworks (Node.js: express, fastify, koa, etc && Python: FastAPI, Flask, etc.). Other frameworks are not likely to work.
 
 

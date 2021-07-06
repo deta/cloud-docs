@@ -21,6 +21,11 @@ uvicorn
 deta
 python-multipart
 ```
+
+:::note If you are using Deta Drive within a Deta Micro, you should ignore `uvicorn`, but you must include `deta` in your `requirements.txt` file to install the lastest sdk version, other than that it won't work.
+
+:::
+
 We are using `FastAPI` to build our simple image server, and `python-multipart` allows us access the uploaded files. 
 
 Run the following command to install the dependencies.
