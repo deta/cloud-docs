@@ -459,7 +459,7 @@ List items that match a [query](./sdk#queries).
 </TabItem>
 <TabItem value="response">
 
-The response is paginated if data process size exceeds 1 MB (before the) or the total number of items matching the `query` exceeds the `limit` provided in the request.
+The response is paginated if data process size exceeds 1 MB (before the query is applied) or the total number of items matching the `query` exceeds the `limit` provided in the request.
 
 For paginated responses, `last` will return the last key seen in the response. You must use this `key` in the following request to continue retreival of items. If the response does not have the `last` key, then no further items are to be retreived.
 
