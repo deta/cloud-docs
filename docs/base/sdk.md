@@ -1289,10 +1289,16 @@ const foo = async (myQuery, bar) => {
 
 #### Parameters
 
-- **query**: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb or max 1000 items).
+- **query**: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 - **options**: optional params:
   - `limit`: the limit of the number of items you want to retreive, min value `1` if used.
   - `last`: the last key seen in a previous paginated response, provide this in a subsequent call to fetch further items.
+
+:::note
+Upto 1 MB of data is retrieved before filtering with the query. Thus, in some cases you might get an empty list of items but still the `last` key evaluated in the response. 
+
+To apply the query through all the items in your base, you have to call fetch until `last` is empty.
+:::
 
 #### Returns
 
@@ -1509,6 +1515,12 @@ def foo(my_query, bar):
 - **query**: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb or max 1000 items).
 - **limit**: the limit of the number of items you want to retreive, min value `1` if used
 - **last**: the last key seen in a previous paginated response
+
+:::note
+Upto 1 MB of data is retrieved before filtering with the query. Thus, in some cases you might get an empty list of items but still the `last` key evaluated in the response. 
+
+To apply the query through all the items in your base, you have to call fetch until `last` is empty.
+:::
 
 #### Returns
 
