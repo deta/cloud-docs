@@ -71,7 +71,7 @@ const docs = deta.Drive('docs');
 ```
 
 :::note
-  If you are using Deta Drive within a [Deta Micro](/docs/micros/about), you must include `deta` in your `package.json` file to install the lastest sdk version.
+  If you are using Deta Drive within a [Deta Micro](/docs/micros/about), you must include `deta` in your `package.json` file to install the latest sdk version.
   
   A valid project key is pre-set in the Micro's environment. There is no need to pass a key in the initialization step.
 
@@ -110,7 +110,7 @@ docs = deta.Drive("docs")
 ```
 
 :::note
-  If you are using Deta Drive within a [Deta Micro](/docs/micros/about), you must include `deta` in your `requirements.txt` file to install the lastest sdk version. 
+  If you are using Deta Drive within a [Deta Micro](/docs/micros/about), you must include `deta` in your `requirements.txt` file to install the latest sdk version. 
   
   A valid project key is pre-set in the Micro's environment. There is no need to pass a key in the the initialization step.
 
@@ -544,7 +544,7 @@ while (last){
   # provide last from previous call
   result = drive.list(last=last)
 
-  allFiles = allFiles.concat(result.names) 
+  all_files += result.get("names")
 
   # update last
   last = result.paging.last

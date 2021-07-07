@@ -104,12 +104,38 @@ app.get('/users/:id', async (req, res) => {
 
 Another option would to use `Base.fetch(query)` to search for records to return, like so:
 
+<Tabs
+  groupId="js-version"
+  defaultValue="new"
+  values={[
+    { label: 'version < 1.0.0', value: 'legacy', },
+    { label: 'version >= 1.0.0', value: 'new', },
+  ]
+}>
+
+<TabItem value="legacy">
+
 ```js
 app.get('/search-by-age/:age, async (req, res) => {
     const { age } = req.params;
     return (await db.fetch({'age': age}).next()).value;
 });
 ```
+
+</TabItem>
+
+<TabItem value="new">
+
+```js
+app.get('/search-by-age/:age, async (req, res) => {
+    const { age } = req.params;
+    const { items } = await db.fetch({'age': age});
+    return items;
+});
+```
+
+</TabItem>
+</Tabs>
 
 #### Request
 
