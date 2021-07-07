@@ -4,6 +4,11 @@ title: CLI Releases
 sidebar_label: Releases
 ---
 
+## v1.1.4-beta
+
+### Fixes
+- fix file parsing bug with end of line sequence on windows
+
 ## v1.1.3-beta
 
 ### Updates 
