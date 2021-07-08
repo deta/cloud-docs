@@ -485,6 +485,10 @@ Content-Type: application/json
 
 ### Delete Files
 
+Delete files from drive.
+
+`DELETE /files`
+
 <Tabs
     defaultValue="request"
     values={[
