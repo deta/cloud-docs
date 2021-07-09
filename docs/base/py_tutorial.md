@@ -224,7 +224,5 @@ We can delete the record by passing a `DELETE` to the path `/users/dl9e6w6859a9`
 Our server should respond with:
 
 ```json
-{
-    "message": "deleted"
-}
+None
 ```
