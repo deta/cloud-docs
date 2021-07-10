@@ -10,7 +10,7 @@ The guide assumes you have a `build` folder with your static app and have the [D
 ### Setup
 Create a directory `static-app` and change the current directory to it.
   ```shell
-  $ mkdir static-app && static-app
+  $ mkdir static-app && cd static-app
   ```
 Copy your `build` folder into the `static-app` directory.
 
