@@ -293,45 +293,45 @@ Returns the `name` of the file on a successful put (otherwise empty name), and a
 #### Example
 ```go
 import (
-    "fmt"
-	"strings"
 	"bufio"
+	"fmt"
+	"github.com/deta/deta-go"
 	"os"
-    "github.com/deta/deta-go"
+	"strings"
 )
 
-func main(){
+func main() {
 	// error ignored for brevity
 	d, _ := deta.New("project_key")
 	drive, _ := d.NewDrive("drive_name")
-	
+
 	// file data
-	f := &PutInput{
-			Name: "hello.txt"
-			Body: strings.NewReader("hello world")
-			ContentType: "text/plain"
+	f := &deta.PutInput{
+		Name:        "hello.txt",
+		Body:        strings.NewReader("hello world"),
+		ContentType: "text/plain",
 	}
-	
+
 	name, err := drive.Put(f)
-	
+
 	if err != nil {
-		fmt.Println("Failed to put file:" err)	
+		fmt.Println("Failed to put file:", err)
 		return
 	}
 	fmt.Println("Successfully put file with name:", name)
-	
+
 	// reading from a local file
 	file, err := os.Open("./art.svg")
 	defer file.Close()
-	
+
 	name, err = drive.Put(&deta.PutInput{
-			Name: "art.svg",
-			Body: bufio.NewReader(file),
-			ContentType: "image/svg+xml",
+		Name:        "art.svg",
+		Body:        bufio.NewReader(file),
+		ContentType: "image/svg+xml",
 	})
 	if err != nil {
 		fmt.Println("Failed to put file:", err)
-		return	
+		return
 	}
 	fmt.Println("Successfully put file with name:", name)
 }
@@ -422,16 +422,18 @@ Returns a `io.ReadCloser` for the file.
 
 #### Example
 ```go
+
 import (
-    "fmt"
-    "github.com/deta/deta-go"
+	"fmt"
+	"github.com/deta/deta-go"
+	"io/ioutil"
 )
 
-func main(){
-	// error ignored for brevity	
+func main() {
+	// error ignored for brevity
 	d, _ := deta.New("project_key")
 	drive, _ := d.NewDrive("drive_name")
-	
+
 	name := "hello.txt"
 	f, err := drive.Get(name)
 	if err != nil {
@@ -439,11 +441,11 @@ func main(){
 		return
 	}
 	defer f.Close()
-	
+
 	c, err := ioutil.ReadAll(f)
 	if err != nil {
 		fmt.Println("Failed read file content with err:", err)
-		return	
+		return
 	}
 	fmt.Println("file content:", string(c))
 }
@@ -528,18 +530,18 @@ If the file did not exist, the name is still returned.
 #### Example
 ```go
 import (
-    "fmt"
-    "github.com/deta/deta-go"
+	"fmt"
+	"github.com/deta/deta-go"
 )
 
-func main(){
-	// error ignored for brevity	
+func main() {
+	// error ignored for brevity
 	d, _ := deta.New("project_key")
 	drive, _ := d.NewDrive("drive_name")
-	
-	name, err := d.Delete("hello.txt")
+
+	name, err := drive.Delete("hello.txt")
 	if err != nil {
-		fmt.Println("Failed to delete file with name:" name)
+		fmt.Println("Failed to delete file with name:", name)
 		return
 	}
 	fmt.Println("Successfully deleted file with name:", name)
@@ -658,7 +660,7 @@ func main(){
 	// error ignored for brevity	
 	d, _ := deta.New("project_key")
 	drive, _ := d.NewDrive("drive_name")
-	names := ["a", "b", "c"]
+	names := []string{"a", "b", "c"}
 	dr, err := drive.DeleteMany(names)
 
 	if err != nil {
