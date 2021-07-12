@@ -288,7 +288,7 @@ drive.put('hello.txt', path='./hello.txt')
     - Description: If the content type is not provided, drive tries to figure out the content type from Name provided. It defaults to application/octet-stream if the content type can not be figured out from the file name.
 
 #### Returns
-Returns the `name` of the file and an `error`
+Returns the `name` of the file on a successful put (otherwise empty name), and an `error`.
 
 #### Example
 ```go
@@ -520,8 +520,7 @@ deleted_file = drive.delete("hello.txt")
   - Description: The name of the file to delete 
 
 #### Returns
-Returns `name` of file deleted and an `error`
-
+Returns the `name` of the deleted file on successful deletions, and an `error`.
 :::note
 If the file did not exist, the name is still returned.
 :::
