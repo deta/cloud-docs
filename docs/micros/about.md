@@ -32,5 +32,6 @@ Deta Micros(*ervers*) are a lightweight but scalable cloud runtime tied to an HT
 - For unknown reasons, Google and Firebase packages for Python do not install successfully on Micros.
 - Currently, all requests received by Micros do not contain the client IP adresses. This make most rate-limiting logic and other IP-dependant logic not work on Micros.
 - Micros support most micro web framworks (Node.js: express, fastify, koa, etc && Python: FastAPI, Flask, etc.). Other frameworks are not likely to work.
+- Websockets and long running processes do not work on Micros. (examples: socket.io or Discord bots won't work)
 
 
