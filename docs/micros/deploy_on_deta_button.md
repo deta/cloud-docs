@@ -1,16 +1,16 @@
 ---
-id: deploy_on_deta_button
-title: Deploy On Deta Button
-sidebar_lable: Deploy On Deta Button
+id: deploy_to_deta_button
+title: Deploy to Deta Button
+sidebar_lable: Deploy to Deta Button
 ---
 
-The `Deploy on Deta` button provides users a quick way to deploy micros to Deta directly from the browser.
+The `Deploy to Deta` button provides users a quick way to deploy Micros to Deta directly from the browser.
 
 The button can be used in open-source repositories, landing pages etc, allowing users to quickly deploy and use your app on Deta.
 
-An example button that deploys a sample python micro to Deta:
+An example button that deploys a sample Python Micro to Deta:
 
-[![Deploy](/img/deploy_button/button.svg)](https://go.deta.dev/deploy?repo=https://github.com/deta/deploy-on-deta-button-example)
+[![Deploy](/img/deploy_button/button.svg)](https://go.deta.dev/deploy?repo=https://github.com/deta/deploy-to-deta-button-example)
 
 ### Repository URL
 
@@ -26,7 +26,7 @@ The repository url **must be a public git repository url.**
 If you provide the repository url without specifying a branch, by default the `main` (**not `master`**) branch is used. Specify the branch url if you want to use a different branch. 
 :::
 
-### Adding the button
+### Adding the Button
 
 The button image is hosted in the following url:
 ```
@@ -47,9 +47,9 @@ and also as HTML:
 </a>
 ```
 
-### Metadata and environment variables 
+### Metadata and Environment Variables 
 
-You can optionally specify metadata and environment variables needed by the micro in a `deta.json` file. Create this file in the root directory of your application.
+You can optionally specify metadata and environment variables needed by the Micro in a `deta.json` file. Create this file in the root directory of your application.
 
 The `deta.json` file has the following schema:
 
