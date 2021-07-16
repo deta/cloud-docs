@@ -130,7 +130,7 @@ Your project key is confidential and meant to be used by you. Anyone who has you
 
 ## Using
 
-Deta's **`Drive`** offres the following methods to interact with your Deta Drive:
+Deta's **`Drive`** offers the following methods to interact with your Deta Drive:
 
 [**`put`**](#put) - Stores a file to drive. It will overwrite the file if the file already exists.
 
