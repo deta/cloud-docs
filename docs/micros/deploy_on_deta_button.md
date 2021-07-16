@@ -10,36 +10,42 @@ The button can be used in open-source repositories, landing-pages etc, allowing 
 
 An example button that deploys a sample python micro to Deta:
 
-[![Deploy](/img/logo.svg)](https://web.deta.sh/deploy?path=https://example_repo)
+[![Deploy](/img/deploy_button/button.svg)](https://go.deta.dev/deploy?repo=https://github.com/deta/deploy-on-deta-button-example)
+
+
+
+## Repository URL
+
+You must link the button to the following url and provide your repository url as a query param `path`.
+
+```
+https://go.deta.dev/deploy?repo={your_git_repository_url}
+```
+
+The repository url **must be a public git repository url.**
+
+:::note
+If you provide the repository url without speccifying a branch, by default the `main` (`main` not `master`) branch is cloned. Specify the branch url if you want to use a different branch. 
+:::
 
 ## Adding the button
 
 The button image is hosted in the following url:
 ```
-https://deta.button.url
+https://button.deta.dev/1/svg
 ```
-
-You must link the button to the following url and provide your repository url as a query param `path`.
-
-```
-https://web.deta.sh/deploy?path={your_git_repository_url}
-```
-
-:::note
-The repository url must be a public git repository url. 
-:::
 
 The button can added as Markdown:
 
 ```md
-[![Deploy](https://deta.button.url)](https://web.deta.sh/deploy?path=https://example.git.repo)
+[![Deploy](https://button.deta.dev/1/svg)](https://web.deta.sh/deploy?path=https://example.git.repo)
 ```
 
 and also as HTML:
 
 ```html
 <a href="https://web.deta.sh/deploy?path=https://example.git.repo">
-	<img src="https://deta.button.url" alt="Deploy">
+	<img src="https://button.deta.dev/1/svg" alt="Deploy">
 </a>
 ```
 
