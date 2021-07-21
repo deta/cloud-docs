@@ -65,7 +65,6 @@ The `deta.json` file has the following schema:
 {
 	"name": "your app name",
 	"description": "your app description", 
-	"logo": "https://your.app.logo.url",
 	"env": [
 		{
 			"key": "ENV_VAR_KEY",
