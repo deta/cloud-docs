@@ -6,7 +6,7 @@ sidebar_label: Introduction
 
 ### Summary
 
-Deta Micros(*ervers*) are a lightweight but scalable cloud runtime tied to an HTTP endpoint. They are meant to get your apps up and running *blazingly fast*. Focus on writing your code and Deta will take care of everything else. 
+Deta Micros(*servers*) are a lightweight but scalable cloud runtime tied to an HTTP endpoint. They are meant to get your apps up and running *blazingly fast*. Focus on writing your code and Deta will take care of everything else. 
 
 ### Technical Specifications
 
@@ -30,8 +30,8 @@ Deta Micros(*ervers*) are a lightweight but scalable cloud runtime tied to an HT
 - The total upload size of your source code and assets is limited to 250 MB.
 - Dependencies (pip, npm, etc) also can't exceed a combined size of 250mb.
 - For unknown reasons, Google and Firebase packages for Python do not install successfully on Micros.
-- Currently, all requests received by Micros do not contain the client IP adresses. This make most rate-limiting logic and other IP-dependant logic not work on Micros.
-- Micros support most micro web framworks (Node.js: express, fastify, koa, etc && Python: FastAPI, Flask, etc.). Other frameworks are not likely to work.
-- Websockets and long running processes do not work on Micros. (examples: socket.io or Discord bots won't work)
+- Currently, all requests received by Micros do not contain the client IP addresses. This makes most rate-limiting logic and other IP-dependant logic doesn't work on Micros.
+- Micros support most micro web frameworks (Node.js: express, fastify, koa, etc && Python: FastAPI, Flask, etc.). Other frameworks are not likely to work.
+- Websockets and long-running processes do not work on Micros. (examples: socket.io or Discord bots won't work)
 
 
