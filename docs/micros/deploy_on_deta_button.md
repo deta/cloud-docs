@@ -6,7 +6,7 @@ sidebar_lable: Deploy to Deta Button
 
 The `Deploy to Deta` button provides users a quick way to deploy Micros to Deta directly from the browser.
 
-The button can be used in open-source repositories, landing pages etc, allowing users to quickly deploy and use your app on Deta.
+The button can be used in open-source repositories, blog posts, landing pages etc, allowing users to quickly deploy and use your app on Deta.
 
 An example button that deploys a sample Python Micro to Deta:
 
@@ -14,7 +14,7 @@ An example button that deploys a sample Python Micro to Deta:
 
 ### Repository URL
 
-You must link the button to the following url and provide your repository url as a query param `repo`.
+You must link the button to the following url and optionally, provide your repository url as a query parameter `repo`.
 
 ```
 https://go.deta.dev/deploy?repo={your_git_repository_url}
@@ -23,8 +23,16 @@ https://go.deta.dev/deploy?repo={your_git_repository_url}
 The repository url **must be a public git repository url.**
 
 :::note
-If you provide the repository url without specifying a branch, by default the `main` (**not `master`**) branch is used. Specify the branch url if you want to use a different branch. 
+If you provide the repository url without specifying a branch, the default branch of your repository is used. Specify the branch url if you want to use a different branch. 
 :::
+
+#### Repo Parameter Requirement
+
+You **do not need** to provide the repository url explicitly **if and only if** the button is added on Github hosted documentation.
+
+In this case, we infer the repository url from the `referer` header.
+
+For all other cases, you must specify the repository url with the `repo` parameter.
 
 ### Adding the Button
 
@@ -57,7 +65,6 @@ The `deta.json` file has the following schema:
 {
 	"name": "your app name",
 	"description": "your app description", 
-	"logo": "https://your.app.logo.url",
 	"env": [
 		{
 			"key": "ENV_VAR_KEY",
