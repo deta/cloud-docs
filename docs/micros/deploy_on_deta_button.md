@@ -4,7 +4,7 @@ title: Deploy to Deta Button
 sidebar_lable: Deploy to Deta Button
 ---
 
-The __Deploy to Deta button__ provides users a quick way to deploy a public Git repo to Deta Micro directly from the browser.
+The __Deploy to Deta button__ provides users a quick way to deploy a public Git repo to a Deta Micro directly from the browser.
 
 It's an easy way to share your creations with the developer community.
 
@@ -80,6 +80,6 @@ You can test your `deta.json` file by visiting `https://go.deta.dev/deploy?repo=
 
 ### Get discovered
 
-Mkae sure to add the `deta` tag to you repo for it to show up in our [GitHub topic](https://github.com/topics/deta).
+Make sure to add the `deta` tag to you repo for it to show up in our [GitHub topic](https://github.com/topics/deta).
 
 <img src="/img/deploy_button/deta-topic.png" alt="Deta Tpoic on GitHub"/>
