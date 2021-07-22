@@ -4,50 +4,48 @@ title: Deploy to Deta Button
 sidebar_lable: Deploy to Deta Button
 ---
 
-The `Deploy to Deta` button provides users a quick way to deploy Micros to Deta directly from the browser.
+The __Deploy to Deta button__ provides users a quick way to deploy a public Git repo to Deta Micro directly from the browser.
 
-The button can be used in open-source repositories, blog posts, landing pages etc, allowing users to quickly deploy and use your app on Deta.
+It's an easy way to share your creations with the developer community.
+
+You can use the "Deploy To Deta Button" in open-source repositories, blog posts, landing pages etc, allowing other developers to quickly deploy and use your app on Deta.
 
 An example button that deploys a sample Python Micro to Deta:
 
 [![Deploy](/img/deploy_button/button.svg)](https://go.deta.dev/deploy?repo=https://github.com/deta/deploy-to-deta-button-example)
 
-### Repository URL
+### Usage with GitHub, etc
 
-You must link the button to the following url and optionally, provide your repository url as a query parameter `repo`.
+You can let users deploy your __GitHub__ repo quickly by adding the following markup:
 
+```md
+[![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy)
 ```
-https://go.deta.dev/deploy?repo={your_git_repository_url}
+
+The button link will automatically identify the repo and prompt the user with the Deploy to Deta prompt.
+
+In case you are using your README __outside of GitHub__, for repos hosted on other __Git providers (like GitLab, Bitbucket, etc)__, or you just want to make sure you always linking to the correct repo, please provide `repo` parameter, folowing this format:
+
+```md
+[![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=your-repo-url)
 ```
 
-The repository url **must be a public git repository url.**
 
 :::note
-If you provide the repository url without specifying a branch, the default branch of your repository is used. Specify the branch url if you want to use a different branch. 
-:::
+Specify the __exact__ branch url if you want to use a different branch for deplyment. If you provide the repository url without specifying a branch, the default branch will be used.
 
-#### Repo Parameter Requirement
+The repository **must be a public git repository url.**
+::: -->
 
-You **do not need** to provide the repository url explicitly **if and only if** the button is added on Github hosted documentation.
 
-In this case, we infer the repository url from the `referer` header.
-
-For all other cases, you must specify the repository url with the `repo` parameter.
-
-### Adding the Button
+### Usage with HTML/JavaScript
 
 The button image is hosted in the following url:
 ```
 https://button.deta.dev/1/svg
 ```
 
-The button can added as Markdown:
-
-```md
-[![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=https://example.git.repo)
-```
-
-and also as HTML:
+and can be easily added to HTML pages or JavaScript applications. Exampel usage:
 
 ```html
 <a href="https://go.deta.dev/deploy?repo=https://example.git.repo">
@@ -78,3 +76,10 @@ The `deta.json` file has the following schema:
 ```
 
 You can test your `deta.json` file by visiting `https://go.deta.dev/deploy?repo={your_repo_url}`
+
+
+### Get discovered
+
+Mkae sure to add the `deta` tag to you repo for it to show up in our [GitHub topic](https://github.com/topics/deta).
+
+<img src="/img/deploy_button/deta-topic.png" alt="Deta Tpoic on GitHub"/>
