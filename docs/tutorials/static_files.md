@@ -4,16 +4,16 @@ title: Deploy Static Files (Including static React, Vue, Svelte apps)
 sidebar_label: Static Files
 ---
 
-You can deploy static React, Vue, Svelte, or just Vanilla JavaScript apps on Deta very easily by wraping it around a simple python snippet.
+You can deploy static React, Vue, Svelte, or just Vanilla JavaScript apps on Deta very easily by wrapping it around a simple Python snippet.
 
 The guide assumes you have a `build` folder with your static app and have the [Deta CLI](../cli/install.md) installed.
 
-### Introdution
+### Introduction
 
 Most front end frameworks will have a `src` directory which contains your code and output directory – usually called `build` – which contains the compiled code. Only the `build` directory is the one we need to deploy to a Deta Micro as it contains everything we need.
 
 ### Setup
-We will use a small Python framework called Starlette to serve the files for us. We do not recommend using a Node.js framweork.
+We will use a small Python framework called Starlette to serve the files for us. We do not recommend using a Node.js frameweork.
 Next to the `src` directory, create a `main.py` file with the following snippet:
 
   ```python
@@ -73,7 +73,7 @@ That's it. Open the `endpoint` URL and enjoy. To re deploy the changes, you need
 
 ### Speed up your app
 
-1. Disable the built in interactive deugger (VISOR): `deta visor disable`
+1. Disable the built in interactive debugger (VISOR): `deta visor disable`
 2. Connect a custom domain and use Cloudflare to cache your frontend.
 
 ### Additional feature: protect your frontend
