@@ -31,6 +31,7 @@ app = Starlette(routes=routes)
 
 
 Then create another file called `requirements.txt` with the following lines:
+
 ```
 starlette
 ``` 
@@ -42,6 +43,19 @@ myfrontend/
     ├── build/ 
     ├── main.py
     └── requirements.txt
+```
+
+And finally, create a `.detaignore` file containing the files and directories that are not essential for the deployment, this will speed up the process.
+Basically add anything but our `build` folder, `main.py` and `requirements.txt`.
+
+Example:  
+
+```
+src/
+public/
+package.json
+package-lock.json
+README.md
 ```
 
 ### Build your app
@@ -62,21 +76,21 @@ Deploy your application with `deta new`
           "http_auth": "disabled"
   }
   Adding dependencies...
-    Downloading aiofiles-0.6.0-py3-none-any.whl (11 kB)
   Collecting starlette
     Downloading starlette-0.14.2-py3-none-any.whl (60 kB)
-  Installing collected packages: starlette, aiofiles
-  Successfully installed aiofiles-0.6.0 starlette-0.14.2
+  Installing collected packages: starlette
+  Successfully installed starlette-0.14.2
   ```
 
-That's it. Open the `endpoint` URL and enjoy. To re deploy the changes, you need to re build your app before running `deta deploy`
+That's it. Open the `endpoint` URL and enjoy.   
+To re-deploy the changes, you need to re-build your app before running `deta deploy`
 
 ### Speed up your app
 
-1. Disable the built in interactive debugger (VISOR): `deta visor disable`
+1. Disable the built in interactive debugger (VISOR): `deta visor disable`.
 2. Connect a custom domain and use Cloudflare to cache your frontend.
 
 ### Additional feature: protect your frontend
 
-You could protect your app so only you can see it by turning on Deta Access: `deta auth enable`.
+You could protect your app so only you can see it by turning on Deta Access: `deta auth enable`.  
 Now, you need to login with __your__ Deta credential to access the app. You can make it public again by running `deta auth disable`.
