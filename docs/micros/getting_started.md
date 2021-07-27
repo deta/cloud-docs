@@ -119,6 +119,14 @@ The CLI should respond:
 
 Save this endpoint URL somewhere, as we will be visiting it shortly.
 
+### Creating a Micro Under a Specific Project
+
+```shell
+deta new --project <your-project> 
+```
+
+This will create a new Micro under `<your-project>` in the 'cloud'.
+ 
 ### Updating your Micro: Dependencies and Code
 
 <Tabs
