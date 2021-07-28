@@ -67,7 +67,7 @@ Most Node.js micro frameworks are supported, like Express & Koa, etc.
 
 For Deta to be able to run you code, you need to call your app instance `app` and it has to be in a file called `index.js`, which is the only required file for a Node Micro. You also need to export `app`. Of course you could add more files and folders.
 
-Make sure you have the framwwork in your `package.json`
+Make sure you have the framework in your `package.json`
 
 Example code
 
