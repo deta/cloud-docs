@@ -82,7 +82,7 @@ const docs = deta.Drive('docs');
 :::
 
 :::note
-  If you are using the `deta` npm package of `0.0.6` or below, `Deta` is the sinlge default export and should be imported as such.
+  If you are using the `deta` npm package of `0.0.6` or below, `Deta` is the single default export and should be imported as such.
 
   ```js
   const Deta = require('deta');
@@ -134,7 +134,7 @@ Deta's **`Drive`** offers the following methods to interact with your Deta Drive
 
 [**`put`**](#put) - Stores a file to drive. It will overwrite the file if the file already exists.
 
-[**`get`**](#get) - Retreives a file from drive by the file name.
+[**`get`**](#get) - Retrieves a file from drive by the file name.
 
 [**`delete`**](#delete) - Deletes a file from drive.
 
@@ -229,7 +229,7 @@ drive.put('hello.txt', path='./hello.txt')
 
 ### Get
 
-`Get` retreives a file from a drive by its name.
+`Get` retrieves a file from a drive by its name.
 
 <Tabs
   groupId="preferred-language"
@@ -318,7 +318,7 @@ with open("large_file.txt", "wb+") as f:
   - Description: The name of the file to delete 
 
 #### Returns
-Returns a promise that resolves to the `name` of the deleted file on successfull deletions, otherwise raises an `Error`
+Returns a promise that resolves to the `name` of the deleted file on successful deletions, otherwise raises an `Error`
 
 :::note
 If the file did not exist, the file is still returned as deleted.
@@ -486,7 +486,7 @@ let allFiles = result.names;
 let last = result.paging.last;
 
 while (last){
-  // provide last from previus call
+  // provide last from previous call
   result = await drive.list({last:result.paging.last});
 
   allFiles = allFiles.concat(result.names) 
