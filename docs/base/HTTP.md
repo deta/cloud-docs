@@ -447,7 +447,7 @@ List items that match a [query](./sdk#queries).
 {
    "query": [
         // separate objects in the list are ORed
-        // query evaluetes to list all users whose hometown is Berlin and is active OR all users who age less than 40
+        // query evaluates to list all users whose hometown is Berlin and is active OR all users who age less than 40
         {"user.hometown": "Berlin", "user.active": true},
         {"user.age?lt": 40}
    ],
