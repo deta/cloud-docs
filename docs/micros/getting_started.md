@@ -223,7 +223,7 @@ After you have updated your `requirements.txt` and / or your code locally, use a
 ```shell
 deta deploy
 ```
-The Deta CLI will notify you if your code has updated as well as if the dependcies were installed
+The Deta CLI will notify you if your code has updated as well as if the dependencies were installed.
 
 ```shell
 Deploying...
