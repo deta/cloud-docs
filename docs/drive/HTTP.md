@@ -10,7 +10,7 @@ import TabItem from '@theme/TabItem';
 ## General
 
 :::note
-You can get your **Project Key** and your **Project ID** from your [Deta dashboard](https://web.deta.sh). You need these to tlak with the Deta Drive API.
+You can get your **Project Key** and your **Project ID** from your [Deta dashboard](https://web.deta.sh). You need these to talk with the Deta Drive API.
 :::
 
 ### Root URL
