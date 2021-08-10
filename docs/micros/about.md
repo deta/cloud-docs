@@ -30,7 +30,7 @@ Deta Micros (micro servers) are a lightweight but scalable cloud runtime tied to
 - The total upload size of your source code and assets is limited to 250 MB.
 - Dependencies (pip, npm, etc) also can't exceed a combined size of 250mb.
 - For unknown reasons, Google and Firebase packages for Python do not install successfully on Micros.
-- Currently, all requests received by Micros do not contain the client IP addresses. This makes most rate-limiting logic and other IP-dependant logic doesn't work on Micros.
+- Currently, all requests received by Micros do not contain the client IP addresses. This makes most rate-limiting logic and other IP-dependant logic not work on Micros.
 - Micros support most micro web frameworks (Node.js: express, fastify, koa, etc && Python: FastAPI, Flask, etc.). Other frameworks are not likely to work.
 - Websockets and long-running processes do not work on Micros. (examples: socket.io or Discord bots won't work)
 
