@@ -137,24 +137,27 @@ docs = deta.Drive("docs")
 ```go
 import (
 	"fmt"
-	"github.com/deta/deta-go"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
 )
 
 func main() {
+
 	// initialize with project key
 	// returns ErrBadProjectKey if project key is invalid
-	d, err := deta.New("project_key")
+	d, err := deta.New(deta.WithProjectKey("project_key"))
 	if err != nil {
 		fmt.Println("failed to init new Deta instance:", err)
-		return	
+		return
 	}
 
-	// initialize with drive name
-	// returns ErrBadDriveName if drive name is invalid
-	drive, err := d.NewDrive("drive_name")
+	// initialize with base name
+	// returns ErrBadDriveName if base name is invalid
+	db, err := drive.New(d, "drive_name")
 	if err != nil {
-		fmt.Println("failed to init new Drive instance:", err)	
-		return	
+		fmt.Println("failed to init new Drive instance:", err)
+		return
 	}
 }
 ```
@@ -295,36 +298,35 @@ Returns the `name` of the file on a successful put (otherwise empty name), and a
 import (
 	"bufio"
 	"fmt"
-	"github.com/deta/deta-go"
 	"os"
-	"strings"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
 )
 
 func main() {
-	// error ignored for brevity
-	d, _ := deta.New("project_key")
-	drive, _ := d.NewDrive("drive_name")
 
-	// file data
-	f := &deta.PutInput{
-		Name:        "hello.txt",
-		Body:        strings.NewReader("hello world"),
-		ContentType: "text/plain",
-	}
-
-	name, err := drive.Put(f)
-
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
 	if err != nil {
-		fmt.Println("Failed to put file:", err)
+		fmt.Println("failed to init new Deta instance:", err)
 		return
 	}
-	fmt.Println("Successfully put file with name:", name)
 
+	// initialize with drive name
+	// returns ErrBadDriveName if drive name is invalid
+	drawings, err := drive.New(d, "drawings")
+	if err != nil {
+		fmt.Println("failed to init new Drive instance:", err)
+		return 
+	}
+	// PUT
 	// reading from a local file
 	file, err := os.Open("./art.svg")
 	defer file.Close()
 
-	name, err = drive.Put(&deta.PutInput{
+	name, err := drawings.Put(&drive.PutInput{
 		Name:        "art.svg",
 		Body:        bufio.NewReader(file),
 		ContentType: "image/svg+xml",
@@ -422,20 +424,35 @@ Returns a `io.ReadCloser` for the file.
 
 #### Example
 ```go
-
 import (
 	"fmt"
-	"github.com/deta/deta-go"
 	"io/ioutil"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
 )
 
 func main() {
-	// error ignored for brevity
-	d, _ := deta.New("project_key")
-	drive, _ := d.NewDrive("drive_name")
 
-	name := "hello.txt"
-	f, err := drive.Get(name)
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	// initialize with drive name
+	// returns ErrBadDriveName if drive name is invalid
+	drawings, err := drive.New(d, "drawings")
+	if err != nil {
+		fmt.Println("failed to init new Drive instance:", err)
+		return 
+	}
+
+	// GET
+	name := "art.svg"
+	f, err := drawings.Get(name)
 	if err != nil {
 		fmt.Println("Failed to get file with name:", name)
 		return
@@ -531,15 +548,31 @@ If the file did not exist, the name is still returned.
 ```go
 import (
 	"fmt"
-	"github.com/deta/deta-go"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
 )
 
 func main() {
-	// error ignored for brevity
-	d, _ := deta.New("project_key")
-	drive, _ := d.NewDrive("drive_name")
 
-	name, err := drive.Delete("hello.txt")
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	// initialize with drive name
+	// returns ErrBadDriveName if drive name is invalid
+	drawings, err := drive.New(d, "drawings")
+	if err != nil {
+		fmt.Println("failed to init new Drive instance:", err)
+		return 
+	}
+
+	// DELETE
+	name, err := drawings.Delete("art.svg")
 	if err != nil {
 		fmt.Println("Failed to delete file with name:", name)
 		return
@@ -652,16 +685,31 @@ type DeleteManyOutput struct {
 #### Example
 ```go
 import (
-    "fmt"
-    "github.com/deta/deta-go"
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
 )
 
-func main(){
-	// error ignored for brevity	
-	d, _ := deta.New("project_key")
-	drive, _ := d.NewDrive("drive_name")
+func main() {
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	// initialize with drive name
+	// returns ErrBadDriveName if drive name is invalid
+	drawings, err := drive.New(d, "drawings")
+	if err != nil {
+		fmt.Println("failed to init new Drive instance:", err)
+		return 
+	}
+
 	names := []string{"a", "b", "c"}
-	dr, err := drive.DeleteMany(names)
+	dr, err := drawings.DeleteMany(names)
 
 	if err != nil {
 		fmt.Println("Failed to delete files")
@@ -834,23 +882,38 @@ type paging struct {
 
 ```go
 import (
-    "fmt"
-    "github.com/deta/deta-go"
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
 )
 
-func main(){
-	// error ignored for brevity	
-	d, _ := deta.New("project_key")
-	drive, _ := d.NewDrive("drive_name")
+func main() {
 
-	lr, err := drive.List(1000, "", "")
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	// initialize with drive name
+	// returns ErrBadDriveName if drive name is invalid
+	drawings, err := drive.New(d, "drawings")
+	if err != nil {
+		fmt.Println("failed to init new Drive instance:", err)
+		return 
+	}
+
+	lr, err := drawings.List(1000, "", "")
 	if err != nil {
 		fmt.Println("Failed to list names from drive with err:", err)
 	}
 	// ["a", "b", "c/d"]	
 	fmt.Println("names:", lr.Names)
 	
-	lr, err = drive.List(1, "", "")
+	lr, err = drawings.List(1, "", "")
 	if err != nil {
 		fmt.Println("Failed to list names from drive with err:", err)
 	}
@@ -858,13 +921,12 @@ func main(){
 	fmt.Println("names:", lr.Names)
 	
 
-	lr, err = drive.List(2, "", "")
+	lr, err = drawings.List(2, "", "")
 	if err != nil {
 		fmt.Println("Failed to list names from drive with err:", err)
 	}
 	// "b"
 	fmt.Println("last:", *lr.Paging.Last)
-	
 }
 ```
 

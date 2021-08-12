@@ -147,26 +147,29 @@ books = deta.Base("books")
 
 ```go
 import (
-  "fmt"
-  "github.com/deta/deta-go"
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/base"
 )
 
-func main(){
-  // initialize with project key
-  // returns ErrBadProjectKey if project key is invalid
-  d, err := deta.New("project_key")
-  if err != nil {
-    fmt.Println("failed to init new Deta instance:", err)
-    return
-  }
+func main() {
 
-  // initialize with base name
-  // returns ErrBadBaseName if base name is invalid
-  db, err := d.NewBase("base_name")
-  if err != nil {
-    fmt.Println("failed to init new Base instance:", err)
-    return
-  }
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	// initialize with base name
+	// returns ErrBadBaseName if base name is invalid
+	db, err := base.New(d, "base_name")
+	if err != nil {
+		fmt.Println("failed to init new Base instance:", err)
+		return
+	}
 }
 ```
 </TabItem>
@@ -294,56 +297,64 @@ db.put(["a", "b", "c"], "my_abc")
 
 #### Code Example
 ```go
+
 import (
-    "fmt"
-    "github.com/deta/deta-go"
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/base"
 )
 
-type User struct{
-    Key string `json:"key"` // json struct tag 'key' used to denote the key
-    Username string `json:"username"`
-    Active bool `json:"active"`
-    Age int `json:"age"`
-    Likes []string `json:"likes"`
+type User struct {
+	Key      string   `json:"key"` // json struct tag 'key' used to denote the key
+	Username string   `json:"username"`
+	Active   bool     `json:"active"`
+	Age      int      `json:"age"`
+	Likes    []string `json:"likes"`
 }
 
-func main(){
-    // error ignored for brevity
-    d, _ := deta.New("project key")
-    db, _ := d.NewBase("users")
+func main() {
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
 
-    // a user
-    u := &User{
-        Key: "kasdlj1",
-        Username: "jimmy",
-        Active: true,
-        Age: 20,
-        Likes: []string{"ramen"},
-    }
+	db, err := base.New(d, "users")
+	if err != nil {
+		fmt.Println("failed to init new Base instance:", err)
+		return
+	}
 
-    // put item in the database
-    key, err := db.Put(u)
-    if err != nil {
-        fmt.Println("Failed to put item:", err)
-        return
-    }
-    fmt.Println("Successfully put item with key:", key)
+	u := &User{
+		Key:      "kasdlj1",
+		Username: "jimmy",
+		Active:   true,
+		Age:      20,
+		Likes:    []string{"ramen"},
+	}
+	key, err := db.Put(u)
+	if err != nil {
+		fmt.Println("failed to put item:", err)
+		return
+	}
+	fmt.Println("successfully put item with key", key)
 
-    // can also use a map
-    um := map[string]interface{}{
-      "key": "kasdlj1",
-      "username": "jimmy",
-      "active": true,
-      "age": 20,
-      "likes": []string{"ramen"},
-    }
+	// can also use a map
+	um := map[string]interface{}{
+		"key":      "kasdlj1",
+		"username": "jimmy",
+		"active":   true,
+		"age":      20,
+		"likes":    []string{"ramen"},
+	}
 
-    key, err = db.Put(um)
-    if err != nil {
-        fmt.Println("Failed to put item:", err)
-        return
-    }
-    fmt.Println("Successfully put item with key:", key)
+	key, err = db.Put(um)
+	if err != nil {
+		fmt.Println("Failed to put item:", err)
+		return
+	}
+	fmt.Println("Successfully put item with key:", key)
 }
 ```
 
@@ -441,34 +452,42 @@ If not found, the function will return `None`.
 #### Code Example
 
 ```go
-
 import (
-    "fmt"
-    "github.com/deta/deta-go"
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/base"
 )
 
-type User struct{
-    Key string `json:"key"` // json struct tag 'key' used to denote the key
-    Username string `json:"username"`
-    Active bool `json:"active"`
-    Age int `json:"age"`
-    Likes []string `json:"likes"`
+type User struct {
+	Key      string   `json:"key"` // json struct tag 'key' used to denote the key
+	Username string   `json:"username"`
+	Active   bool     `json:"active"`
+	Age      int      `json:"age"`
+	Likes    []string `json:"likes"`
 }
 
-func main(){
-    // error ignored for brevity
-    d, _ := deta.New("project key")
-    db, _ := d.NewBase("users")
+func main() {
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
 
-    // a variable to store the result 
-    var u User 
-    
-    // get item
-    // returns ErrNotFound if no item was found
-    err := db.Get("kasdlj1", &u)
-    if err != nil{
-        fmt.Println("Failed to get item:", err)
-    }
+	db, err := base.New(d, "users")
+	if err != nil {
+		fmt.Println("failed to init new Base instance:", err)
+	}
+
+	// a variable to store the result
+	var u User
+
+	// get item
+	// returns ErrNotFound if no item was found
+	err = db.Get("kasdlj1", &u)
+	if err != nil {
+		fmt.Println("Failed to get item:", err)
+	}
 }
 ```
 
@@ -553,11 +572,31 @@ Always returns `None`, even if the key does not exist.
 #### Code Example
 
 ```go
-// delete item
-// returns a nil error if item was not found
-err := db.Delete("dakjkfa")
-if err != nil {
-  fmt.Println("Failed to delete item:", err)
+import (
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/base"
+)
+
+func main() {
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	db, err := base.New(d, "users")
+	if err != nil {
+		fmt.Println("failed to init new Base instance:", err)
+	}
+
+	// delete item
+	// returns a nil error if item was not found
+	err = db.Delete("dakjkfa")
+	if err != nil {
+		fmt.Println("Failed to delete item:", err)
+	}
 }
 ```
 
@@ -660,39 +699,47 @@ Returns the item on a successful insert, and throws an error if the key already 
 ```go
 
 import (
-    "fmt"
-    "github.com/deta/deta-go"
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/base"
 )
 
-type User struct{
-    Key string `json:"key"` // json struct tag 'key' used to denote the key
-    Username string `json:"username"`
-    Active bool `json:"active"`
-    Age int `json:"age"`
-    Likes []string `json:"likes"`
+type User struct {
+	Key      string   `json:"key"` // json struct tag 'key' used to denote the key
+	Username string   `json:"username"`
+	Active   bool     `json:"active"`
+	Age      int      `json:"age"`
+	Likes    []string `json:"likes"`
 }
 
-func main(){
-    // error ignored for brevity
-    d, _ := deta.New("project key")
-    db, _ := d.NewBase("users")
+func main() {
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
 
-    // a user
-    u := &User{
-        Key: "kasdlj1",
-        Username: "jimmy",
-        Active: true,
-        Age: 20,
-        Likes: []string{"ramen"},
-    }
+	db, err := base.New(d, "users")
+	if err != nil {
+		fmt.Println("failed to init new Base instance:", err)
+	}
 
-    // insert item in the database
-    key, err := db.Insert(u)
-    if err != nil {
-        fmt.Println("Failed to insert item:", err)
-        return
-    }
-    fmt.Println("Successfully inserted item with key:", key)
+	u := &User{
+		Key:      "kasdlj1",
+		Username: "jimmy",
+		Active:   true,
+		Age:      20,
+		Likes:    []string{"ramen"},
+	}
+
+	// insert item in the database
+	key, err := db.Insert(u)
+	if err != nil {
+		fmt.Println("Failed to insert item:", err)
+		return
+	}
+	fmt.Println("Successfully inserted item with key:", key)
 }
 ```
 
@@ -836,49 +883,57 @@ Returns a promise which resolves to the put items on a successful insert, and ra
 
 #### Code Example:
 ```go
-
 import (
-    "fmt"
-    "github.com/deta/deta-go"
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/base"
 )
 
-type User struct{
-    Key string `json:"key"` // json struct tag 'key' used to denote the key
-    Username string `json:"username"`
-    Active bool `json:"active"`
-    Age int `json:"age"`
-    Likes []string `json:"likes"`
+type User struct {
+	Key      string   `json:"key"` // json struct tag 'key' used to denote the key
+	Username string   `json:"username"`
+	Active   bool     `json:"active"`
+	Age      int      `json:"age"`
+	Likes    []string `json:"likes"`
 }
 
-func main(){
-    // error ignored for brevity
-    d, _ := deta.New("project key")
-    db, _ := d.NewBase("users")
+func main() {
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
 
-    // users
-    u1 := &User{
-        Key: "kasdlj1",
-        Username: "jimmy",
-        Active: true,
-        Age: 20,
-        Likes: []string{"ramen"},
-    }
-    u2 := &User{
-      Key: "askdjf",
-      Username: "joel",
-      Active: true,
-      Age: 23,
-      Likes: []string{"coffee"},
-    }
-    users := []*User{u1, u2}
+	db, err := base.New(d, "users")
+	if err != nil {
+		fmt.Println("failed to init new Base instance:", err)
+	}
 
-    // put items in the database
-    keys, err := db.PutMany(users)
-    if err != nil {
-        fmt.Println("Failed to put items:", err)
-        return
-    }
-    fmt.Println("Successfully put item with keys:", keys)
+	// users
+	u1 := &User{
+		Key:      "kasdlj1",
+		Username: "jimmy",
+		Active:   true,
+		Age:      20,
+		Likes:    []string{"ramen"},
+	}
+	u2 := &User{
+		Key:      "askdjf",
+		Username: "joel",
+		Active:   true,
+		Age:      23,
+		Likes:    []string{"coffee"},
+	}
+	users := []*User{u1, u2}
+
+	// put items in the database
+	keys, err := db.PutMany(users)
+	if err != nil {
+		fmt.Println("Failed to put items:", err)
+		return
+	}
+	fmt.Println("Successfully put item with keys:", keys)
 }
 ```
 
@@ -1098,7 +1153,6 @@ Consider we have the following item in a base `users`:
     "active": false,
     "hometown": "pittsburgh" 
   },
-  "on_mobile": true,
   "likes": ["anime"],
   "purchases": 1
 }
@@ -1107,19 +1161,54 @@ Consider we have the following item in a base `users`:
 Then the following update operation :
 
 ```go
-// define the updates
-updates := deta.Updates{
-  "profile.age": 33, // set profile.age to 33
-  "profile.active": true, // set profile.active to true
-  "profile.email": "jimmy@deta.sh", // create a new attribute 'profile.email'
-  "profile.hometown": users.Util.Trim(), // remove 'profile.hometown'
-  "on_mobile": users.Util.Trim(), // remove 'on_mobile'
-  "purchases": users.Util.Increment(2), // increment 'purchases' by 2 
-  "likes": users.Util.Append("ramen") // append 'ramen' to 'likes', also accepts a slice 
+import (
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/base"
+)
+
+type Profile struct {
+	Active   bool   `json:"active"`
+	Age      int    `json:"age"`
+	Hometown string `json:"hometown"`
 }
 
-// update
-err := users.Util.Update("user-a", updates);
+type User struct {
+	Key       string   `json:"key"` // json struct tag 'key' used to denote the key
+	Username  string   `json:"username"`
+	Profile   *Profile `json:"profile"`
+	Purchases int      `json:"purchases"`
+	Likes     []string `json:"likes"`
+}
+
+func main() {
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	db, err := base.New(d, "users")
+	if err != nil {
+		fmt.Println("failed to init new Base instance:", err)
+	}
+
+	// define the updates
+	updates := base.Updates{
+		"profile.age": 33, // set profile.age to 33
+		"profile.active": true, // set profile.active to true
+		"profile.hometown": db.Util.Trim(), // remove 'profile.hometown'
+		"purchases": db.Util.Increment(2), // increment 'purchases' by 2 
+		"likes": db.Util.Append("ramen"), // append 'ramen' to 'likes', also accepts a slice 
+	}
+	// update
+	err = db.Update("user-a", updates)
+	if err != nil {
+		fmt.Println("failed to update")
+		return
+	}
+}
 ```
 
 Results in the following item in the base:
@@ -1131,7 +1220,6 @@ Results in the following item in the base:
   "profile": {
     "age": 33,
     "active": true,
-    "email": "jimmy@deta.sh"
   },
   "likes": ["anime", "ramen"],
   "purchases": 3
@@ -1651,37 +1739,47 @@ while res.last:
 
 ```go
 import (
-    "github.com/deta/deta-go"
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/base"
 )
 
 type User struct {
-    Key string `json:"key"`
-    Name string `json:"name"`
-    Age int `json:"age"`
-    Hometown string `json:"hometown"`
+  Key string `json:"key"`
+  Name string `json:"name"`
+  Age int `json:"age"`
+  Hometown string `json:"hometown"`
 }
 
-func main(){
-    // errors ignored for brevity
-    d, _ := deta.New("project key")
-    db, _ := deta.NewBase("users")
+func main() {
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
 
-    // query to get users with age less than 30
-    query := deta.Query{
-      {"age?lt": 50},
-    }
-    
-    // variabe to store the results
-    var results []*User
+	db, err := base.New(d, "users")
+	if err != nil {
+		fmt.Println("failed to init new Base instance:", err)
+	}
 
-    // fetch items
-    _, err := db.Fetch(&deta.FetchInput{
-      Q: query,
-      Dest: &results,
-    })
-    if err != nil {
-        fmt.Println("failed to fetch items:", err) 
-    }
+	// query to get users with age less than 30
+	query := base.Query{
+		{"age?lt": 50},
+	}
+
+	// variabe to store the results
+	var results []*User
+
+	// fetch items
+	_, err = db.Fetch(&base.FetchInput{
+		Q:    query,
+		Dest: &results,
+	})
+	if err != nil {
+		fmt.Println("failed to fetch items:", err)
+	}
 }
 ```
 
@@ -1708,64 +1806,75 @@ func main(){
 
 ```go
 import (
-    "github.com/deta/deta-go"
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/base"
 )
 
 type User struct {
-    Key string `json:"key"`
-    Name string `json:"name"`
-    Age int `json:"age"`
-    Hometown string `json:"hometown"`
+	Key      string   `json:"key"` // json struct tag 'key' used to denote the key
+	Username string   `json:"username"`
+	Active   bool     `json:"active"`
+	Age      int      `json:"age"`
+	Likes    []string `json:"likes"`
 }
 
-func main(){
-    // errors ignored for brevity
-    d, _ := deta.New("project key")
-    db, _ := deta.NewBase("users")
+func main() {
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
 
-    // query to get users with age less than 30
-    query := deta.Query{
-      {"age?lt": 50},
-    }
-    
-    // variabe to store the results
-    var results []*User
+	db, err := base.New(d, "users")
+	if err != nil {
+		fmt.Println("failed to init new Base instance:", err)
+	}
 
-    // variable to store the page
-    var page []*User
+	// query to get users with age less than 30
+	query := base.Query{
+		{"age?lt": 50},
+	}
 
-    // fetch input 
-    i := &deta.FetchInput{
-      Q: query,      
-      Dest: &page,
-      Limit: 1, // limit provided so each page will only have one item
-    } 
-    
-    // fetch items
-    lastKey, err := db.Fetch(i)
-    if err != nil {
-        fmt.Println("failed to fetch items:", err) 
-        return
-    }
+	// variabe to store the results
+	var results []*User
 
-    // append page items to results
-    results = append(allResults, page...)
+	// variable to store the page
+	var page []*User
 
-    // get all pages
-    for lastKey != ""{
-      // provide the last key in the fetch input
-      i.LastKey = lastKey
+	// fetch input
+	i := &base.FetchInput{
+		Q:     query,
+		Dest:  &page,
+		Limit: 1, // limit provided so each page will only have one item
+	}
 
-      // fetch
-      lastKey, err := db.Fetch(i)
-      if err != nil {
-          fmt.Println("failed to fetch items:", err)
-          return
-      }
+	// fetch items
+	lastKey, err := db.Fetch(i)
+	if err != nil {
+		fmt.Println("failed to fetch items:", err)
+		return
+	}
 
-      // append page items to all results
-      results = append(allResults, page...)
-    }
+	// append page items to results
+	results = append(results, page...)
+
+	// get all pages
+	for lastKey != "" {
+		// provide the last key in the fetch input
+		i.LastKey = lastKey
+
+		// fetch
+		lastKey, err = db.Fetch(i)
+		if err != nil {
+			fmt.Println("failed to fetch items:", err)
+			return
+		}
+
+		// append page items to all results
+		results = append(results, page...)
+	}
 }
 ```
 
