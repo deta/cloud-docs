@@ -42,7 +42,7 @@ We only accept JSON payloads. Make sure you set the headers correctly: `'Content
 
 ## Endpoints
 
-### Put Item
+### Put Items
 
 **`PUT /items`**
 
