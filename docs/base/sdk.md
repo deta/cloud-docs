@@ -289,6 +289,79 @@ db.put(["a", "b", "c"], "my_abc")
 </TabItem>
 
 <TabItem value='go'>
+<Tabs
+  groupId="go-version"
+  defaultValue="new"
+  values={[
+    { label: 'version < 1.0.0', value: 'legacy', },
+    { label: 'version >= 1.0.0', value: 'new', },
+  ]
+}>
+
+<TabItem value="legacy">
+
+**`Put(item interface{}) (string, error)`**
+
+#### Parameters
+- **item** : The item to be stored, should be a `struct` or a `map`. If the item is a `struct` provide the field keys for the data with json struct tags. The key of the item must have a json struct tag of `key`.
+
+#### Code Example
+```go
+import (
+    "fmt"
+    "github.com/deta/deta-go"
+)
+
+type User struct{
+    Key string `json:"key"` // json struct tag 'key' used to denote the key
+    Username string `json:"username"`
+    Active bool `json:"active"`
+    Age int `json:"age"`
+    Likes []string `json:"likes"`
+}
+
+func main(){
+    // error ignored for brevity
+    d, _ := deta.New("project key")
+    db, _ := d.NewBase("users")
+
+    // a user
+    u := &User{
+        Key: "kasdlj1",
+        Username: "jimmy",
+        Active: true,
+        Age: 20,
+        Likes: []string{"ramen"},
+    }
+
+    // put item in the database
+    key, err := db.Put(u)
+    if err != nil {
+        fmt.Println("Failed to put item:", err)
+        return
+    }
+    fmt.Println("Successfully put item with key:", key)
+
+    // can also use a map
+    um := map[string]interface{}{
+      "key": "kasdlj1",
+      "username": "jimmy",
+      "active": true,
+      "age": 20,
+      "likes": []string{"ramen"},
+    }
+
+    key, err = db.Put(um)
+    if err != nil {
+        fmt.Println("Failed to put item:", err)
+        return
+    }
+    fmt.Println("Successfully put item with key:", key)
+}
+```
+</TabItem>
+
+<TabItem value="new">
 
 **`Put(item interface{}) (string, error)`**
 
@@ -357,6 +430,8 @@ func main() {
 	fmt.Println("Successfully put item with key:", key)
 }
 ```
+</TabItem>
+</Tabs>
 
 #### Returns
 
@@ -443,6 +518,59 @@ If not found, the function will return `None`.
 
 <TabItem value='go'>
 
+<Tabs
+  groupId="go-version"
+  defaultValue="new"
+  values={[
+    { label: 'version < 1.0.0', value: 'legacy', },
+    { label: 'version >= 1.0.0', value: 'new', },
+  ]
+}>
+<TabItem value="legacy">
+
+**`Get(key string, dest interface{}) error`**
+
+#### Parameters
+- **key**: the key of the item to be retrieved
+- **dest**: the result will be stored into the value pointed by `dest` 
+
+#### Code Example
+
+```go
+
+import (
+    "fmt"
+    "github.com/deta/deta-go"
+)
+
+type User struct{
+    Key string `json:"key"` // json struct tag 'key' used to denote the key
+    Username string `json:"username"`
+    Active bool `json:"active"`
+    Age int `json:"age"`
+    Likes []string `json:"likes"`
+}
+
+func main(){
+    // error ignored for brevity
+    d, _ := deta.New("project key")
+    db, _ := d.NewBase("users")
+
+    // a variable to store the result 
+    var u User 
+    
+    // get item
+    // returns ErrNotFound if no item was found
+    err := db.Get("kasdlj1", &u)
+    if err != nil{
+        fmt.Println("Failed to get item:", err)
+    }
+}
+```
+</TabItem>
+
+<TabItem value="new">
+
 **`Get(key string, dest interface{}) error`**
 
 #### Parameters
@@ -490,6 +618,8 @@ func main() {
 	}
 }
 ```
+</TabItem>
+</Tabs>
 
 #### Returns
 
@@ -564,42 +694,24 @@ Always returns `None`, even if the key does not exist.
 
 <TabItem value='go'>
 
+
+
+
+
+
 **`Delete(key string) error`**
 
 #### Parameters
 - **key**: the key of the item to be deleted
-
 #### Code Example
-
 ```go
-import (
-	"fmt"
-
-	"github.com/deta/deta-go/deta"
-	"github.com/deta/deta-go/service/base"
-)
-
-func main() {
-	d, err := deta.New(deta.WithProjectKey("project_key"))
-	if err != nil {
-		fmt.Println("failed to init new Deta instance:", err)
-		return
-	}
-
-	db, err := base.New(d, "users")
-	if err != nil {
-		fmt.Println("failed to init new Base instance:", err)
-	}
-
-	// delete item
-	// returns a nil error if item was not found
-	err = db.Delete("dakjkfa")
-	if err != nil {
-		fmt.Println("Failed to delete item:", err)
-	}
+// delete item
+// returns a nil error if item was not found
+err := db.Delete("dakjkfa")
+if err != nil {
+  fmt.Println("Failed to delete item:", err)
 }
 ```
-
 #### Returns
 
 Returns an `error`. A `nil` error is returned if no item was found with provided `key`. Possible error values:
@@ -688,6 +800,63 @@ Returns the item on a successful insert, and throws an error if the key already 
 </TabItem>
 
 <TabItem value='go'>
+<Tabs
+  groupId="go-version"
+  defaultValue="new"
+  values={[
+    { label: 'version < 1.0.0', value: 'legacy', },
+    { label: 'version >= 1.0.0', value: 'new', },
+  ]
+}>
+<TabItem value="legacy">
+
+**`Insert(item interface{}) (string, error)`**
+
+#### Parameters
+- **item** : similar to `item` parameter to [`Put`](#put)
+
+#### Code Example
+
+```go
+
+import (
+    "fmt"
+    "github.com/deta/deta-go"
+)
+
+type User struct{
+    Key string `json:"key"` // json struct tag 'key' used to denote the key
+    Username string `json:"username"`
+    Active bool `json:"active"`
+    Age int `json:"age"`
+    Likes []string `json:"likes"`
+}
+
+func main(){
+    // error ignored for brevity
+    d, _ := deta.New("project key")
+    db, _ := d.NewBase("users")
+
+    // a user
+    u := &User{
+        Key: "kasdlj1",
+        Username: "jimmy",
+        Active: true,
+        Age: 20,
+        Likes: []string{"ramen"},
+    }
+
+    // insert item in the database
+    key, err := db.Insert(u)
+    if err != nil {
+        fmt.Println("Failed to insert item:", err)
+        return
+    }
+    fmt.Println("Successfully inserted item with key:", key)
+}
+```
+</TabItem>
+<TabItem value="new">
 
 **`Insert(item interface{}) (string, error)`**
 
@@ -742,6 +911,8 @@ func main() {
 	fmt.Println("Successfully inserted item with key:", key)
 }
 ```
+</TabItem>
+</Tabs>
 
 #### Returns
 Returns the `key` of the item inserted and an `error`. Possible error values:
@@ -876,6 +1047,73 @@ Returns a promise which resolves to the put items on a successful insert, and ra
 
 <TabItem value='go'>
 
+<Tabs
+  groupId="go-version"
+  defaultValue="new"
+  values={[
+    { label: 'version < 1.0.0', value: 'legacy', },
+    { label: 'version >= 1.0.0', value: 'new', },
+  ]
+}>
+<TabItem value="legacy">
+
+**`PutMany(items interface{}) ([]string, error)`**
+
+#### Parameters:
+- **items**: a slice of items, each item in the slice similar to the `item` parameter in [`Put`](#put)
+
+#### Code Example:
+```go
+
+import (
+    "fmt"
+    "github.com/deta/deta-go"
+)
+
+type User struct{
+    Key string `json:"key"` // json struct tag 'key' used to denote the key
+    Username string `json:"username"`
+    Active bool `json:"active"`
+    Age int `json:"age"`
+    Likes []string `json:"likes"`
+}
+
+func main(){
+    // error ignored for brevity
+    d, _ := deta.New("project key")
+    db, _ := d.NewBase("users")
+
+    // users
+    u1 := &User{
+        Key: "kasdlj1",
+        Username: "jimmy",
+        Active: true,
+        Age: 20,
+        Likes: []string{"ramen"},
+    }
+    u2 := &User{
+      Key: "askdjf",
+      Username: "joel",
+      Active: true,
+      Age: 23,
+      Likes: []string{"coffee"},
+    }
+    users := []*User{u1, u2}
+
+    // put items in the database
+    keys, err := db.PutMany(users)
+    if err != nil {
+        fmt.Println("Failed to put items:", err)
+        return
+    }
+    fmt.Println("Successfully put item with keys:", keys)
+}
+```
+
+</TabItem>
+
+<TabItem value="new">
+
 **`PutMany(items interface{}) ([]string, error)`**
 
 #### Parameters:
@@ -936,6 +1174,8 @@ func main() {
 	fmt.Println("Successfully put item with keys:", keys)
 }
 ```
+</TabItem>
+</Tabs>
 
 #### Returns
 Returns the list of keys of the items stored and an `error`. In case of an error, none of the items are stored. Possible error values:
@@ -1121,6 +1361,15 @@ If the item is updated, returns `None`. Otherwise, an exception is raised.
 </TabItem>
 
 <TabItem value="go">
+<Tabs
+  groupId="go-version"
+  defaultValue="new"
+  values={[
+    { label: 'version < 1.0.0', value: 'legacy', },
+    { label: 'version >= 1.0.0', value: 'new', },
+  ]
+}>
+<TabItem value="legacy">
 
 **`Update(key stirng, updates Updates) error`**
 
@@ -1139,6 +1388,79 @@ If the item is updated, returns `None`. Otherwise, an exception is raised.
 - **Prepend**: `Prepend` prepends to a list. The util `Base.Util.Prepend(value interface{})` should be used to prepend the value. The value can be a slice.
 
 - **Trim**: `Trim` removes an attribute from the item, the util `Base.Util.Trim()` should be used as the value of an attribute.
+
+#### Code Example
+
+Consider we have the following item in a base `users`:
+
+```json
+{
+  "key": "user-a",
+  "username": "jimmy",
+  "profile": {
+    "age": 32,
+    "active": false,
+    "hometown": "pittsburgh" 
+  },
+  "on_mobile": true,
+  "likes": ["anime"],
+  "purchases": 1
+}
+```
+
+Then the following update operation :
+
+```go
+// define the updates
+updates := deta.Updates{
+  "profile.age": 33, // set profile.age to 33
+  "profile.active": true, // set profile.active to true
+  "profile.email": "jimmy@deta.sh", // create a new attribute 'profile.email'
+  "profile.hometown": users.Util.Trim(), // remove 'profile.hometown'
+  "on_mobile": users.Util.Trim(), // remove 'on_mobile'
+  "purchases": users.Util.Increment(2), // increment 'purchases' by 2 
+  "likes": users.Util.Append("ramen") // append 'ramen' to 'likes', also accepts a slice 
+}
+
+// update
+err := users.Util.Update("user-a", updates);
+```
+
+Results in the following item in the base:
+
+```json
+{
+  "key": "user-a",
+  "username": "jimmy",
+  "profile": {
+    "age": 33,
+    "active": true,
+    "email": "jimmy@deta.sh"
+  },
+  "likes": ["anime", "ramen"],
+  "purchases": 3
+}
+```
+</TabItem>
+<TabItem value="new">
+
+**`Update(key stirng, updates Updates) error`**
+
+#### Parameters
+
+- **key**: the key of the item to update
+- **updates** : updates applied to the item, is of type `base.Updates` which is a `map[string]interface{}`
+
+##### Update operations
+- **Set** : `Set` is practiced through normal key-value pairs. The operation changes the values of the attributes provided if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
+
+- **Increment**: `Increment` incrementes the value of an attribute. The attribute's value *must be a number*. The util `db.Util.Increment(value interface{})` should be used to increment the value. The value can also be negative.
+
+- **Append**: `Append` appends to a list. The util `db.Util.Append(value interface{})` should be used to append the value. The value can be a slice.
+
+- **Prepend**: `Prepend` prepends to a list. The util `db.Util.Prepend(value interface{})` should be used to prepend the value. The value can be a slice.
+
+- **Trim**: `Trim` removes an attribute from the item, the util `db.Util.Trim()` should be used as the value of an attribute.
 
 #### Code Example
 
@@ -1225,6 +1547,8 @@ Results in the following item in the base:
   "purchases": 3
 }
 ```
+</TabItem>
+</Tabs>
 
 #### Returns
 
@@ -1707,6 +2031,166 @@ while res.last:
 </TabItem>
 
 <TabItem value='go'>
+<Tabs
+  groupId="go-version"
+  defaultValue="new"
+  values={[
+    { label: 'version < 1.0.0', value: 'legacy', },
+    { label: 'version >= 1.0.0', value: 'new', },
+  ]
+}>
+<TabItem value='legacy'>
+
+**`Fetch(i *FetchInput) error`**
+
+#### Parameters
+
+- **i**: is a pointer to a `FetchInput`
+
+  ```go
+  // FetchInput input to Fetch operation
+  type FetchInput struct {
+    // filters to apply to items
+    // A nil value applies no queries and fetches all items
+    Q Query
+    // the destination to store the results
+    Dest interface{}
+    // the maximum number of items to fetch
+    // value of 0 or less applies no limit
+    Limit int
+    // the last key evaluated in a paginated response
+    // leave empty if not a subsequent fetch request
+    LastKey string
+  }  
+  ```
+  - `Q`: fetch query, is of type `deta.Query` which is a `[]map[string]interface{}`
+  - `Dest`: the results will be stored into the value pointed by `Dest`
+  - `Limit`: the maximum number of items to fetch, value of `0` or less applies no limit
+  - `LastKey`: the last key evaluated in a paginated response, leave empty if not a subsequent fetch request 
+
+#### Code Example
+
+```go
+import (
+    "github.com/deta/deta-go"
+)
+
+type User struct {
+    Key string `json:"key"`
+    Name string `json:"name"`
+    Age int `json:"age"`
+    Hometown string `json:"hometown"`
+}
+
+func main(){
+    // errors ignored for brevity
+    d, _ := deta.New("project key")
+    db, _ := deta.NewBase("users")
+
+    // query to get users with age less than 30
+    query := deta.Query{
+      {"age?lt": 50},
+    }
+    
+    // variabe to store the results
+    var results []*User
+
+    // fetch items
+    _, err := db.Fetch(&deta.FetchInput{
+      Q: query,
+      Dest: &results,
+    })
+    if err != nil {
+        fmt.Println("failed to fetch items:", err) 
+    }
+}
+```
+
+... `results` will have the following data:
+
+```json
+[
+  {
+    "key": "key-1",
+    "name": "Wesley",
+    "age": 27,
+    "hometown": "San Francisco",
+  },
+  {
+    "key": "key-3",
+    "name": "Kevin Garnett",
+    "age": 43,
+    "hometown": "Greenville",
+  },
+]
+```
+
+#### Paginated example
+
+```go
+import (
+    "github.com/deta/deta-go"
+)
+
+type User struct {
+    Key string `json:"key"`
+    Name string `json:"name"`
+    Age int `json:"age"`
+    Hometown string `json:"hometown"`
+}
+
+func main(){
+    // errors ignored for brevity
+    d, _ := deta.New("project key")
+    db, _ := deta.NewBase("users")
+
+    // query to get users with age less than 30
+    query := deta.Query{
+      {"age?lt": 50},
+    }
+    
+    // variabe to store the results
+    var results []*User
+
+    // variable to store the page
+    var page []*User
+
+    // fetch input 
+    i := &deta.FetchInput{
+      Q: query,      
+      Dest: &page,
+      Limit: 1, // limit provided so each page will only have one item
+    } 
+    
+    // fetch items
+    lastKey, err := db.Fetch(i)
+    if err != nil {
+        fmt.Println("failed to fetch items:", err) 
+        return
+    }
+
+    // append page items to results
+    results = append(allResults, page...)
+
+    // get all pages
+    for lastKey != ""{
+      // provide the last key in the fetch input
+      i.LastKey = lastKey
+
+      // fetch
+      lastKey, err := db.Fetch(i)
+      if err != nil {
+          fmt.Println("failed to fetch items:", err)
+          return
+      }
+
+      // append page items to all results
+      results = append(allResults, page...)
+    }
+}
+```
+</TabItem>
+<TabItem value='new'>
 
 **`Fetch(i *FetchInput) error`**
 
@@ -1877,6 +2361,8 @@ func main() {
 	}
 }
 ```
+</TabItem>
+</Tabs>
 
 #### Returns
 
