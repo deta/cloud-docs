@@ -144,6 +144,44 @@ books = deta.Base("books")
 </TabItem>
 
 <TabItem value="go">
+<Tabs
+  groupId="go-version"
+  defaultValue="new"
+  values={[
+    { label: 'version < 1.0.0', value: 'legacy', },
+    { label: 'version >= 1.0.0', value: 'new', },
+  ]
+}>
+<TabItem value="legacy">
+
+
+```go
+import (
+  "fmt"
+  "github.com/deta/deta-go"
+)
+
+func main(){
+  // initialize with project key
+  // returns ErrBadProjectKey if project key is invalid
+  d, err := deta.New("project_key")
+  if err != nil {
+    fmt.Println("failed to init new Deta instance:", err)
+    return
+  }
+
+  // initialize with base name
+  // returns ErrBadBaseName if base name is invalid
+  db, err := d.NewBase("base_name")
+  if err != nil {
+    fmt.Println("failed to init new Base instance:", err)
+    return
+  }
+}
+```aad
+
+</TabItem>
+<TabItem value="new">
 
 ```go
 import (
@@ -172,6 +210,8 @@ func main() {
 	}
 }
 ```
+</TabItem>
+</Tabs>
 </TabItem>
 </Tabs>
 
@@ -1454,13 +1494,13 @@ Results in the following item in the base:
 ##### Update operations
 - **Set** : `Set` is practiced through normal key-value pairs. The operation changes the values of the attributes provided if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
 
-- **Increment**: `Increment` incrementes the value of an attribute. The attribute's value *must be a number*. The util `db.Util.Increment(value interface{})` should be used to increment the value. The value can also be negative.
+- **Increment**: `Increment` incrementes the value of an attribute. The attribute's value *must be a number*. The util `Base.Util.Increment(value interface{})` should be used to increment the value. The value can also be negative.
 
-- **Append**: `Append` appends to a list. The util `db.Util.Append(value interface{})` should be used to append the value. The value can be a slice.
+- **Append**: `Append` appends to a list. The util `Base.Util.Append(value interface{})` should be used to append the value. The value can be a slice.
 
-- **Prepend**: `Prepend` prepends to a list. The util `db.Util.Prepend(value interface{})` should be used to prepend the value. The value can be a slice.
+- **Prepend**: `Prepend` prepends to a list. The util `Base.Util.Prepend(value interface{})` should be used to prepend the value. The value can be a slice.
 
-- **Trim**: `Trim` removes an attribute from the item, the util `db.Util.Trim()` should be used as the value of an attribute.
+- **Trim**: `Trim` removes an attribute from the item, the util `Base.Util.Trim()` should be used as the value of an attribute.
 
 #### Code Example
 
