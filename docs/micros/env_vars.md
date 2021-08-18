@@ -14,10 +14,10 @@ Environment variables can be set to your Micro through the Deta cli's [update co
 You need to create a file where you specify your environment variables with their values. 
 
 :::note
-We stronlgy recommend creating a file called `.env` so that this file is skipped by the Deta cli and not deployed with your Micro's code. Also, please do not share/commit your env file publicly. 
+We strongly recommend creating a file called `.env` so that this file is skipped by the Deta cli and not deployed with your Micro's code. Also, please do not share/commit your env file publicly. 
 :::
 
-You can use the following command to update your enviornment variables:
+You can use the following command to update your environment variables:
 ```sh
 deta update -e <env_file_name>
 ```
@@ -58,7 +58,7 @@ The following pre-set environment variables could be useful for you:
 
 - **DETA_PATH**
 
-`DETA_PATH` stores a unique identifier for your Micro. This value is also used as the sub-domain under which your Micro is avaiable through `http`. For example, if your `DETA_PATH` variable contained a value of `sdfgh` then your Micro is accessible at https://sdfgh.deta.dev.
+`DETA_PATH` stores a unique identifier for your Micro. This value is also used as the sub-domain under which your Micro is available through `http`. For example, if your `DETA_PATH` variable contained a value of `sdfgh` then your Micro is accessible at https://sdfgh.deta.dev.
 
 :::note
 This value does not store the self assigned sub-domain value at the moment.
@@ -90,7 +90,7 @@ async def debug_info():
 
 - **DETA_PROJECT_KEY**
 
-`DETA_PROJECT_KEY` is a project key generated for you Micro for authentication with [Deta Base](../base/about.md) and [Deta Drive](../drive/about.md). 
+`DETA_PROJECT_KEY` is a project key generated for your Micro for authentication with [Deta Base](../base/about.md) and [Deta Drive](../drive/about.md). 
 
 Each micro has its own project key and this **should not be shared publicly**.
 

@@ -103,38 +103,6 @@ def get_user(key):
     return user if user else jsonify({"error": "Not found"}, 404)
 ```
 
-We could also use the `db.fetch(query)` method to return the same data:
-
-<Tabs
-  groupId="py-version"
-  defaultValue="new"
-  values={[
-    { label: 'version < 1.0.0', value: 'legacy', },
-    { label: 'version >= 1.0.0', value: 'new', },
-  ]
-}>
-
-<TabItem value="legacy">
-
-```py
-@app.route("/users/<key>")
-def get_user(key):
-    return list(db_user.fetch({'key': id}))
-```
-</TabItem>
-
-<TabItem value="new">
-
-```py
-@app.route("/users/<key>")
-def get_user(key):
-    return db_user.fetch({'key': id}).items
-```
-</TabItem>
-
-</Tabs>
-
-
 #### Request
 
 Let's try reading the record we just created.
@@ -224,7 +192,5 @@ We can delete the record by passing a `DELETE` to the path `/users/dl9e6w6859a9`
 Our server should respond with:
 
 ```json
-{
-    "message": "deleted"
-}
+None
 ```
