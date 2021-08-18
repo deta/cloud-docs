@@ -119,6 +119,14 @@ The CLI should respond:
 
 Save this endpoint URL somewhere, as we will be visiting it shortly.
 
+### Creating a Micro Under a Specific Project
+
+```shell
+deta new --project <your-project> 
+```
+
+This will create a new Micro under `<your-project>` in the 'cloud'.
+ 
 ### Updating your Micro: Dependencies and Code
 
 <Tabs
@@ -215,7 +223,7 @@ After you have updated your `requirements.txt` and / or your code locally, use a
 ```shell
 deta deploy
 ```
-The Deta CLI will notify you if your code has updated as well as if the dependcies were installed
+The Deta CLI will notify you if your code has updated as well as if the dependencies were installed.
 
 ```shell
 Deploying...

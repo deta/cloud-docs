@@ -200,9 +200,10 @@ Deta's **`Base`** class offers the following methods to interact with your Deta 
 
 `put` is the fastest way to store an item in the database.
 
+If an item already exists under a given key, put will replace this item.
+
 In the case you do not provide us with a key, we will auto generate a 12 char long string as a key.
 
-You can also use `put` when you want to update an item in the database.
 
 <Tabs
   groupId="preferred-language"
