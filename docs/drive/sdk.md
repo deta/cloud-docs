@@ -17,6 +17,7 @@ The Deta library is the easiest way to store and retrieve files from your Deta D
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <TabItem value="js">
@@ -38,6 +39,13 @@ pip install deta
 ```
 
 </TabItem>
+<TabItem value="go">
+
+```shell
+go get github.com/deta/deta-go
+```
+
+</TabItem>
 </Tabs>
 
 
@@ -52,6 +60,7 @@ To start working with your Drive, you need to import the `Deta` class and initia
   values={[
     { label: 'JavaScript', value: 'js', },
     { label: 'Python', value: 'py', },
+    { label: 'Go', value: 'go', },
   ]
 }>
 <TabItem value="js">
@@ -122,6 +131,37 @@ docs = deta.Drive("docs")
 :::
 
 </TabItem>
+
+<TabItem value="go">
+
+```go
+import (
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
+)
+
+func main() {
+
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	// initialize with base name
+	// returns ErrBadDriveName if base name is invalid
+	db, err := drive.New(d, "drive_name")
+	if err != nil {
+		fmt.Println("failed to init new Drive instance:", err)
+		return
+	}
+}
+```
+</TabItem>
 </Tabs>
 
 :::warning
@@ -149,7 +189,8 @@ Deta's **`Drive`** offers the following methods to interact with your Deta Drive
   defaultValue="js"
   values={[
     {label:'JavaScript', value: 'js', },
-    {label:'Python', value: 'py', }
+    {label:'Python', value: 'py', },
+    {label:'Go', value: 'go', }
   ]}
 >
 
@@ -224,7 +265,81 @@ drive.put('hello.txt', path='./hello.txt')
 ```
 
 </TabItem>
+<TabItem value="go">
 
+**`Put(i *PutInput) (string, error)`**
+
+#### Parameters
+
+- **i** (required) - pointer to a `PutInput`
+  - ```go
+    // PutInput input to Put operation
+    type PutInput struct {
+      // Name of the file
+      Name string
+      // io.Reader with contents of the file
+      Body io.Reader
+      // ContentType of the file to be uploaded to drive.
+      ContentType string
+    }
+    ```
+  - `Name` (required) - `string`
+    - Description: Name of the file to be uploaded.
+  - `Body` (required) - `io.Reader`
+    - Description: File content to be uploaded.
+  - `ContentType` - `string`
+    - Description: If the content type is not provided, drive tries to figure out the content type from Name provided. It defaults to application/octet-stream if the content type can not be figured out from the file name.
+
+#### Returns
+Returns the `name` of the file on a successful put (otherwise empty name), and an `error`.
+
+#### Example
+```go
+import (
+	"bufio"
+	"fmt"
+	"os"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
+)
+
+func main() {
+
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	// initialize with drive name
+	// returns ErrBadDriveName if drive name is invalid
+	drawings, err := drive.New(d, "drawings")
+	if err != nil {
+		fmt.Println("failed to init new Drive instance:", err)
+		return 
+	}
+	// PUT
+	// reading from a local file
+	file, err := os.Open("./art.svg")
+	defer file.Close()
+
+	name, err := drawings.Put(&drive.PutInput{
+		Name:        "art.svg",
+		Body:        bufio.NewReader(file),
+		ContentType: "image/svg+xml",
+	})
+	if err != nil {
+		fmt.Println("Failed to put file:", err)
+		return
+	}
+	fmt.Println("Successfully put file with name:", name)
+}
+```
+
+</TabItem>
 </Tabs>
 
 ### Get
@@ -236,7 +351,8 @@ drive.put('hello.txt', path='./hello.txt')
   defaultValue="js"
   values={[
     {label:'JavaScript', value: 'js', },
-    {label:'Python', value: 'py', }
+    {label:'Python', value: 'py', },
+    {label:'Go', value: 'go', }
   ]}
 >
 
@@ -294,6 +410,65 @@ with open("large_file.txt", "wb+") as f:
   large_file.close()
 ```
 </TabItem>
+
+<TabItem value="go">
+
+**`Get(name string) (io.ReadCloser, error)`**
+
+#### Parameters
+- **name** (required) - `string`
+  - Description: The `name` of the file to get.
+
+#### Returns
+Returns a `io.ReadCloser` for the file.
+
+#### Example
+```go
+import (
+	"fmt"
+	"io/ioutil"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
+)
+
+func main() {
+
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	// initialize with drive name
+	// returns ErrBadDriveName if drive name is invalid
+	drawings, err := drive.New(d, "drawings")
+	if err != nil {
+		fmt.Println("failed to init new Drive instance:", err)
+		return 
+	}
+
+	// GET
+	name := "art.svg"
+	f, err := drawings.Get(name)
+	if err != nil {
+		fmt.Println("Failed to get file with name:", name)
+		return
+	}
+	defer f.Close()
+
+	c, err := ioutil.ReadAll(f)
+	if err != nil {
+		fmt.Println("Failed read file content with err:", err)
+		return
+	}
+	fmt.Println("file content:", string(c))
+}
+```
+</TabItem>
+
 </Tabs>
 
 ### Delete
@@ -305,7 +480,8 @@ with open("large_file.txt", "wb+") as f:
   defaultValue="js"
   values={[
     {label:'JavaScript', value: 'js', },
-    {label:'Python', value: 'py', }
+    {label:'Python', value: 'py', },
+    {label:'Go', value: 'go', }
   ]}
 >
 <TabItem value="js">
@@ -353,6 +529,59 @@ deleted_file = drive.delete("hello.txt")
 ```
 
 </TabItem>
+<TabItem value="go">
+
+**`Delete(name string) (string, error)`**
+
+#### Parameters
+
+- **name** (required) - `string`
+  - Description: The name of the file to delete 
+
+#### Returns
+Returns the `name` of the deleted file on successful deletions, and an `error`.
+:::note
+If the file did not exist, the name is still returned.
+:::
+
+#### Example
+```go
+import (
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
+)
+
+func main() {
+
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	// initialize with drive name
+	// returns ErrBadDriveName if drive name is invalid
+	drawings, err := drive.New(d, "drawings")
+	if err != nil {
+		fmt.Println("failed to init new Drive instance:", err)
+		return 
+	}
+
+	// DELETE
+	name, err := drawings.Delete("art.svg")
+	if err != nil {
+		fmt.Println("Failed to delete file with name:", name)
+		return
+	}
+	fmt.Println("Successfully deleted file with name:", name)
+}
+```
+
+</TabItem>
 </Tabs>
 
 ### Delete Many
@@ -364,7 +593,8 @@ Deletes multiple files (up to 1000) from a drive.
   defaultValue="js"
   values={[
     {label:'JavaScript', value: 'js', },
-    {label:'Python', value: 'py', }
+    {label:'Python', value: 'py', },
+    {label:'Go', value: 'go', }
   ]}
 >
 
@@ -431,6 +661,66 @@ print("failed:", result.get("failed"))
 ```
 
 </TabItem>
+<TabItem value="go">
+
+**`DeleteMany(names []string) (*DeleteManyOutput, error)`**
+
+#### Parameters
+- **names** (required): `[]string`
+  - Description: The names of the files to be deleted.
+
+#### Returns
+Returns a pointer to a `DeleteManyOutput` and an `error`.
+
+```go
+// DeleteManyOutput output to DeleteMany operation
+type DeleteManyOutput struct {
+	Deleted []string          `json:"deleted"`
+	Failed  map[string]string `json:"failed"`
+}
+```
+- `Deleted` - string slice indicating deleted file names.
+- `Failled` - map indicating the names of failed file names along with an error message.
+
+#### Example
+```go
+import (
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
+)
+
+func main() {
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	// initialize with drive name
+	// returns ErrBadDriveName if drive name is invalid
+	drawings, err := drive.New(d, "drawings")
+	if err != nil {
+		fmt.Println("failed to init new Drive instance:", err)
+		return 
+	}
+
+	names := []string{"a", "b", "c"}
+	dr, err := drawings.DeleteMany(names)
+
+	if err != nil {
+		fmt.Println("Failed to delete files")
+		return
+	}
+	fmt.Println("deleted:", dr.Deleted)
+	fmt.Println("failed:", dr.Failed)
+}
+```
+
+</TabItem>
 </Tabs>
 
 ### List
@@ -442,7 +732,8 @@ print("failed:", result.get("failed"))
   defaultValue="js"
   values={[
     {label:'JavaScript', value: 'js', },
-    {label:'Python', value: 'py', }
+    {label:'Python', value: 'py', },
+    {label:'Go', value: 'go', }
   ]}
 >
 
@@ -554,6 +845,89 @@ print("all files:", allFiles)
 res_with_prefix = drive.list(prefix="/blog")
 res_with_limit = drive.list(limit=100)
 res_with_prefix_limit = drive.list(prefix="/blog", limit=100)
+```
+
+</TabItem>
+
+<TabItem value="go">
+
+**`List(limit int, prefix, last string) (*ListOutput, error)`**
+
+#### Parameters
+- **limit** (required) - `int` 
+  - Description: Maximum number of file names to be returned.
+- **prefix** (required) - `string` 
+  - Description: The prefix that file names must have.
+- **last** (required) - `string` 
+  - Description: The `last` name seen in a previous paginated result. Provide `last` from previous response to fetch further pages.
+
+#### Returns
+Returns a pointer to a `ListOutput`
+```go
+type ListOutput struct {
+	Paging *paging  `json:"paging"`
+	Names  []string `json:"names"`
+}
+
+type paging struct {
+	Size int     `json:"size"`
+	Last *string `json:"last"`
+}
+```
+
+- `Paging` - indicates the size and last name of the current page. `nil` if there are no further pages.
+- `Names` - names of the files.
+
+#### Example
+
+```go
+import (
+	"fmt"
+
+	"github.com/deta/deta-go/deta"
+	"github.com/deta/deta-go/service/drive"
+)
+
+func main() {
+
+	// initialize with project key
+	// returns ErrBadProjectKey if project key is invalid
+	d, err := deta.New(deta.WithProjectKey("project_key"))
+	if err != nil {
+		fmt.Println("failed to init new Deta instance:", err)
+		return
+	}
+
+	// initialize with drive name
+	// returns ErrBadDriveName if drive name is invalid
+	drawings, err := drive.New(d, "drawings")
+	if err != nil {
+		fmt.Println("failed to init new Drive instance:", err)
+		return 
+	}
+
+	lr, err := drawings.List(1000, "", "")
+	if err != nil {
+		fmt.Println("Failed to list names from drive with err:", err)
+	}
+	// ["a", "b", "c/d"]	
+	fmt.Println("names:", lr.Names)
+	
+	lr, err = drawings.List(1, "", "")
+	if err != nil {
+		fmt.Println("Failed to list names from drive with err:", err)
+	}
+	// ["a"]
+	fmt.Println("names:", lr.Names)
+	
+
+	lr, err = drawings.List(2, "", "")
+	if err != nil {
+		fmt.Println("Failed to list names from drive with err:", err)
+	}
+	// "b"
+	fmt.Println("last:", *lr.Paging.Last)
+}
 ```
 
 </TabItem>
