@@ -14,22 +14,13 @@ An example button that deploys a sample Python Micro to Deta:
 
 [![Deploy](/img/deploy_button/button.svg)](https://go.deta.dev/deploy?repo=https://github.com/deta/deploy-to-deta-button-example)
 
-### Usage with GitHub, etc
+### Usage
 
-You can let users deploy your __GitHub__ repo quickly by adding the following markup:
-
-```md
-[![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy)
-```
-
-The button link will automatically identify the repo and prompt the user with the Deploy to Deta prompt.
-
-In case you are using your README __outside of GitHub__, for repos hosted on other __Git providers (like GitLab, Bitbucket, etc)__, or you just want to make sure you always linking to the correct repo, please provide `repo` parameter, folowing this format:
+You can let users deploy your GitHub, Gitlab BitBucket (Git) repo quickly by adding the following markup:
 
 ```md
 [![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=your-repo-url)
 ```
-
 
 :::note
 Specify the __exact__ branch url if you want to use a different branch for deplyment. If you provide the repository url without specifying a branch, the default branch will be used.
@@ -48,7 +39,7 @@ https://button.deta.dev/1/svg
 and can be easily added to HTML pages or JavaScript applications. Exampel usage:
 
 ```html
-<a href="https://go.deta.dev/deploy?repo=https://example.git.repo">
+<a href="https://go.deta.dev/deploy?repo=your-repo-url">
 	<img src="https://button.deta.dev/1/svg" alt="Deploy">
 </a>
 ```
@@ -75,7 +66,7 @@ The `deta.json` file has the following schema:
 
 ```
 
-You can test your `deta.json` file by visiting `https://go.deta.dev/deploy?repo={your_repo_url}`
+You can test your `deta.json` file by visiting `https://go.deta.dev/deploy?repo=your-repo-url`
 
 
 ### Get discovered
