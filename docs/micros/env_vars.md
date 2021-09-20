@@ -66,7 +66,7 @@ This value does not store the self assigned sub-domain value at the moment.
 
 - **DETA_RUNTIME**
 
-`DETA_RUNTIME` indicates if your code is running on a Micro, with a string value `"True"`.
+`DETA_RUNTIME` indicates if your code is running on a Micro, with a string value `"true"`.
 
 In some cases, you might need to run some code exclusively in local development and not in a Micro. For example, if you're running a FastAPI project on your Micro, and you've got an endpoint that dumps debug information like so:
 
