@@ -139,9 +139,12 @@ deta new [flags] [path]
 ```
   -h, --help             help for new
       --name string      name of the new micro
-  -n, --node             create a micro with node runtime
+  -n, --node             create a micro with node (node14.x) runtime
       --project string   project to create the micro under
-  -p, --python           create a micro with python runtime
+  -p, --python           create a micro with python (python 3.9) runtime
+      --runtime string   create a micro with the specified runtime
+                         Python: python3.7, python3.9
+                         Node: node12, node14
 ```
 
 #### Examples
@@ -151,16 +154,20 @@ deta new [flags] [path]
 
 Create a new deta micro from the current directory with an entrypoint file (either 'main.py' or 'index.js') already present in the directory.
 
-2. deta new my-micro
+2. deta new --runtime python3.7
+
+Create a new python deta micro from the current directory with an entrypoint file ('main.py') already present in the directory and runtime python3.7.
+
+3. deta new my-micro
 
 Create a new deta micro from './my-micro' directory with an entrypoint file (either 'main.py' or 'index.js') already present in the directory.
 
-2. deta new --node my-node-micro
+4. deta new --node my-node-micro
 
 Create a new deta micro with the node runtime in the directory './my-node-micro'.
 './my-node-micro' must not contain a python entrypoint file ('main.py') if directory is already present. 
 
-3. deta new --python --name my-github-webhook webhooks/github-deta
+5. deta new --python --name my-github-webhook webhooks/github-deta
 
 Create a new deta micro with the python runtime, name 'my-github-webhook' and in directory 'webhooks/github-deta'. 
 './my-node-micro' must not contain a node entrypoint file ('index.js') if directory is already present. 
@@ -170,7 +177,7 @@ Create a new deta micro with the python runtime, name 'my-github-webhook' and in
 
 - The `path` defaults to the current working directory if not provided.
 
-- `deta new` will first check `path` for a `main.py` or `index.js` file. If one is found, `deta new` will bootstrap the Micro runtime based on the local file. If `path` is an empty directory, a runtime (with `--node` or `--python`) must be provided and `deta` will create a starter app in `path`. 
+- `deta new` will first check `path` for a `main.py` or `index.js` file. If one is found, `deta new` will bootstrap the Micro runtime based on the local file. If `path` is an empty directory, a runtime (with `--node` or `--python` or `--runtime`) must be provided and `deta` will create a starter app in `path`. 
 
 - If `path` is not an empty directory and does not have an entrypoint file (either `main.py` or `index.js`) a `name` must be provided, under which `deta` will create a micro with a starter app.
 
@@ -453,9 +460,10 @@ deta update [flags]
 #### Flags
 
 ```
-  -e, --env string    path to env file
-  -h, --help          help for update
-  -n, --name string   new name of the micro
+  -e, --env string     path to env file
+  -h, --help           help for update
+  -n, --name string    new name of the micro
+  -r, --runtime string new runtime of the micro
 ```
 
 #### Examples
@@ -469,6 +477,10 @@ Update the name of a deta micro with a new name "a-new-name".
 
 Update the enviroment variables of a deta micro from the file 'env-file'. 
 File 'env-file' must have env vars of format 'key=value'.
+
+3. deta update --runtime nodejs14
+
+Update the runtime of the micro to nodejs14.x.
 ```
 
 ## deta visor

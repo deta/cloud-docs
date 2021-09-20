@@ -54,6 +54,7 @@ The `deta.json` file has the following schema:
 {
 	"name": "your app name",
 	"description": "your app description", 
+	"runtime": "micro's runtime",
 	"env": [
 		{
 			"key": "ENV_VAR_KEY",
@@ -67,6 +68,13 @@ The `deta.json` file has the following schema:
 ```
 
 You can test your `deta.json` file by visiting `https://go.deta.dev/deploy?repo=your-repo-url`
+
+#### Runtime
+
+By default, the runtime of the deployed micro will be `python3.9` or `nodejs14.x` unless a different `runtime` is specified in the json file. 
+Supported runtime values:
+- `Python`: `python3.7`, `python3.9`
+- `Nodejs`: `nodejs12.x`, `nodejs14.x`
 
 
 ### Get discovered
