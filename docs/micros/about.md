@@ -10,7 +10,11 @@ Deta Micros (micro servers) are a lightweight but scalable cloud runtime tied to
 
 ### Technical Specifications
 
-- Micros support either Python 3.7 or Node.js 12.x code for now.
+- Micros support the following runtimes:
+	- Python: **3.7**, **3.9**
+	- Nodejs: **12.x**, **14.x**
+
+  New micros will use `Python 3.9` or `Nodejs 14.x` by default. If you want to select a different runtime or update the runtime of your micro, please refer to [deta new](../cli/commands#deta-new) and [deta update](../cli/commands#deta-update).
 - Every Micro you use gets its own sandboxed Linux VM.
 - Each Micro has a key and secret keys set in the environment, these are specific to your Micro and not the Deta system. Make sure to not share them to keep your own data safe.
 - An execution times out after 10s. Contact us for an increase (up to 20 seconds).

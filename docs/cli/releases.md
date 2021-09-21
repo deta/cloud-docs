@@ -4,6 +4,21 @@ title: CLI Releases
 sidebar_label: Releases
 ---
 
+## v1.2.0-beta
+
+### New
+- `deta new` : add `--runtime` flag, choose runtime when creating a new micro
+- `deta update`: add `--runtime` flag, update micro's runtime
+- `deta logs`: add `--follow` flag, follow logs 
+
+### Updates
+- `deta details`: add id, project and region to details output
+
+### Fixes
+- Fix bad state file path in windows
+- Fix `deta version upgrade` in windows
+- Fix `.detaignore` issues in windows
+
 ## v1.1.4-beta
 
 ### Fixes
