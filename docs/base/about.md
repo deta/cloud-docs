@@ -3,7 +3,7 @@ id: about
 title: About Deta Base
 sidebar_label: About
 ---
-Deta Base is a fully-managed, fast, scalable and secure NoSQL database with a focus on end-user simplicity. It offers a [UI](./base_ui) through which you can easily see, query, update and delete records in the database.
+Deta Base is a fully-managed, fast, scalable and secure NoSQL database with a focus on end-user simplicity. It offers a [UI](../base_ui) through which you can easily see, query, update and delete records in the database.
 
 ## What can Deta Base be used for?
 
