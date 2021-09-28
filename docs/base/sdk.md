@@ -12,7 +12,7 @@ A "Deta Base" instance is a collection of data, not unlike a Key-Value store, a 
 :::
 
 :::info
-We have an alpha version of the Python Base Async SDK. [Check the documentation here](./async_sdk).
+We have an alpha version of the Python Base Async SDK. [Check the documentation here](/docs/base/async_sdk).
 :::
 
 <!-- TODO: validation errors for put, put_many, insert and fetch. -->

@@ -169,7 +169,7 @@ loop.run_until_complete(put_items())
 
 **`update(updates:dict, key:str)`**
 
-- **updates** (required): A dict describing the updates on the item, refer to [updates](./sdk#update) for more details.
+- **updates** (required): A dict describing the updates on the item, refer to [updates](/docs/base/sdk#update) for more details.
 - **key** (required): The key of the item to update.
 
 #### Example
@@ -196,7 +196,7 @@ loop.run_until_complete(update_item())
 
 **`fetch(query=None, limit=1000, last=None)`**
 
-- **query** : a [query or a list of queries](./sdk#queries), refer to [fetch](./sdk#fetch) for more details.
+- **query** : a [query or a list of queries](/docs/base/sdk#queries), refer to [fetch](/docs/base/sdk#fetch) for more details.
 - **limit** : the limit of the number of items you want to recieve, min value `1` if used.
 - **last**: the last key seen in a previous paginated response.
 
