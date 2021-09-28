@@ -3,6 +3,8 @@ id: async_sdk
 title: Deta Base Python Async SDK
 ---
 
+The Deta Base Async SDK can be used for reading and writing asynchronously with Deta Base.
+
 :::warning
 These are docs for an alpha version of the Python Deta Base Async SDK. The SDK API may change in a stable release.
 :::
@@ -29,7 +31,7 @@ async_db = deta.AsyncBase("base_name")
 
 ## Methods 
 
-The **`AsyncBase`** class offers the same methods to interact with your Base as the **`Base`** class:
+The **`AsyncBase`** class offers the same API to interact with your Base as the **`Base`** class:
 
 ### Put
 
