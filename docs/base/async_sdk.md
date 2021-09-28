@@ -3,7 +3,7 @@ id: async_sdk
 title: Deta Base Python Async SDK
 ---
 
-The Deta Base Async SDK can be used for reading and writing asynchronously with Deta Base.
+The Deta Base Python Async SDK can be used for reading and writing data asynchronously with Deta Base in Python.
 
 :::warning
 These are docs for an alpha version of the Python Deta Base Async SDK. The SDK API may change in a stable release.
@@ -37,7 +37,7 @@ The **`AsyncBase`** class offers the same API to interact with your Base as the 
 
 **`put(data: typing.Union[dict, list, str, int, float, bool], key:str=None):`**
 
-- **data** (required): The data to be stored
+- **data** (required): The data to be stored.
 - **key** (optional): The key to store the data under. It will be auto-generated if not provided.
 
 #### Example
@@ -52,6 +52,8 @@ async def put_item():
 	item = {"msg": "hello"}
 	await async_db.put(item, "test")
 	print("put item:", item)
+
+	# close connection
 	await async_db.close()
 
 loop = asyncio.get_event_loop()
@@ -62,7 +64,7 @@ loop.run_until_complete(put_item())
 
 **`get(key: str)`**
 
-- **key** (required): The key of the item to be retrieved
+- **key** (required): The key of the item to be retrieved.
 
 #### Example
 
@@ -76,6 +78,7 @@ async def get_item():
 	item = await async_db.get("my_key")
 	print("got item:", item)
 
+	# close connection
 	await async_db.close()
 
 loop = asyncio.get_event_loop()
@@ -86,7 +89,7 @@ loop.run_until_complete(get_item())
 
 **`delete(key: str)`**
 
-- **key** (required): The key of the item to delete 
+- **key** (required): The key of the item to delete.
 
 #### Example
 
@@ -100,6 +103,7 @@ async def del_item():
 	await async_db.delete("my-key")
 	print("Deleted item")
 	
+	# close connection
 	await async_db.close()
 
 loop = asyncio.get_event_loop()
@@ -108,11 +112,11 @@ loop.run_until_complete(del_item())
 
 ### Insert 
 
-`insert` is unique from `put` in that it will raise an error if the `key` already exists in the database whereas `put` overwrites the item.
+`insert` is unique from `put` in that it will raise an error if the `key` already exists in the database, whereas `put` overwrites the item.
 
 **`insert(data: typing.Union[dict, list, str, int, float, bool], key:str=None)`**
 
-- **data** (required): The data to be stored
+- **data** (required): The data to be stored.
 - **key** (optional): The key to store the data under, will be auto generated if not provided.
 
 #### Example
@@ -128,6 +132,7 @@ async def insert_item():
 	await async_db.insert(item, "test")
 	print("inserted item:", item)
 
+	# close connection
 	await async_db.close()
 
 loop = asyncio.get_event_loop()
@@ -138,7 +143,7 @@ loop.run_until_complete(insert_item())
 
 **`put_many(items: typing.List[typing.Union[dict, list, str, int, bool]])`**
 
-- **items** (required): list of items to be stored 
+- **items** (required): list of items to be stored.
 
 #### Example
 
@@ -153,6 +158,7 @@ async def put_items():
 	await async_db.put_many(items)
 	print("put items:", items)
 
+	# close connection
 	await async_db.close()
 
 loop = asyncio.get_event_loop()
@@ -164,7 +170,7 @@ loop.run_until_complete(put_items())
 **`update(updates:dict, key:str)`**
 
 - **updates** (required): A dict describing the updates on the item, refer to [updates](./sdk#update) for more details.
-- **key** (required): The key of the item to update
+- **key** (required): The key of the item to update.
 
 #### Example
 
@@ -179,6 +185,7 @@ async def update_item():
 	await async_db.update(updates, "jimmy")
 	print("updated user jimmy")
 
+	# close connection
 	await async_db.close()
 
 loop = asyncio.get_event_loop()
@@ -190,8 +197,8 @@ loop.run_until_complete(update_item())
 **`fetch(query=None, limit=1000, last=None)`**
 
 - **query** : a [query or a list of queries](./sdk#queries), refer to [fetch](./sdk#fetch) for more details.
-- **limit** : the limit of the number of items you want to recieve, min value `1` if used
-- **last**: the last key seen in a previous paginated response
+- **limit** : the limit of the number of items you want to recieve, min value `1` if used.
+- **last**: the last key seen in a previous paginated response.
 
 #### Example
 
@@ -206,6 +213,7 @@ async def fetch_items():
 	res = await async_db.fetch(query)
 	print("fetched items": res.items)
 
+	# close connection
 	await async_db.close()
 
 loop = asyncio.get_event_loop()
