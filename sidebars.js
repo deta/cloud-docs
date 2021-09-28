@@ -7,5 +7,6 @@ module.exports = {
     'micros/custom_domains', 'micros/env_vars', 'micros/api_keys', 'micros/visor', 'micros/deploy_to_deta_button', 'micros/faqs_micros'],
     ["Deta CLI"]: ['cli/install', 'cli/auth', 'cli/commands', 'cli/releases'],
     ["Quick Start"]: ['tutorials/fast-api-guide', 'tutorials/webhooks-guide', 'tutorials/cron-guide', 'tutorials/form-endpoints-guide'],
+    ["Other"]: ['base/async_sdk'],
   },
 };

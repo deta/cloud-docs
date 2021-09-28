@@ -11,10 +11,10 @@ The Deta library is the easiest way to store and retrieve data from your Deta Ba
 A "Deta Base" instance is a collection of data, not unlike a Key-Value store, a MongoDB collection or a PostgreSQL/MySQL table. It will grow with your app's needs.
 :::
 
-:::note
-If your database keys have special characters (like `&`,`/`, `@`, etc.) that are url-reserved or url-unsafe, please use the latest sdk version to prevent unexpected behavior.
+:::info
+We have an alpha version of the Python Base Async SDK. [Check the documentation here](./async_sdk).
 :::
- 
+
 <!-- TODO: validation errors for put, put_many, insert and fetch. -->
 
 ## Installing
