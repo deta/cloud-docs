@@ -17,8 +17,8 @@ Deta Micros (micro servers) are a lightweight but scalable cloud runtime tied to
   New micros will use `Python 3.9` or `Nodejs 14.x` by default. If you want to select a different runtime or update the runtime of your micro, please refer to [deta new](../cli/commands#deta-new) and [deta update](../cli/commands#deta-update).
 - Every Micro you use gets its own sandboxed Linux VM.
 - Each Micro has a key and secret keys set in the environment, these are specific to your Micro and not the Deta system. Make sure to not share them to keep your own data safe.
-- An execution times out after 10s. <a href="https://form.deta.dev/timeout">Use this form to request an increase.</a>
-- 128 MB of RAM for *each* execution. <a href="https://form.deta.dev/memory">Use this form to request an increase.</a>
+- An execution times out after 10s. <a href="https://form.deta.dev/timeout">Request an increase.</a>
+- 128 MB of RAM for *each* execution. <a href="https://form.deta.dev/memory">Request an increase.</a>
 - Read-only file system. **Only `/tmp` can be written to**. It has a 512 MB storage limit.
 - Invocations have an execution processes/threads limit of 1024.
 - HTTP Payload size limit is 5.5 MB.
