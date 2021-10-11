@@ -4,7 +4,13 @@ title: Frequently Asked Questions
 sidebar_label: FAQs
 ---
 
- ### Why is my micro returning a 502 Bad Gateway? 
+### How can I request for a timeout or memory increase? 
+
+Please, use the following forms to request for respective limit increases:
+- <a href="https://form.deta.dev/timeout">Timeout Limit Increase Request</a>
+- <a href="https://form.deta.dev/memory">Memory Limit Increase Request</a>
+
+### Why is my micro returning a 502 Bad Gateway? 
 
 The response comes from our `gateway`, which is a reverse proxy between a client and your micro. If there is a runtime error when invoking a micro, the proxy responds with a `502 Bad Gateway.` 
 
