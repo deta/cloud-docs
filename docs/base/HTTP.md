@@ -62,6 +62,10 @@ Stores multiple items in a single request. This request overwrites an item if th
 |--------------|----------|---------|------------------------------------------|
 | `items`      | Yes      | `array` | An array of items `object` to be stored. |
 
+:::info
+Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
+::: 
+
 #### Example
 
 ```json
@@ -231,6 +235,10 @@ Creates a new item only if no item with the same `key` exists.
 |--------------|----------|----------|------------------------|
 | `item`       | Yes      | `object` | The item to be stored. |
 
+:::info
+Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
+::: 
+
 #### Example
 
 ```json
@@ -310,6 +318,10 @@ If the *key* contains url unsafe or reserved characters, make sure to url-encode
 | `append`     | no       | `object`          | The attributes to append a value to. Appended value must be a list.  |
 | `prepend`    | no       | `object`          | The attributes to prepend a value to. Prepended value must be a list.|
 | `delete`     | no       | `string array`    | The attributes to be deleted.                                        |
+
+:::info
+Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
+::: 
 
 #### Example
 
