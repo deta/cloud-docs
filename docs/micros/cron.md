@@ -121,7 +121,7 @@ With this code deployed on a deta micro, the `deta cron set` commands will execu
 $ deta cron set "10 minutes"
 ```
 
-will set the function to run every 10 minutes. In order to see the execution logs, you can use the [visor](./visor)
+will set the function to run every 10 minutes. In order to see the execution logs, you can use the [visor](https://docs.deta.sh/docs/micros/visor)
 
 ### Events
 
@@ -184,6 +184,7 @@ def cron_job(event):
 </TabItem>
 </Tabs>
 
+<!---
 ### Cron and Run
 
 You can use both cron and [run](./run) triggers in the same deta micro. You can also stack run and cron triggers for the same function.
@@ -234,3 +235,4 @@ def print_time(event):
 ```
 </TabItem>
 </Tabs>
+-->
