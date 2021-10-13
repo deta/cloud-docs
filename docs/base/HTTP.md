@@ -19,10 +19,13 @@ export let Bubble = ({ item }) => {
 
 ## General & Auth
 
-
 :::note
 You can get your **Project Key** and your **Project ID** from your [Deta dashboard](https://web.deta.sh). You need these to talk with the Deta API.
 :::
+
+:::info
+Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
+::: 
 
 ### Root URL
 This URL is the base for all your HTTP requests:
@@ -61,6 +64,8 @@ Stores multiple items in a single request. This request overwrites an item if th
 | JSON Payload | Required | Type    | Description                              |
 |--------------|----------|---------|------------------------------------------|
 | `items`      | Yes      | `array` | An array of items `object` to be stored. |
+
+
 
 #### Example
 
