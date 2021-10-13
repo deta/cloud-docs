@@ -236,6 +236,13 @@ Deta's **`Base`** class offers the following methods to interact with your Deta 
 
 [**`update`**](#update) – Updates an item in the database.
 
+
+#### Storing Numbers
+
+:::info
+Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
+:::
+
 ### Put
 
 `put` is the fastest way to store an item in the database.
@@ -260,14 +267,10 @@ In the case you do not provide us with a key, we will auto generate a 12 char lo
 
 #### Parameters
 
-- **data** (required) – Accepts: `object` (serializable), `string`, `number`, `boolean` and `array`.
+- **data** (required) – Accepts: `object` (serializable), `string`, [`number`](#storing-numbers), `boolean` and `array`.
     - Description: The data to be stored.
 - **key** (optional) – Accepts: `string` and `null`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
-
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-:::
 
 
 #### Code Example
@@ -301,14 +304,11 @@ db.put(["a", "b", "c"], "my_abc")
 
 #### Parameters
 
-- **data** (required) – Accepts: `dict`, `str`, `int`, `float`, `bool` and `list`.
+- **data** (required) – Accepts: `dict`, `str`, [`int`](#storing-numbers), [`float`](#storing-numbers), `bool` and `list`.
     - Description: The data to be stored.
 - **key** (optional) – Accepts: `str` and `None`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-:::
 
 #### Code Example
 ```py
@@ -350,11 +350,9 @@ db.put(["a", "b", "c"], "my_abc")
 **`Put(item interface{}) (string, error)`**
 
 #### Parameters
-- **item** : The item to be stored, should be a `struct` or a `map`. If the item is a `struct` provide the field keys for the data with json struct tags. The key of the item must have a json struct tag of `key`.
+- **item** : The item to be stored, should be a `struct` or a `map`. If the item is a `struct` provide the field keys for the data with json struct tags. The key of the item must have a json struct tag of `key`. 
 
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-:::
+[Note for storing numbers](#storing-numbers)
 
 #### Code Example
 ```go
@@ -419,9 +417,7 @@ func main(){
 #### Parameters
 - **item** : The item to be stored, should be a `struct` or a `map`. If the item is a `struct` provide the field keys for the data with json struct tags. The key of the item must have a json struct tag of `key`.
 
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-:::
+[Note for storing numbers](#storing-numbers)
 
 #### Code Example
 ```go
@@ -796,14 +792,10 @@ The `insert` method inserts a single item into a **Base**, but is unique from [`
 
 #### Parameters
 
-- **data** (required) – Accepts: `object` (serializable), `string`, `number`, `boolean` and `array`.
+- **data** (required) – Accepts: `object` (serializable), `string`, [`number`](#storing-numbers), `boolean` and `array`.
     - Description: The data to be stored.
 - **key** (optional) – Accepts: `string` and `null`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
-
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-:::
 
 #### Code Example
 ```js
@@ -828,14 +820,11 @@ Returns a promise which resolves to the item on a successful insert, and throws 
 
 #### Parameters
 
-- **data** (required) – Accepts: `dict`, `str`, `int`, `float`, `bool` and `list`.
+- **data** (required) – Accepts: `dict`, `str`, [`int`](#storing-numbers), [`float`](#storing-numbers), `bool` and `list`.
     - Description: The data to be stored.
 - **key** (optional) – Accepts: `str` and `None`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
 
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-::: 
 
 #### Code Example
 ```py
@@ -871,9 +860,6 @@ Returns the item on a successful insert, and throws an error if the key already 
 #### Parameters
 - **item** : similar to `item` parameter to [`Put`](#put)
 
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-:::
 
 #### Code Example
 
@@ -922,10 +908,6 @@ func main(){
 
 #### Parameters
 - **item** : similar to `item` parameter to [`Put`](#put)
-
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-:::
 
 #### Code Example
 
@@ -1010,12 +992,8 @@ The Put Many method puts up to 25 items into a Base at once on a single call.
 
 #### Parameters
 
-- **items** (required) – Accepts: `Array` of items, where each "item" can be an `object` (serializable), `string`, `number`, `boolean` or `array`.
+- **items** (required) – Accepts: `Array` of items, where each "item" can be an `object` (serializable), `string`, [`number`](#storing-numbers), `boolean` or `array`.
     - Description: The list of items to be stored.
-
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-::: 
 
 #### Code Example
 ```js
@@ -1066,13 +1044,9 @@ Returns a promise which resolves to the put items on a successful insert, and th
 
 #### Parameters
 
-- **items** (required) – Accepts: `list` of items, where each "item" can be an `dict` (JSON serializable), `str`, `int`, `bool`, `float` or `list`.
+- **items** (required) – Accepts: `list` of items, where each "item" can be an `dict` (JSON serializable), `str`, [`int`](#storing-numbers), `bool`, [`float`](#storing-numbers) or `list`.
     - Description: The list of items to be stored.
   
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-::: 
-
 #### Code Example
 ```py
 res_one = db.put_many([
@@ -1132,9 +1106,6 @@ Returns a promise which resolves to the put items on a successful insert, and ra
 #### Parameters:
 - **items**: a slice of items, each item in the slice similar to the `item` parameter in [`Put`](#put)
 
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-::: 
 
 #### Code Example:
 ```go
@@ -1192,10 +1163,6 @@ func main(){
 
 #### Parameters:
 - **items**: a slice of items, each item in the slice similar to the `item` parameter in [`Put`](#put)
-
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-::: 
 
 #### Code Example:
 ```go
@@ -1292,9 +1259,7 @@ Returns the list of keys of the items stored and an `error`. In case of an error
 - **key** (required) – Accepts: `string`
     - Description: the key of the item to be updated.
 
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-::: 
+[Note for storing numbers](#storing-numbers) 
 
 ##### Update operations
 - **Set** : `Set` is practiced through normal key-value pairs. The operation changes the values of the attributes provided in the `set` object if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
@@ -1374,9 +1339,7 @@ If the item is updated, the promise resolves to `null`. Otherwise, an error is r
 - **key** (required) – Accepts: `string`
     - Description: the key of the item to be updated.
 
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-::: 
+[Note for storing numbers](#storing-numbers) 
 
 ##### Update operations
 - **Set** : `Set` is practiced through normal key-value pairs. The operation changes the values of the attributes provided in the `set` dict if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
@@ -1464,9 +1427,7 @@ If the item is updated, returns `None`. Otherwise, an exception is raised.
 - **key**: the key of the item to update
 - **updates** : updates applied to the item, is of type `deta.Updates` which is a `map[string]interface{}`
 
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-::: 
+[Note for storing numbers](#storing-numbers) 
 
 ##### Update operations
 - **Set** : `Set` is practiced through normal key-value pairs. The operation changes the values of the attributes provided if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
@@ -1541,9 +1502,7 @@ Results in the following item in the base:
 - **key**: the key of the item to update
 - **updates** : updates applied to the item, is of type `base.Updates` which is a `map[string]interface{}`
 
-:::info
-Base currently supports **maximum 16 digit numbers** (integers and floating points), please store larger numbers as a string.
-::: 
+[Note for storing numbers](#storing-numbers)
 
 ##### Update operations
 - **Set** : `Set` is practiced through normal key-value pairs. The operation changes the values of the attributes provided if the attribute already exists. If not, it adds the attribute to the item with the corresponding value.
