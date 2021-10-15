@@ -50,7 +50,7 @@ Your domain will be marked as `active` in your dashboard after the process is co
 
 ### CAA Records
 
-[CAA records](https://en.wikipedia.org/wiki/DNS_Certification_Authority_Authorization) specify which Certificate Authorities are allowed to issue certificates in your behalf. 
+[CAA records](https://en.wikipedia.org/wiki/DNS_Certification_Authority_Authorization) specify which Certificate Authorities are allowed to issue certificates on your behalf. 
 
 If you have a CAA record set up for your domain (check your DNS settings or use a tool to check your CAA records), add the following record so that we can issue certificates for your domain. 
 
