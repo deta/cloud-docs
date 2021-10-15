@@ -71,11 +71,13 @@ We can access the image details from `req` and store it in Drive.
 To download images, we can simply use `drive.get(name)`
 
 If we tie a `GET` request to the `/download` path with a param giving a name (i.e `/download/space.png`), we can return the image over HTTP.
+
 ```javascript
 app.get("/download/:name", async (req, res) => {
     const name = req.params.name;
     const img = await drive.get(name);
-    res.send(img);
+    const buffer = await img.arrayBuffer();
+    res.send(Buffer.from(buffer));
 }); 
 
 app.listen(3000);
