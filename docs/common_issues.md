@@ -18,3 +18,20 @@ Then, please make sure the requirements file encoding is `UTF-8`.
 If you have used the command `pip freeze > requirements.txt` in `powershell` on Windows,
 the file created is not encoded in `UTF-8`. Please change the encoding or create a new file with the right encoding. 
 :::
+
+### Nodejs Micros Cannot Serve Binary Files
+
+Serving some binary files (images, fonts etc) fails on nodejs micros currently because of a bug. We are sorry for this and will push a fix as soon as we can. 
+
+As a workaround, please add the environment variable `BINARY_CONTENT_TYPES={file_mime_type}` in the micro's environment to serve the file. The `file_mime_type` can accept wildcards (`*`)
+and comma separated values. 
+
+For instance, if you want to serve images and fonts from your nodejs micro, setting
+
+```
+BINARY_CONTENT_TYPES=image/*,font/*
+```
+
+will let the micro serve these files. 
+
+Please, use the [`deta update -e [env_file_name]`](https://docs.deta.sh/docs/cli/commands#deta-update) command to update the environment variables of the micro.
