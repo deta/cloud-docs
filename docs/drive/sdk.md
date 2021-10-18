@@ -828,19 +828,21 @@ Returns a `dict` with `paging` and `names` keys.
 ```py
 # get all files
 result = drive.list()
-all_files = result.get("names")
-last = result.get("paging").get("last")
 
-while (last){
+all_files = result.get("names")
+paging = result.get("paging")
+last = paging.get("last") if paging else None
+
+while (last):
   # provide last from previous call
   result = drive.list(last=last)
 
   all_files += result.get("names")
-
   # update last
-  last = result.paging.last
-}
-print("all files:", allFiles)
+  paging = result.get("paging")
+  last = paging.get("last") if paging else None
+
+print("all files:", all_files)
 
 res_with_prefix = drive.list(prefix="/blog")
 res_with_limit = drive.list(limit=100)
