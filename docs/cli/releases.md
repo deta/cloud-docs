@@ -8,16 +8,15 @@ sidebar_label: Releases
 
 ### New
 - `deta deploy purge-dependencies` :  remove all installed dependencies from your micro
-- `deta new`: support new runtime `python3.8`
 
 ### Updates
-- `deta deploy` : purge all installed dependencies instead of uninstalling individual dependencies if all of them are removed at the same time
-- `deta deploy`: use standard http lib to detect binary files and remove third party lib dependency
+- `deta new`: support new runtime `python3.8`
 - `deta update`: support new runtime `python3.8`
+- `deta deploy` : purge all installed dependencies instead of uninstalling individual dependencies if all of them are removed at the same time, use standard http lib to detect binary files and remove third party lib dependency
 - `deta new`, `deta pull`, `deta clone` : use new api to download micro code
 
 ### Fixes
-- Fix installation order bug when deploying
+- Fix installation order bug when upgrading packages
 - Fix removal of `$HOME/.deta` folder bug on some cases in `deta new`
 
 ## v1.2.0-beta
