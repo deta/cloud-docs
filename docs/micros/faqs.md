@@ -10,7 +10,27 @@ Please, use the following forms to request for respective limit increases:
 - <a href="https://form.deta.dev/timeout">Timeout Limit Increase Request</a>
 - <a href="https://form.deta.dev/memory">Memory Limit Increase Request</a>
 
-### Why is my micro returning a 502 Bad Gateway? 
+### Can I use my own custom domain or subdomain with a Micro?
+
+Yes, please refer to the [documentation](./micros/custom_domains.md).
+
+### Do Micros support websockets? 
+
+No, Micros do not support websockets and other long-running processes.
+
+### Why can I not write to the filesystem in a Micro? 
+
+Micro's have a read only filesystem. Only `/tmp` can be written to, which is ephemeral and has a storage limit of 512 Mb.   
+
+### Why am I getting a `Request Entity Too Large` error when deploying a Micro? 
+
+Micro's have a maximum deployment size limit of 250 Mb. This limit includes the total size of your code and dependencies.
+
+### Why does my Micro behave different locally and deployed? 
+
+This can be because of a number of reasons. Please check out the [specifications](https://docs.deta.sh/docs/micros/about#technical-specifications) and [notes](https://docs.deta.sh/docs/micros/about#important-notes) for futher information to find a possible reason.
+
+### Why is my Micro returning a 502 Bad Gateway? 
 
 The response comes from a reverse proxy between a client and your micro. If there is a runtime error or a timeout when invoking a micro, the proxy responds with a `502 Bad Gateway.` 
 

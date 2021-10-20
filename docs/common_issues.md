@@ -3,7 +3,7 @@ id: common_issues
 title: Common Issues
 ---
 
-### Adding/Updating Dependencies Fails With No Output
+### Adding/Updating dependencies fails with no output
 
 On windows, if adding or updating dependencies fails with the following or similar error message but there is no further output: 
 
@@ -19,7 +19,7 @@ If you have used the command `pip freeze > requirements.txt` in `powershell` on 
 the file created is not encoded in `UTF-8`. Please change the encoding or create a new file with the right encoding. 
 :::
 
-### Nodejs Micros Cannot Serve Binary Files
+### Nodejs Micros cannot serve binary files
 
 Serving some binary files (images, fonts etc) fails on nodejs micros currently because of a bug. We are sorry for this and will push a fix as soon as we can. 
 
@@ -35,3 +35,11 @@ BINARY_CONTENT_TYPES=image/*,font/*
 will let the micro serve these files. 
 
 Please, use the [`deta update -e [env_file_name]`](https://docs.deta.sh/docs/cli/commands#deta-update) command to update the environment variables of the micro.
+
+### Cannot login from the web browser after `deta login`
+
+Logging in with `deta login` from the [Brave Browser](https://brave.com/) does not work at the moment. Please use a different browser to login (you can copy the link in a different browser after the login page opens up), or use [deta access tokens](https://docs.deta.sh/docs/cli/auth#deta-access-tokens) instead.
+
+### Account is unconfirmed but did not receive a confirmation email
+
+Please check your spam folder as well for the confirmation email. If you have not received one, please send us an email at team@deta.sh for activating your account with the email address you used at sign up. 

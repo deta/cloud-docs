@@ -11,7 +11,7 @@ Deta Micros (micro servers) are a lightweight but scalable cloud runtime tied to
 ### Technical Specifications
 
 - Micros support the following runtimes:
-	- Python: **3.7**, **3.9**
+	- Python: **3.7**, **3.8**, **3.9**
 	- Nodejs: **12.x**, **14.x**
 
   New micros will use `Python 3.9` or `Nodejs 14.x` by default. If you want to select a different runtime or update the runtime of your micro, please refer to [deta new](../cli/commands#deta-new) and [deta update](../cli/commands#deta-update).
@@ -37,4 +37,4 @@ Deta Micros (micro servers) are a lightweight but scalable cloud runtime tied to
 - Currently, all requests received by Micros do not contain the client IP addresses. This makes most rate-limiting logic and other IP-dependant logic not work on Micros.
 - Micros support most micro web frameworks (Node.js: express, fastify, koa, etc && Python: FastAPI, Flask, etc.). Other frameworks are not likely to work.
 - Websockets and long-running processes do not work on Micros. (examples: socket.io or Discord bots won't work)
-
+- Features like [Background Tasks](https://www.starlette.io/background/) and [Startup/Shutdown Events](https://www.starlette.io/events/) will currently not work as expected on Micros.
