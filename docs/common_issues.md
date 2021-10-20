@@ -40,6 +40,6 @@ Please, use the [`deta update -e [env_file_name]`](https://docs.deta.sh/docs/cli
 
 Logging in with `deta login` from the [Brave Browser](https://brave.com/) does not work at the moment. Please use a different browser to login (you can copy the link in a different browser after the login page opens up), or use [deta access tokens](https://docs.deta.sh/docs/cli/auth#deta-access-tokens) instead.
 
-### Account is unconfirmed but I did  not receive a confirmation email
+### Account is unconfirmed but I did not receive a confirmation email
 
 Please check your spam folder as well for the confirmation email. If you have not received one, please send us an email at team@deta.sh for activating your account with the email address you used at sign up. 
