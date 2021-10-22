@@ -44,9 +44,9 @@ and can be easily added to HTML pages or JavaScript applications. Exampel usage:
 </a>
 ```
 
-### Metadata and Environment Variables 
+### Metadata, Environment Variables And Cron
 
-You can optionally specify metadata and environment variables needed by the Micro in a `deta.json` file. Create this file in the root directory of your application.
+You can optionally specify metadata, environment variables and a cron expression needed by the Micro in a `deta.json` file. Create this file in the root directory of your application.
 
 The `deta.json` file has the following schema:
 
@@ -62,19 +62,28 @@ The `deta.json` file has the following schema:
 			"value": "Default value of the env var",
 			"required": true|false 
 		}
-	]
+	],
+	"cron": "default cron expression (for eg. 3 minutes)"
 }
 
 ```
 
+#### Fields
+
+- `name`: the application name, we will use the repositry name by default if this is not provided, users can change this value during deployment
+- `description`: the application description which will be shown to users on the deployment page
+- `runtime`: the micro's runtime, the default runtime (`python3.9` or `nodejs14.x`) will be used unless this value is set, supported values:
+	- `Python`: `python3.7`, `python3.8`, `python3.9`
+	- `Nodejs`: `nodejs12.x`, `nodejs14.x`
+
+- `env`: the environment variables your app uses 
+	- `key`: the environment variable key, users cannot change this value
+	- `description`: the description of the environment variable so users know what it is used for
+	- `value`: the default value of this variable, users can change this value
+	- `required`: if the value of this variable _must be set_ by the user 
+- `cron`: the default cron expression for the micro, if this is provided the deployed micro will have a cron job set with the provided value by default, users can change the value during deployment 
+
 You can test your `deta.json` file by visiting `https://go.deta.dev/deploy?repo=your-repo-url`
-
-#### Runtime
-
-By default, the runtime of the deployed micro will be `python3.9` or `nodejs14.x` unless a different `runtime` is specified in the json file. 
-Supported runtime values:
-- `Python`: `python3.7`, `python3.9`
-- `Nodejs`: `nodejs12.x`, `nodejs14.x`
 
 
 ### Get discovered

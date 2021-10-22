@@ -15,3 +15,7 @@ Deta offers 3 types of secrets / keys / tokens:
 3. **Access Tokens**: Access tokens are used for authenticating the Deta CLI. Use cases: CI/CD, Gitpod, GitHub Actions. Information on Deta Access Tokens can be found [here](/docs/cli/auth#deta-access-tokens). If this key is leaked, your whole Deta account is compromised.
 
 These types of keys are not unique to Deta; all other cloud providers use some variant of them.
+
+### Can I delete a project?
+
+No, sorry but deleting projects is not available yet.
