@@ -2045,7 +2045,7 @@ second_fetch_res = db.fetch([{"age?gt": 50}, {"hometown": "Greenville"}])
 ]
 ```
 
-##### `second_fetch.res.items`:
+##### `second_fetch_res.items`:
 ```json
 [
   {
