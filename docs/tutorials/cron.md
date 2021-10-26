@@ -158,7 +158,7 @@ We have a micro which prints "running on a schedule" every five minutes. You sho
     }
     ```
 
-    The details show that the `cron` has ben seet for `5 minutes`
+    The details show that the `cron` has ben set for `5 minutes`
 
 
 7. In order to see logs of your cron-job, you can use `Deta Visor`, which enables you to see real-time logs of a Deta Micro. Open your micro's visor page with `deta visor open` from the cli or by navigating to your micro's visor page on the browser.
