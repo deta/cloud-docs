@@ -386,7 +386,7 @@ func main(){
     // put item in the database
     key, err := db.Put(u)
     if err != nil {
-        fmt.Println("Failed to put item:", err)
+        fmt.Println("failed to put item:", err)
         return
     }
     fmt.Println("Successfully put item with key:", key)
@@ -402,7 +402,7 @@ func main(){
 
     key, err = db.Put(um)
     if err != nil {
-        fmt.Println("Failed to put item:", err)
+        fmt.Println("failed to put item:", err)
         return
     }
     fmt.Println("Successfully put item with key:", key)
@@ -475,7 +475,7 @@ func main() {
 
 	key, err = db.Put(um)
 	if err != nil {
-		fmt.Println("Failed to put item:", err)
+		fmt.Println("failed to put item:", err)
 		return
 	}
 	fmt.Println("Successfully put item with key:", key)
@@ -614,7 +614,7 @@ func main(){
     // returns ErrNotFound if no item was found
     err := db.Get("kasdlj1", &u)
     if err != nil{
-        fmt.Println("Failed to get item:", err)
+        fmt.Println("failed to get item:", err)
     }
 }
 ```
@@ -665,7 +665,7 @@ func main() {
 	// returns ErrNotFound if no item was found
 	err = db.Get("kasdlj1", &u)
 	if err != nil {
-		fmt.Println("Failed to get item:", err)
+		fmt.Println("failed to get item:", err)
 	}
 }
 ```
@@ -755,7 +755,7 @@ Always returns `None`, even if the key does not exist.
 // returns a nil error if item was not found
 err := db.Delete("dakjkfa")
 if err != nil {
-  fmt.Println("Failed to delete item:", err)
+  fmt.Println("failed to delete item:", err)
 }
 ```
 #### Returns
@@ -895,7 +895,7 @@ func main(){
     // insert item in the database
     key, err := db.Insert(u)
     if err != nil {
-        fmt.Println("Failed to insert item:", err)
+        fmt.Println("failed to insert item:", err)
         return
     }
     fmt.Println("Successfully inserted item with key:", key)
@@ -951,7 +951,7 @@ func main() {
 	// insert item in the database
 	key, err := db.Insert(u)
 	if err != nil {
-		fmt.Println("Failed to insert item:", err)
+		fmt.Println("failed to insert item:", err)
 		return
 	}
 	fmt.Println("Successfully inserted item with key:", key)
@@ -1148,7 +1148,7 @@ func main(){
     // put items in the database
     keys, err := db.PutMany(users)
     if err != nil {
-        fmt.Println("Failed to put items:", err)
+        fmt.Println("failed to put items:", err)
         return
     }
     fmt.Println("Successfully put item with keys:", keys)
@@ -1213,7 +1213,7 @@ func main() {
 	// put items in the database
 	keys, err := db.PutMany(users)
 	if err != nil {
-		fmt.Println("Failed to put items:", err)
+		fmt.Println("failed to put items:", err)
 		return
 	}
 	fmt.Println("Successfully put item with keys:", keys)

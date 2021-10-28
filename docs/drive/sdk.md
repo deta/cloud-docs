@@ -152,9 +152,9 @@ func main() {
 		return
 	}
 
-	// initialize with base name
+	// initialize with drive name
 	// returns ErrBadDriveName if base name is invalid
-	db, err := drive.New(d, "drive_name")
+	drive, err := drive.New(d, "drive_name")
 	if err != nil {
 		fmt.Println("failed to init new Drive instance:", err)
 		return
@@ -332,7 +332,7 @@ func main() {
 		ContentType: "image/svg+xml",
 	})
 	if err != nil {
-		fmt.Println("Failed to put file:", err)
+		fmt.Println("failed to put file:", err)
 		return
 	}
 	fmt.Println("Successfully put file with name:", name)
@@ -454,14 +454,14 @@ func main() {
 	name := "art.svg"
 	f, err := drawings.Get(name)
 	if err != nil {
-		fmt.Println("Failed to get file with name:", name)
+		fmt.Println("failed to get file with name:", name)
 		return
 	}
 	defer f.Close()
 
 	c, err := ioutil.ReadAll(f)
 	if err != nil {
-		fmt.Println("Failed read file content with err:", err)
+		fmt.Println("failed read file content with err:", err)
 		return
 	}
 	fmt.Println("file content:", string(c))
@@ -574,7 +574,7 @@ func main() {
 	// DELETE
 	name, err := drawings.Delete("art.svg")
 	if err != nil {
-		fmt.Println("Failed to delete file with name:", name)
+		fmt.Println("failed to delete file with name:", name)
 		return
 	}
 	fmt.Println("Successfully deleted file with name:", name)
@@ -712,7 +712,7 @@ func main() {
 	dr, err := drawings.DeleteMany(names)
 
 	if err != nil {
-		fmt.Println("Failed to delete files")
+		fmt.Println("failed to delete files")
 		return
 	}
 	fmt.Println("deleted:", dr.Deleted)
@@ -910,14 +910,14 @@ func main() {
 
 	lr, err := drawings.List(1000, "", "")
 	if err != nil {
-		fmt.Println("Failed to list names from drive with err:", err)
+		fmt.Println("failed to list names from drive with err:", err)
 	}
 	// ["a", "b", "c/d"]	
 	fmt.Println("names:", lr.Names)
 	
 	lr, err = drawings.List(1, "", "")
 	if err != nil {
-		fmt.Println("Failed to list names from drive with err:", err)
+		fmt.Println("failed to list names from drive with err:", err)
 	}
 	// ["a"]
 	fmt.Println("names:", lr.Names)
@@ -925,7 +925,7 @@ func main() {
 
 	lr, err = drawings.List(2, "", "")
 	if err != nil {
-		fmt.Println("Failed to list names from drive with err:", err)
+		fmt.Println("failed to list names from drive with err:", err)
 	}
 	// "b"
 	fmt.Println("last:", *lr.Paging.Last)
