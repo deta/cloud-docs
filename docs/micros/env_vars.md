@@ -107,7 +107,7 @@ While using our SDKs(the latest versions) within a Deta Micro, you can omit spec
 <TabItem value="js">
 
 ```js
-const { Base, Drive } = require 'deta';
+const { Base, Drive } = require('deta');
 
 const base = Base('base_name');
 const drive = Drive('drive_name');
