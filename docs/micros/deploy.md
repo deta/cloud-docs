@@ -88,7 +88,7 @@ module.exports = app; // make sure to export your `app` instance.
 #### Koa.js
 
 ```js
-onst Koa = require('koa');
+const Koa = require('koa');
 const app = new Koa();
 
 app.use(async ctx => {
