@@ -37,8 +37,8 @@ You need to consider the following when assigning a custom domain:
 - The time taken for the DNS record changes to take effect depends on your DNS settings and provider. It may take up to 24 hours for your domain to go live.
 - If you get an SSL error after the DNS record changes have propagated, please wait until the system has created an SSL certificate for your domain. This is usually fast but sometimes it may take a few hours.
 - If you have a [CAA record](#caa-records) set up for you domain, make sure you have set `sectigo.com` as an allowed CA for your domain. 
-- If you are adding a custom domain for the `www.` subdomain, **you need to add both `www.` and the main domain** in your dashboard. For eg, if you are setting up a custom domain for `www.example.com`, then add both `example.com` and `www.example.com` as custom domains for your micro.
-- If you are adding a custom domain for an apex domain, **you need to add both `www.` and the main domain** in your dashboard. For eg, if you are setting up a custom domain for `example.com`, then add both `example.com` and `www.example.com` as custom domains for your micro.
+- If you are adding a custom domain for the `www.` subdomain, **you need to add both `www.` and the main domain** in your dashboard. For example, if you are setting up a custom domain for `www.example.com`, then add both `example.com` and `www.example.com` as custom domains for your micro.
+- If you are adding a custom domain for an apex domain, **you need to add both `www.` and the main domain** in your dashboard. For example, if you are setting up a custom domain for `example.com`, then add both `example.com` and `www.example.com` as custom domains for your micro.
 
 :::note
 If you are using [Cloudflare](https://www.cloudflare.com) as your DNS provider, please make sure to turn the proxy off in your DNS settings when adding the Deta provided IP address.
@@ -67,8 +67,8 @@ Check the following if you are experiencing issues in setting up a custom domain
 
 1. Make sure you have added an A record in your DNS settings with our IP address. You can use tools like [nslookup](https://linux.die.net/man/1/nslookup) or other online tools to check what IP address your domain is currently being resolved to. 
 2. If you are using `Cloudflare`, make sure to turn the proxy off in your DNS settings when adding the Deta provided IP address.
-3. If you are adding a custom domain for the `www.` subdomain, **you need to add both `www` and the main domain** in the dashboard. For eg, if you are setting up a custom domain for `www.example.com`, then add both `example.com` and `www.example.com` as custom domains for your micro.
-4. If you are adding a custom domain for an apex domain, **you need to add both `www.` and the main domain** in your dashboard. For eg, if you are setting up a custom domain for `example.com`, then add both `example.com` and `www.example.com` as custom domains for your micro.
+3. If you are adding a custom domain for the `www.` subdomain, **you need to add both `www` and the main domain** in the dashboard. For example, if you are setting up a custom domain for `www.example.com`, then add both `example.com` and `www.example.com` as custom domains for your micro.
+4. If you are adding a custom domain for an apex domain, **you need to add both `www.` and the main domain** in your dashboard. For example, if you are setting up a custom domain for `example.com`, then add both `example.com` and `www.example.com` as custom domains for your micro.
 5. Check if there is a CAA record set up for your domain. If yes, make sure you have [set up the necessary CAA record](#caa-records).
 
 :::warning
