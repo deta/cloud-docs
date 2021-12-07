@@ -19,7 +19,7 @@ An example button that deploys a sample Python Micro to Deta:
 You can let users deploy your GitHub, Gitlab BitBucket (Git) repo quickly by adding the following markup:
 
 ```md
-[![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=your-repo-url)
+[![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy)
 ```
 
 :::note
