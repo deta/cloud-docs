@@ -1,7 +1,7 @@
 ---
 id: visor
-title: Visor (logs)
-sidebar_label: Visor
+title: Visor (Logs)
+sidebar_label: Visor (Logs)
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -82,3 +82,8 @@ The content-type can be changed from JSON to Text, using the selection box on th
 
 ### Video overview
 <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/kAwV7-bEtb0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+### Logs Retention
+
+Visor logs are retained for two weeks (14 days).
