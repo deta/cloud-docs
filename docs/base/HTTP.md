@@ -123,8 +123,7 @@ Bad requests occur in the following cases:
 - if the number of items in the requests exceeds 25
 - if total request size exceeds 16 MB
 - if any individual item exceeds 400KB
-- if there are two items with identical keys 
-- if any item does not follow the [naming constraints](#naming-constraints)
+- if there are two items with identical keys
 
 </TabItem>
 </Tabs>
@@ -283,7 +282,6 @@ Creates a new item only if no item with the same `key` exists.
 Bad requests occur in the following cases: 
 - if the item has a non-string key
 - if size of the item exceeds 400KB
-- if the item does not follow the [naming constraints](#naming-constraints)
 
 </TabItem>
 </Tabs>
@@ -417,8 +415,7 @@ results in the following item in the database:
 Bad requests occur in the following cases: 
 - if you're updating or deleting the `key`  
 - if `set` and `delete` have conflicting attributes 
-- if you're setting a hierarchical attribute but an upper level attribute does not exist, for eg. `{"set": {"user.age": 22}}` but `user` is not an attribute of the item. 
-- if attributes in `set` do not follow the [naming constraints](#naming_constraints)
+- if you're setting a hierarchical attribute but an upper level attribute does not exist, for eg. `{"set": {"user.age": 22}}` but `user` is not an attribute of the item.
 
 </TabItem>
 </Tabs>
