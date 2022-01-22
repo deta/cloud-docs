@@ -4,7 +4,7 @@ title: About Deta Drive
 sidebar_label: About
 ---
 
-Deta Drive is a managed, secure and scalabale file storage service with a focus on end-user simplcity.
+Deta Drive is a managed, secure and scalable file storage service with a focus on end-user simplicity.
 
 #### Is my data secure? 
 
