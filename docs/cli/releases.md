@@ -4,6 +4,12 @@ title: CLI Releases
 sidebar_label: Releases
 ---
 
+## v1.3.1-beta
+
+### Updates
+- `deta details`: show cron time in output if cron is set for Micro
+- `deta clone`: save `state` after cloning
+
 ## v1.3.0-beta
 
 ### New
