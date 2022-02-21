@@ -4,6 +4,11 @@ title: CLI Releases
 sidebar_label: Releases
 ---
 
+## v1.3.2-beta
+
+### Fixes
+- Fix bad file path bug for hidden file check in windows
+
 ## v1.3.1-beta
 
 ### Updates
