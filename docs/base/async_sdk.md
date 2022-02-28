@@ -12,7 +12,7 @@ These are docs for an alpha version of the Python Deta Base Async SDK. The SDK A
 ## Installing
 
 ```
-pip install deta[async]==1.1.0a1
+pip install deta[async]==1.1.0a2
 ```
 
 ## Instantiating
@@ -35,10 +35,23 @@ The **`AsyncBase`** class offers the same API to interact with your Base as the 
 
 ### Put
 
-**`put(data: typing.Union[dict, list, str, int, float, bool], key:str=None):`**
+```py
+put(
+	data: typing.Union[dict, list, str, int, float, bool], 
+	key: str = None,
+	*,
+	expire_in: int = None,
+	expire_at: typing.Union[int, float, datetime.datetime]
+)
+```
 
 - **data** (required): The data to be stored.
 - **key** (optional): The key to store the data under. It will be auto-generated if not provided.
+- **expire_in** (optional) - Accepts: `int` and `None` 
+    - Description: seconds after which the item will expire in, see also [expiring items](#./expiring_items)
+- **expire_at** (optional) - Accepts: `int`, `float`, `datetime.datetime` and `None`
+    - Description: time at which the item will expire in, can provide the timestamp directly(`int` or `float`) or a [datetime.datetime](https://docs.python.org/3/library/datetime.html) object, see also [expiring items](./expiring_items)
+
 
 #### Example
 
@@ -53,6 +66,14 @@ async def put_item():
 	await async_db.put(item, "test")
 	print("put item:", item)
 
+	# put expiring items
+	# expire item in 300 seconds
+	await async_db.put(item, expire_in=300)
+
+	# with expire at
+	expire_at = datetime.datetime.fromisoformat("2023-01-01T00:00:00")
+	await async_db.put({"name": "max", "age": 28}, "max28", expire_at=expire_at)
+
 	# close connection
 	await async_db.close()
 
@@ -62,7 +83,9 @@ loop.run_until_complete(put_item())
 
 ### Get
 
-**`get(key: str)`**
+```py
+get(key: str)
+```
 
 - **key** (required): The key of the item to be retrieved.
 
@@ -87,7 +110,9 @@ loop.run_until_complete(get_item())
 
 ### Delete
 
-**`delete(key: str)`**
+```py
+delete(key: str)
+```
 
 - **key** (required): The key of the item to delete.
 
@@ -114,10 +139,23 @@ loop.run_until_complete(del_item())
 
 `insert` is unique from `put` in that it will raise an error if the `key` already exists in the database, whereas `put` overwrites the item.
 
-**`insert(data: typing.Union[dict, list, str, int, float, bool], key:str=None)`**
+```py
+insert(
+	data: typing.Union[dict, list, str, int, float, bool], 
+	key: str = None,
+	*,
+	expire_in: int = None,
+	expire_at: typing.Union[int, float, datetime.datetime] = None
+)
+```
 
 - **data** (required): The data to be stored.
 - **key** (optional): The key to store the data under, will be auto generated if not provided.
+- **expire_in** (optional) - Accepts: `int` and `None` 
+    - Description: seconds after which the item will expire in, see also [expiring items](./expiring_items)
+- **expire_at** (optional) - Accepts: `int`, `float`, `datetime.datetime` and `None`
+    - Description: time at which the item will expire in, can provide the timestamp directly(`int` or `float`) or a [datetime.datetime](https://docs.python.org/3/library/datetime.html) object, see also [expiring items](./expiring_items)
+
 
 #### Example
 
@@ -132,6 +170,14 @@ async def insert_item():
 	await async_db.insert(item, "test")
 	print("inserted item:", item)
 
+	# put expiring items
+    # expire item in 300 seconds
+    await async_db.insert(item, expire_in=300)
+
+    # with expire at
+    expire_at = datetime.datetime.fromisoformat("2023-01-01T00:00:00")
+    await async_db.insert({"name": "max", "age": 28}, "max28", expire_at=expire_at)
+
 	# close connection
 	await async_db.close()
 
@@ -141,9 +187,20 @@ loop.run_until_complete(insert_item())
 
 ### Put Many
 
-**`put_many(items: typing.List[typing.Union[dict, list, str, int, bool]])`**
+```py
+put_many(
+	items: typing.List[typing.Union[dict, list, str, int, bool]],
+	*, 
+	expire_in: int = None,
+	expire_at: typing.Union[int, float, datetime.datetime] = None
+)
+```
 
 - **items** (required): list of items to be stored.
+- **expire_in** (optional) - Accepts: `int` and `None` 
+    - Description: seconds after which the item will expire in, see also [expiring items](./expiring_items)
+- **expire_at** (optional) - Accepts: `int`, `float`, `datetime.datetime` and `None`
+    - Description: time at which the item will expire in, can provide the timestamp directly(`int` or `float`) or a [datetime.datetime](https://docs.python.org/3/library/datetime.html) object, see also [expiring items](./expiring_items)
 
 #### Example
 
@@ -158,6 +215,14 @@ async def put_items():
 	await async_db.put_many(items)
 	print("put items:", items)
 
+	# put with expiring items
+	# expire in 300 seconds
+	await async_db.put_many(items, expire_in=300)
+
+	# with expire at
+    expire_at = datetime.datetime.fromisoformat("2023-01-01T00:00:00")
+    await async_db.put_many(items, expire_at=expire_at)
+
 	# close connection
 	await async_db.close()
 
@@ -167,10 +232,22 @@ loop.run_until_complete(put_items())
 
 ### Update
 
-**`update(updates:dict, key:str)`**
+```py
+update(
+	updates:dict, 
+	key:str,
+	*,
+	expire_in: int = None,
+	expire_at: typing.Union[int, float, datetime.datetime] = None
+)
+```
 
 - **updates** (required): A dict describing the updates on the item, refer to [updates](/docs/base/sdk#update) for more details.
 - **key** (required): The key of the item to update.
+- **expire_in** (optional) - Accepts: `int` and `None` 
+    - Description: seconds after which the item will expire in, see also [expiring items](./expiring_items)
+- **expire_at** (optional) - Accepts: `int`, `float`, `datetime.datetime` and `None`
+    - Description: time at which the item will expire in, can provide the timestamp directly(`int` or `float`) or a [datetime.datetime](https://docs.python.org/3/library/datetime.html) object, see also [expiring items](./expiring_items)
 
 #### Example
 
@@ -196,7 +273,7 @@ loop.run_until_complete(update_item())
 
 **`fetch(query=None, limit=1000, last=None)`**
 
-- **query** : a [query or a list of queries](/docs/base/sdk#queries), refer to [fetch](/docs/base/sdk#fetch) for more details.
+- **query** : a [query or a list of queries](./queries) 
 - **limit** : the limit of the number of items you want to recieve, min value `1` if used.
 - **last**: the last key seen in a previous paginated response.
 

@@ -1,6 +1,6 @@
 ---
 id: sdk
-title: Deta Base SDK
+title: SDK
 ---
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -263,15 +263,24 @@ In the case you do not provide us with a key, we will auto generate a 12 char lo
 <TabItem value="js">
 
 
-**`async put(data, key=null)`**
+**`async put(data, key = null, options = null)`**
 
 #### Parameters
 
 - **data** (required) – Accepts: `object` (serializable), `string`, [`number`](#storing-numbers), `boolean` and `array`.
     - Description: The data to be stored.
-- **key** (optional) – Accepts: `string` and `null`
+- **key** (optional) – Accepts: `string`, `null` or `undefined`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
-
+- **options** (optional) - Accepts: `object`, `null` or `undefined`
+  ```json
+  {
+    expireIn: number,
+    expireAt: Date
+  }
+  ```
+    - Description: Optional parameters.
+      - **expireIn** : item will expire in `expireIn` seconds after a successfull put operation, see also [expiring items](./expiring_items).
+      - **expireAt** : item will expire at `expireAt` date, see also [expiring items](./expiring_items).
 
 #### Code Example
 
@@ -281,16 +290,26 @@ const Deta = require('deta');
 const deta = Deta("project key");
 const db = deta.Base("simple_db");
 
-// you can store objects
-db.put({name: "alex", age: 77})  // A key will be automatically generated
-db.put({name: "alex", age: 77}, "one")  // We will use "one" as a key
-db.put({name: "alex", age: 77, key:"one"})  // The key could also be included in the object itself
+// store objects
+// a key will be automatically generated 
+await db.put({name: "alex", age: 77}) 
+// we will use "one" as a key
+await db.put({name: "alex", age: 77}, "one")  
+// the key could also be included in the object itself
+await db.put({name: "alex", age: 77, key:"one"})  
 
-// or store simple types:
-db.put("hello, worlds")
-db.put(7)
-db.put("success", "smart_work") // "success" is the value and "smart_work" is the key.
-db.put(["a", "b", "c"], "my_abc")
+// store simple types
+await db.put("hello, worlds")
+await db.put(7)
+// "success" is the value and "smart_work" is the key. 
+await db.put("success", "smart_work")
+await db.put(["a", "b", "c"], "my_abc")
+
+// put expiring items
+// expire item in 300 seconds
+await db.put({"name": "alex", age: 21}, "alex21", {expireIn: 300}) 
+// expire item at expire date
+await db.put({"name": "max", age:28}, "max28", {expireAt: new Date('2023-01-01T00:00:00')}) 
 ```
 
 #### Returns
@@ -300,7 +319,15 @@ db.put(["a", "b", "c"], "my_abc")
 </TabItem>
 <TabItem value="py">
 
-**`put(data: typing.Union[dict, list, str, int, float, bool], key:str = None):`**
+```py
+put(
+  data: typing.Union[dict, list, str, int, float, bool], 
+  key: str = None,
+  *,
+  expire_in: int = None,
+  expire_at: typing.Union[int, float, datetime.datetime] = None
+)
+```
 
 #### Parameters
 
@@ -308,6 +335,10 @@ db.put(["a", "b", "c"], "my_abc")
     - Description: The data to be stored.
 - **key** (optional) – Accepts: `str` and `None`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
+- **expire_in** (optional) - Accepts: `int` and `None` 
+    - Description: seconds after which the item will expire in, see also [expiring items](./expiring_items)
+- **expire_at** (optional) - Accepts: `int`, `float`, `datetime.datetime` and `None`
+    - Description: time at which the item will expire in, can provide the timestamp directly(`int` or `float`) or a [datetime.datetime](https://docs.python.org/3/library/datetime.html) object, see also [expiring items](./expiring_items)
 
 
 #### Code Example
@@ -316,17 +347,27 @@ from deta import Deta
 deta = Deta("project key")  
 db = deta.Base("simple_db")
 
-# you can store objects
-db.put({"name": "alex", "age": 77})  # A key will be automatically generated
-db.put({"name": "alex", "age": 77}, "one")  # We will use "one" as a key
-db.put({"name": "alex", "age": 77, "key": "one"})  # The key could also be included in the object itself
+# store objects
+# a key will be automatically generated
+db.put({"name": "alex", "age": 77})  
+# we will use "one" as a key
+db.put({"name": "alex", "age": 77}, "one")  
+# the key could also be included in the object itself  
+db.put({"name": "alex", "age": 77, "key": "one"})
 
-# or store simple types:
+# simple types
 db.put("hello, worlds")
 db.put(7)
-db.put("success", "smart_work")  # "success" is the value and "smart_work" is the key.
+# "success" is the value and "smart_work" is the key.
+db.put("success", "smart_work")  
 db.put(["a", "b", "c"], "my_abc")
 
+# expiring items
+# expire item in 300 seconds
+db.put({"name": "alex", "age": 23}, "alex23", expire_in=300)
+# expire item at date
+expire_at = datetime.datetime.fromisoformat("2023-01-01T00:00:00")
+db.put({"name": "max", "age": 28}, "max28", expire_at=expire_at)
 ```
 
 #### Returns
@@ -350,23 +391,30 @@ db.put(["a", "b", "c"], "my_abc")
 **`Put(item interface{}) (string, error)`**
 
 #### Parameters
-- **item** : The item to be stored, should be a `struct` or a `map`. If the item is a `struct` provide the field keys for the data with json struct tags. The key of the item must have a json struct tag of `key`. 
+
+- **item** : The item to be stored, should be a `struct` or a `map`. If the item is a `struct` provide the field keys for the data with json struct tags. The key of the item must have a json struct tag of `key`. For storing expiring items, the field name `__expires` should be used with a [Unix Time](https://pkg.go.dev/time#Time.Unix) value, see also [expiring items](./expiring_items).
 
 [Note for storing numbers](#storing-numbers)
 
 #### Code Example
 ```go
 import (
-    "fmt"
+    "log"
+    "time"
     "github.com/deta/deta-go"
 )
 
+// User represents a user
 type User struct{
-    Key string `json:"key"` // json struct tag 'key' used to denote the key
+    // json struct tag 'key' used to denote the key
+    Key      string `json:"key"` 
     Username string `json:"username"`
-    Active bool `json:"active"`
-    Age int `json:"age"`
-    Likes []string `json:"likes"`
+    Active   bool `json:"active"`
+    Age      int `json:"age"`
+    Likes    []string `json:"likes"`
+    // json struct tag '__expires' for expiration timestamp, 
+    // tag has 'omitempty' for ommission of default 0 values
+    Expires  int64 `json:"__expires,omitempty"` 
 }
 
 func main(){
@@ -386,10 +434,9 @@ func main(){
     // put item in the database
     key, err := db.Put(u)
     if err != nil {
-        fmt.Println("failed to put item:", err)
-        return
+        log.Fatal("failed to put item:", err)
     }
-    fmt.Println("Successfully put item with key:", key)
+    log.Println("put item with key:", key)
 
     // can also use a map
     um := map[string]interface{}{
@@ -402,12 +449,37 @@ func main(){
 
     key, err = db.Put(um)
     if err != nil {
-        fmt.Println("failed to put item:", err)
-        return
+        log.Fatal("failed to put item:", err)
     }
-    fmt.Println("Successfully put item with key:", key)
+    log.Println("put item with key:", key)
+
+    // expiring items
+    u = &User {
+      Key: "will_be_deleted",  
+      Username: "test_user",
+      Expires: time.Date(2023, 1, 1, 0, 0, 0, 0, time.UTC).Unix(),
+    }
+    key, err = db.Put(u)
+    if err != nil {
+        log.Fatal("failed to put item:", err)
+    }
+    log.Println("put item with key:", key)
+
+    // maps with expiration timestamp
+    um = map[string]interface{}{
+      "key": "will_be_deleted",
+      "test": true,
+      "__expires": time.Date(2023, 1, 1, 0, 0, 0, 0, time.UTC).Unix(), 
+    }
+
+    key, err = db.Put(um)
+    if err != nil {
+        log.Fatal("failed to put item:", err)
+    }
+    log.Println("put item with key:", key)
 }
 ```
+
 </TabItem>
 
 <TabItem value="new">
@@ -415,7 +487,8 @@ func main(){
 **`Put(item interface{}) (string, error)`**
 
 #### Parameters
-- **item** : The item to be stored, should be a `struct` or a `map`. If the item is a `struct` provide the field keys for the data with json struct tags. The key of the item must have a json struct tag of `key`.
+
+- **item** : The item to be stored, should be a `struct` or a `map`. If the item is a `struct` provide the field keys for the data with json struct tags. The key of the item must have a json struct tag of `key`. For storing expiring items, the field name `__expires` should be used with a [Unix Time](https://pkg.go.dev/time#Time.Unix) value, see also [expiring items](./expiring_items).
 
 [Note for storing numbers](#storing-numbers)
 
@@ -423,32 +496,29 @@ func main(){
 ```go
 
 import (
-	"fmt"
+	"log"
+  "time"
 
 	"github.com/deta/deta-go/deta"
 	"github.com/deta/deta-go/service/base"
 )
 
 type User struct {
-	Key      string   `json:"key"` // json struct tag 'key' used to denote the key
+  // json struct tag 'key' used to denote the key
+	Key      string   `json:"key"` 
 	Username string   `json:"username"`
 	Active   bool     `json:"active"`
 	Age      int      `json:"age"`
 	Likes    []string `json:"likes"`
+  // json struct tag '__expires' for expiration timestamp
+  // 'omitempty' for omission of default 0 value
+  Expires  int64 `json:"__expires,omitempty"`
 }
 
 func main() {
-	d, err := deta.New(deta.WithProjectKey("project_key"))
-	if err != nil {
-		fmt.Println("failed to init new Deta instance:", err)
-		return
-	}
-
-	db, err := base.New(d, "users")
-	if err != nil {
-		fmt.Println("failed to init new Base instance:", err)
-		return
-	}
+  // errors ignored for brevity
+	d, _ := deta.New(deta.WithProjectKey("project_key"))
+	db, _ := base.New(d, "users")
 
 	u := &User{
 		Key:      "kasdlj1",
@@ -459,10 +529,9 @@ func main() {
 	}
 	key, err := db.Put(u)
 	if err != nil {
-		fmt.Println("failed to put item:", err)
-		return
+    log.Fatal("failed to put item:", err)
 	}
-	fmt.Println("successfully put item with key", key)
+	log.Println("successfully put item with key", key)
 
 	// can also use a map
 	um := map[string]interface{}{
@@ -472,13 +541,35 @@ func main() {
 		"age":      20,
 		"likes":    []string{"ramen"},
 	}
-
 	key, err = db.Put(um)
 	if err != nil {
-		fmt.Println("failed to put item:", err)
-		return
+    log.Fatal("failed to put item:", err)
 	}
-	fmt.Println("Successfully put item with key:", key)
+	log.Println("Successfully put item with key:", key)
+
+  // put with expires
+  u := &User{
+    Key: "will_be_deleted",
+    Username: "test_user",
+    Expires: time.Date(2023, 1, 1, 0, 0, 0, 0, 0, time.UTC).Unix(),
+  }
+  key, err = db.Put(u)
+  if err != nil {
+    log.Fatal("failed to put item:", err)
+  }
+  log.Println("put item with key:", key)
+
+  // put map with expires
+  um = map[string]interface{}{
+    "key": "will_be_deleted",
+    "test": true,
+    "__expires": time.Data(2023, 1, 1, 0, 0, 0, 0, time.UTC).Unix(),
+  }
+  key, err = db.Put(um)
+  if err != nil {
+    log.Fatal("failed to put item:", err)
+  }
+  log.Println("put item with key:", key)
 }
 ```
 </TabItem>
@@ -542,7 +633,9 @@ If not found, the promise will resolve to `null`.
 <TabItem value="py">
 
 
-**`get(key: str)`**
+```py
+get(key: str)
+```
 
 #### Parameter Types
 
@@ -724,7 +817,9 @@ Always returns a promise which resolves to `null`, even if the key does not exis
 </TabItem>
 <TabItem value="py">
 
-**`delete(key: str)`**
+```py
+delete(key: str)
+```
 
 #### Parameters
 - **key** (required) – Accepts: `str`
@@ -788,7 +883,7 @@ The `insert` method inserts a single item into a **Base**, but is unique from [`
 }>
 <TabItem value="js">
 
-**`async insert(data, key=null)`**
+**`async insert(data, key = null, options = null)`**
 
 #### Parameters
 
@@ -796,6 +891,17 @@ The `insert` method inserts a single item into a **Base**, but is unique from [`
     - Description: The data to be stored.
 - **key** (optional) – Accepts: `string` and `null`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
+- **options** (optional) - Accepts: `object`, `null` or `undefined`
+  ```json
+  {
+    expireIn: number,
+    expireAt: Date
+  }
+  ```
+    - Description: Optional parameters.
+      - **expireIn** : item will expire in `expireIn` seconds after a successfull insert operation, see also [expiring items](./expiring_items).
+      - **expireAt** : item will expire at `expireAt` date, see also [expiring items](./expiring_items).
+
 
 #### Code Example
 ```js
@@ -807,6 +913,12 @@ const res2 = await db.insert({message: 'hello, world'}, 'greeting1');
 
 // will raise an error as key "greeting1" already existed.
 const res3 = await db.insert({message: 'hello, there'}, 'greeting1');
+
+// expire item in 300 seconds
+await db.insert({message: 'will be deleted'}, 'temp_key', {expireIn: 300})
+
+// expire at date
+await db.insert({message: 'will be deleted'}, 'temp_key_2', {expireAt: new Date('2023-01-01T00:00:00')})
 ```
 
 #### Returns
@@ -816,7 +928,15 @@ Returns a promise which resolves to the item on a successful insert, and throws 
 </TabItem>
 <TabItem value="py">
 
-**`insert(data: typing.Union[dict, list, str, int, float, bool], key:str = None):`**
+```py
+insert(
+  data: typing.Union[dict, list, str, int, float, bool], 
+  key: str = None,
+  *,
+  expire_in: int = None,
+  expire_at: typing.Union[int, float, datetime.datetime] = None 
+)
+```
 
 #### Parameters
 
@@ -824,18 +944,29 @@ Returns a promise which resolves to the item on a successful insert, and throws 
     - Description: The data to be stored.
 - **key** (optional) – Accepts: `str` and `None`
     - Description:  the key (aka ID) to store the data under. Will be auto generated if not provided.
-
+- **expire_in** (optional) - Accepts: `int` and `None` 
+    - Description: seconds after which the item will expire in, see also [expiring items](./expiring_items)
+- **expire_at** (optional) - Accepts: `int`, `float`, `datetime.datetime` and `None`
+    - Description: time at which the item will expire in, can provide the timestamp directly(`int` or `float`) or a [datetime.datetime](https://docs.python.org/3/library/datetime.html) object, see also [expiring items](./expiring_items)
 
 #### Code Example
 ```py
 # will succeed, a key will be auto-generated
-res1 = db.insert("hello, world")
+db.insert("hello, world")
 
 # will succeed.
-res2 = db.insert({"message": "hello, world"}, "greeting1")
+db.insert({"message": "hello, world"}, "greeting1")
 
 # will raise an error as key "greeting1" already existed.
-res3 = db.insert({"message": "hello, there"}, "greeting1")
+db.insert({"message": "hello, there"}, "greeting1")
+
+# expiring items
+# expire in 300 seconds
+db.insert({"message": "will be deleted"}, "temp_greeting", expire_in=300)
+
+# expire at date
+expire_at = datetime.datetime.fromisoformat("2023-01-01T00:00:00")
+db.insert({"message": "will_be_deleted"}, "temp_greeting2", expire_at=expire_at)
 ```
 
 #### Returns
@@ -988,21 +1119,49 @@ The Put Many method puts up to 25 items into a Base at once on a single call.
 }>
 <TabItem value="js">
 
-**`async putMany(items)`**
+**`async putMany(items, options)`**
 
 #### Parameters
 
 - **items** (required) – Accepts: `Array` of items, where each "item" can be an `object` (serializable), `string`, [`number`](#storing-numbers), `boolean` or `array`.
     - Description: The list of items to be stored.
+- **options** (optional) - Accepts: `object`, `null` or `undefined`
+  ```json
+  {
+    expireIn: number,
+    expireAt: Date
+  }
+  ```
+  - Description: Optional parameters.
+    - **expireIn** : item will expire in `expireIn` seconds after a successfull put operation, see also [expiring items](./expiring_items).
+    - **expireAt** : item will expire at `expireAt` date, see also [expiring items](./expiring_items).
 
 #### Code Example
 ```js
 
-const res1 = await db.putMany([
+await db.putMany([
   {"name": "Beverly", "hometown": "Copernicus City", "key": "one"}, // key provided
   "dude", // key auto-generated 
   ["Namaskāra", "marhabaan", "hello", "yeoboseyo"] // key auto-generated 
 ]);
+
+// putMany with expire in 300 seconds
+await db.putMany(
+  [
+    {"key": "temp-1", "name": "test-1"},
+    {"key": "temp-2", "name": "test-2"},
+  ],
+  {expireIn: 300}
+);
+
+// putMany with expire at
+await db.putMany(
+  [
+    {"key": "temp-1", "name": "test-1"},
+    {"key": "temp-2", "name": "test-2"},
+  ],
+  {expireAt: new Date('2023-01-01T00:00:00')}
+);
 
 ```
 
@@ -1040,25 +1199,51 @@ Returns a promise which resolves to the put items on a successful insert, and th
 </TabItem>
 <TabItem value="py">
 
-**`put_many(items):`**
+```py
+put_many(
+  items: list,
+  *,
+  expire_in: int = None,
+  expire_at: typing.Union[int, float, datetime.datetime] = None,
+)
+```
 
 #### Parameters
 
 - **items** (required) – Accepts: `list` of items, where each "item" can be an `dict` (JSON serializable), `str`, [`int`](#storing-numbers), `bool`, [`float`](#storing-numbers) or `list`.
     - Description: The list of items to be stored.
+- **expire_in** (optional) - Accepts: `int` and `None` 
+    - Description: seconds after which the item will expire in, see also [expiring items](./expiring_items)
+- **expire_at** (optional) - Accepts: `int`, `float`, `datetime.datetime` and `None`
+    - Description: time at which the item will expire in, can provide the timestamp directly(`int` or `float`) or a [datetime.datetime](https://docs.python.org/3/library/datetime.html) object, see also [expiring items](./expiring_items)
+
+
   
 #### Code Example
 ```py
-res_one = db.put_many([
+db.put_many([
   {"name": "Beverly", "hometown": "Copernicus City", "key": "one"}, // key provided
   "dude", // key auto-generated 
   ["Namaskāra", "marhabaan", "hello", "yeoboseyo"] // key auto-generated 
 ])
+
+# put many to expire in 300 seconds
+db.put_many(
+  [{"key": "tmp-1", "value": "test-1"}, {"key": "tmp-2", "value": "test-2"}],
+  expire_in=300,
+)
+
+# put many with expire at
+expire_at = datetime.datetime.fromisoformat("2023-01-01T00:00:00")
+db.put_many(
+  [{"key": "tmp-1", "value": "test-1"}, {"key": "tmp-2", "value": "test-2"}],
+  expire_at=expire_at,
+)
 ```
 
 #### Returns
 
-Returns a promise which resolves to the put items on a successful insert, and raises an error if you attempt to put more than 25 items.
+Returns a dict with `processed` and `failed`(if any) items .
 
 ```json
 {
@@ -1250,7 +1435,7 @@ Returns the list of keys of the items stored and an `error`. In case of an error
 }>
 <TabItem value="js">
 
-**`async update(updates, key)`**
+**`async update(updates, key, options)`**
 
 #### Parameters
 
@@ -1258,6 +1443,16 @@ Returns the list of keys of the items stored and an `error`. In case of an error
     - Description: a json object describing the updates on the item 
 - **key** (required) – Accepts: `string`
     - Description: the key of the item to be updated.
+- **options** (optional) - Accepts: `object` 
+  ```json
+  {
+    expireIn: number,
+    expireAt: Date
+  }
+  ```
+    - Description: Optional parameters.
+      - **expireIn** : item will expire in `expireIn` seconds after a successfull update operation, see also [expiring items](./expiring_items).
+      - **expireAt** : item will expire at `expireAt` date, see also [expiring items](./expiring_items).
 
 [Note for storing numbers](#storing-numbers) 
 
@@ -1330,7 +1525,15 @@ If the item is updated, the promise resolves to `null`. Otherwise, an error is r
 </TabItem>
 <TabItem value="py">
 
-**`update(updates:dict, key:str)`**
+```py
+update(
+  updates: dict, 
+  key: str, 
+  *, 
+  expire_in: int = None, 
+  expire_at: typing.Union [int, float, datetime.datetime] = None
+)
+```
 
 #### Parameters
 
@@ -1338,6 +1541,10 @@ If the item is updated, the promise resolves to `null`. Otherwise, an error is r
     - Description: a dict describing the updates on the item 
 - **key** (required) – Accepts: `string`
     - Description: the key of the item to be updated.
+- **expire_in** (optional) - Accepts: `int` and `None` 
+    - Description: seconds after which the item will expire in, see also [expiring items](./expiring_items)
+- **expire_at** (optional) - Accepts: `int`, `float`, `datetime.datetime` and `None`
+    - Description: time at which the item will expire in, can provide the timestamp directly(`int` or `float`) or a [datetime.datetime](https://docs.python.org/3/library/datetime.html) object, see also [expiring items](./expiring_items)
 
 [Note for storing numbers](#storing-numbers) 
 
@@ -1420,7 +1627,7 @@ If the item is updated, returns `None`. Otherwise, an exception is raised.
 }>
 <TabItem value="legacy">
 
-**`Update(key stirng, updates Updates) error`**
+**`Update(key string, updates Updates) error`**
 
 #### Parameters
 
@@ -1620,7 +1827,7 @@ Returns an `error`. Possible error values:
 
 Fetch retrieves a list of items matching a query. It will retrieve everything if no query is provided.
 
-A query is composed of a single [query](#queries) object or a list of [queries](#queries).
+A query is composed of a single [query](./queries) object or a list of [queries](./queries).
 
 In the case of a list, the indvidual queries are OR'ed.
 
@@ -1652,7 +1859,7 @@ In the case of a list, the indvidual queries are OR'ed.
 
 #### Parameters
 
-- **query**: is a single [query object](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
+- **query**: is a single [query object](./queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 - **pages**: how many pages of items should be returned.
 - **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more than 1mb of data, so you could buffer the results in smaller chunks.
 
@@ -1754,7 +1961,7 @@ const foo = async (myQuery, bar) => {
 
 #### Parameters
 
-- **query**: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
+- **query**: is a single [query object (`dict`)](./queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 - **options**: optional params:
   - `limit`: the limit of the number of items you want to retreive, min value `1` if used.
   - `last`: the last key seen in a previous paginated response, provide this in a subsequent call to fetch further items.
@@ -1881,7 +2088,7 @@ while (res.last){
 
 #### Parameters
 
-- **query**: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
+- **query**: is a single [query object (`dict`)](./queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 - **pages**: how many pages of items should be returned.
 - **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
 
@@ -1977,7 +2184,7 @@ def foo(my_query, bar):
 
 #### Parameters
 
-- **query**: is a single [query object (`dict`)](#queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb or max 1000 items).
+- **query**: is a single [query object (`dict`)](./queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb or max 1000 items).
 - **limit**: the limit of the number of items you want to retreive, min value `1` if used
 - **last**: the last key seen in a previous paginated response
 
@@ -2429,107 +2636,6 @@ Returns an `error`. Possible error values:
 </TabItem>
 
 </Tabs>
-
-
-#### Queries
-
-Queries are regular objects/dicts/maps with conventions for different operations.
-
-
-##### Equal
-
-```json
-{"age": 22, "name": "Beverly"}
-
-// hierarchical
-{"user.profile.age": 22, "user.profile.name": "Beverly"}
-```
-
-```json
-{"fav_numbers": [2, 4, 8]}
-```
-
-```json
-{"time": {"day": "Tuesday", "hour": "08:00"}}
-```
-
-##### Not Equal
-
-```json
-{"user.profile.age?ne": 22}
-```
-
-##### Less Than
-
-```json
-{"user.profile.age?lt": 22}
-```
-
-##### Greater Than
-
-```json
-{"user.profile.age?gt": 22}
-```
-
-##### Less Than or Equal
-
-```json
-{"user.profile.age?lte": 22}
-```
-
-##### Greater Than or Equal
-
-```json
-{"user.profile.age?gte": 22}
-```
-
-##### Prefix
-
-```json
-{"user.id?pfx": "afdk"}
-```
-
-#### Range
-
-```json
-{"user.age?r": [22, 30]}
-```
-
-#### Contains
-
-```json
-{
-  // if user email contains the substring @deta.sh
-  "user.email?contains": "@deta.sh" 
-}
-```
-
-```json
-{
-  // if berlin is in a list of places lived 
-  "user.places_lived_list?contains": "berlin"
-}
-```
-
-#### Not Contains
-
-```json
-{
-  // if user email does not contain @deta.sh
-  "user.email?not_contains": "@deta.sh" // 'user.email?!contains' also valid
-}
-```
-
-```json
-{
-  // if berlin is not in a list of places lived
-  "user.places_lived_list?not_contains": "berlin" // 'user.places_lived_list?!contains' also valid
-}
-```
-
-:::note
-`?contains` and `?not_contains` only works for a list of strings if checking for membership in a list; it does not apply to list of other data types. You can store your lists always as a list of strings if you want to check for membership.
-:::
 
 ## Contact
 
