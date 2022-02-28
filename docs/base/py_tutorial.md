@@ -131,8 +131,8 @@ We can tie a `PUT` request to the path `/users/{id}` to update a given user reco
 
 ```py
 @app.route("/users/<key>", methods=["PUT"])
-def update_user():
-    user = db.put(request.json)
+def update_user(key):
+    user = db.put(request.json, key)
     return user
 ```
 
@@ -172,7 +172,7 @@ We can tie a `DELETE` request to the path `/users/{id}` to delete a given user r
 @app.route("/users/<key>", methods=["DELETE"])
 def delete_user(key):
     db.delete(key)
-   return
+    return jsonify({"status": "ok"}, 200)
 ```
 
 #### Request
