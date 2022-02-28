@@ -1702,7 +1702,7 @@ Results in the following item in the base:
 </TabItem>
 <TabItem value="new">
 
-**`Update(key stirng, updates Updates) error`**
+**`Update(key string, updates Updates) error`**
 
 #### Parameters
 
