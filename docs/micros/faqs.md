@@ -39,3 +39,7 @@ In order to debug `502` responses, you can use `deta visor` which show you real-
 If there are no logs in your visor and your micro's response took roughly 10 seconds, then it's likely because of a timeout. 
 
 If it is not because of a timeout, then please contact us.
+
+### Is it safe to commit the `.deta` folder created by the cli?
+
+Yes it is safe to commit your `.deta` folder and push it to public repositories.
