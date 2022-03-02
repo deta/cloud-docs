@@ -126,7 +126,7 @@ func main() {
 curl -X PUT "https://database.data.sh/v1/test_project_id/examples/items" \
     -H "Content-Type: application/json" \
     -H "X-Api-Key: test_project_key" \
-    -d {"key": "temp_key", "value": "temp", "__expires": 1672531200}
+    -d {"items":[{"key": "temp_key", "value": "temp", "__expires": 1672531200}]}
 ```
 
 </TabItem>
