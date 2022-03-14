@@ -425,7 +425,7 @@ Bad requests occur in the following cases:
 
 **`POST /query`**
 
-List items that match a [query](./queries).
+List items that match a [query](https://docs.deta.sh/docs/base/queries/).
 
 <Tabs
   defaultValue="request"
@@ -438,7 +438,7 @@ List items that match a [query](./queries).
 
 | JSON Payload    | Required | Type     | Description                                    |
 |-----------------|----------|----------|------------------------------------------------|
-| `query`         | No       | `list`   | list of a [query](./queries)                |
+| `query`         | No       | `list`   | list of a [query](https://docs.deta.sh/docs/base/queries/)|
 | `limit`         | No       | `int`    | no of items to return. min value 1 if used     |
 | `last`          | No       | `string` | last key seen in a previous paginated response |
 

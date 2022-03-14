@@ -273,7 +273,7 @@ loop.run_until_complete(update_item())
 
 **`fetch(query=None, limit=1000, last=None)`**
 
-- **query** : a [query or a list of queries](./queries) 
+- **query** : a [query or a list of queries](https://docs.deta.sh/docs/base/sdk/queries/) 
 - **limit** : the limit of the number of items you want to recieve, min value `1` if used.
 - **last**: the last key seen in a previous paginated response.
 

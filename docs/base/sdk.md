@@ -1827,7 +1827,7 @@ Returns an `error`. Possible error values:
 
 Fetch retrieves a list of items matching a query. It will retrieve everything if no query is provided.
 
-A query is composed of a single [query](./queries) object or a list of [queries](./queries).
+A query is composed of a single [query](https://docs.deta.sh/docs/base/queries/) object or a list of [queries](https://docs.deta.sh/docs/base/queries/).
 
 In the case of a list, the indvidual queries are OR'ed.
 
@@ -1859,7 +1859,7 @@ In the case of a list, the indvidual queries are OR'ed.
 
 #### Parameters
 
-- **query**: is a single [query object](./queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
+- **query**: is a single [query object](https://docs.deta.sh/docs/base/queries/) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 - **pages**: how many pages of items should be returned.
 - **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more than 1mb of data, so you could buffer the results in smaller chunks.
 
@@ -1961,7 +1961,7 @@ const foo = async (myQuery, bar) => {
 
 #### Parameters
 
-- **query**: is a single [query object (`dict`)](./queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
+- **query**: is a single [query object (`dict`)](https://docs.deta.sh/docs/base/queries/) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 - **options**: optional params:
   - `limit`: the limit of the number of items you want to retreive, min value `1` if used.
   - `last`: the last key seen in a previous paginated response, provide this in a subsequent call to fetch further items.
@@ -2088,7 +2088,7 @@ while (res.last){
 
 #### Parameters
 
-- **query**: is a single [query object (`dict`)](./queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
+- **query**: is a single [query object (`dict`)](https://docs.deta.sh/docs/base/queries/) or list of queries. If omitted, you will get all the items in the database (up to 1mb).
 - **pages**: how many pages of items should be returned.
 - **buffer**: the number of items which will be returned for each iteration (aka "page") on the return iterable. This is useful when your query is returning more 1mb of data, so you could buffer the results in smaller chunks.
 
@@ -2184,7 +2184,7 @@ def foo(my_query, bar):
 
 #### Parameters
 
-- **query**: is a single [query object (`dict`)](./queries) or list of queries. If omitted, you will get all the items in the database (up to 1mb or max 1000 items).
+- **query**: is a single [query object (`dict`)](https://docs.deta.sh/docs/base/queries/) or list of queries. If omitted, you will get all the items in the database (up to 1mb or max 1000 items).
 - **limit**: the limit of the number of items you want to retreive, min value `1` if used
 - **last**: the last key seen in a previous paginated response
 
