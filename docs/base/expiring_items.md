@@ -123,7 +123,7 @@ func main() {
 <TabItem value="http">
 
 ```shell
-curl -X PUT "https://database.data.sh/v1/test_project_id/examples/items" \
+curl -X PUT "https://database.deta.sh/v1/test_project_id/examples/items" \
     -H "Content-Type: application/json" \
     -H "X-Api-Key: test_project_key" \
     -d {"items":[{"key": "temp_key", "value": "temp", "__expires": 1672531200}]}
