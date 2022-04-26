@@ -214,7 +214,6 @@ Deploy a deta micro rooted in 'micros/my-micro-1' directory.
 `deta deploy` will ignore the following files and folders by default when deploying a micro:
 
   - all files and folders with names starting with a `.` (both in unix and windows systems) 
-  - all files and folders with *hidden* attribute in windows systems
   - vim swap files
   - `node_modules` directory for `node` runtime  
   - `__pycache__` directory for `python` runtime
