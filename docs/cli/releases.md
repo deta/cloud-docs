@@ -4,6 +4,14 @@ title: CLI Releases
 sidebar_label: Releases
 ---
 
+## v1.3.3-beta
+
+### Updates
+- The CLI no longer checks the `Hidden File Attribute` in Windows systems
+
+### Fixes
+- Fix overwriting files on `deta new` in Windows 
+
 ## v1.3.2-beta
 
 ### Fixes
