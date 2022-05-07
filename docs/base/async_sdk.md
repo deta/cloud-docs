@@ -299,4 +299,4 @@ loop.run_until_complete(fetch_items())
 
 ## Feedback
 
-Please provide us with feedback and bug reports on slack, [github](https://github.com/deta/deta-python) or send us an email at *team@deta.sh*. We appreciate any feedback.
+Please provide us with feedback and bug reports on discord, [github](https://github.com/deta/deta-python) or send us an email at *team@deta.sh*. We appreciate any feedback.
