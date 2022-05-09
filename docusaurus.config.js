@@ -40,7 +40,7 @@ module.exports = {
           items: [
             {
               label: 'Discord',
-              href: 'https://discord.gg/cGZV5Shc',
+              href: 'https://go.deta.dev/discord',
             },
             {
               label: 'Twitter',

@@ -68,7 +68,7 @@ Check the following if you are experiencing issues in setting up a custom domain
 3. Check if there is a CAA record set up for your domain. If yes, make sure you have [set up the necessary CAA record](#caa-records).
 
 :::warning
-If you had to change something from the steps mentioned above, [email us](<mailto:aavash@deta.sh?subject=Re-enable custom domain>) or [let us know in discord](https://discord.gg/cGZV5Shc). This is important as our systems eventually stop trying to assign the custom domain on errors. Manual re-enabling of the domain might be required.
+If you had to change something from the steps mentioned above, [email us](<mailto:aavash@deta.sh?subject=Re-enable custom domain>) or [let us know in discord](https://go.deta.dev/discord). This is important as our systems eventually stop trying to assign the custom domain on errors. Manual re-enabling of the domain might be required.
 :::  
 
 ### Unsupported Top Level Domains 

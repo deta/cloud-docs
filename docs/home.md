@@ -78,5 +78,5 @@ You create and update micros using the CLI.
 We have answered some [FAQs](faqs.md) in these docs, but we are here to help and would love to hear what you think!
 
 If you have any questions or feedback, you can reach us:
-- [Discord](https://discord.gg/cGZV5Shc)
+- [Discord](https://go.deta.dev/discord)
 - [hello@deta.sh](mailto:hello@deta.sh)
