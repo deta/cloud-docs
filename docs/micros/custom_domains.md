@@ -82,6 +82,7 @@ We are not able to support custom domains for the following tlds at the moment:
 - `.kp`
 - `.lr`
 - `.nc.tr`
+- `.ru`
 - `.sd`
 - `.sl`
 - `.ss`
