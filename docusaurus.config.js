@@ -12,7 +12,7 @@ module.exports = {
       logo: {
         alt: 'Deta Logo',
         src: 'img/logo.svg',
-        target: '/docs/home',
+        href: 'https://deta.sh',
       },
       items: [
         {
