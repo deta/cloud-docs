@@ -39,8 +39,8 @@ module.exports = {
           title: 'Community',
           items: [
             {
-              label: 'Slack',
-              href: 'https://deta-hq.slack.com/',
+              label: 'Discord',
+              href: 'https://go.deta.dev/discord',
             },
             {
               label: 'Twitter',

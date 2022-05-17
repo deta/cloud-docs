@@ -61,4 +61,4 @@ We hope you enjoy Base UI!
 
 Base UI is still in Beta; it has been internally tested but may have some uncaught bugs or issues. 
 
-We'd love to hear from you: please reach us at `hello@deta.sh` or on Slack if you have any feedback!
+We'd love to hear from you: please reach us at `hello@deta.sh` or on Discord if you have any feedback!
