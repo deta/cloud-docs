@@ -8,6 +8,9 @@ import TabItem from '@theme/TabItem';
 
 The Deta Visor offers a user interface for you to see a live view of all the events (logs) processed by your Micro. You can use it to monitor and debug your requests, test your endpoints by sending requests, and more.
 
+By default, Visor is disabled, to enable it run `deta visor enable` in your terminal inside you Micro's source code.
+
+
 ### Opening Visor
 <Tabs 
     defaultValue="browser" 
@@ -87,3 +90,7 @@ The content-type can be changed from JSON to Text, using the selection box on th
 ### Logs Retention
 
 Visor logs are retained for two weeks (14 days).
+
+### Visor doesn't show the error
+
+Sometimes you will get a `500` response from our server and no errors will show up in Visor, in that case you could quickly check our system logs for you Micro with `deta logs`.  
