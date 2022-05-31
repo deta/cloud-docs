@@ -92,3 +92,7 @@ If you have any questions or feedback, you can reach us:
 - [hello@deta.sh](mailto:hello@deta.sh)
 
 ### Reporting Abuse
+
+If you detect any kind of fraudulent, abusive and/or malicious content hosted on Deta, please report the site(s) by sending an email to us at [abuse@deta.sh](mailto:abuse@deta.sh). 
+
+We review each report manually.
