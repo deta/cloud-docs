@@ -26,7 +26,7 @@ To accomplish our mission, we offer a set of minimal-config cloud primitives:
 
 1. **[Deta Base](#deta-base)** (beta): Instantly usable database with a feature-rich API.
 2. **[Deta Micros](#deta-micros)** (beta): Deploy scalable Node & Python apps in seconds.
-3. **[Deta Drive](/docs/drive/about)** (beta): Upload, host and serve images and files.
+3. **[Deta Drive](#deta-drive)** (beta): Upload, host and serve images and files.
 4. **Deta Auth** (soon): Effortless signup, login & accounts for your apps.
 
 
@@ -62,6 +62,16 @@ Deta Micros(servers) are a lightweight but scalable cloud runtime tied to an HTT
 - [About Deta Micros](micros/about.md): General Information about Micros.
 - [Getting Started with Micros](micros/getting_started.md): Get your first Micro live.
 
+### Deta Drive
+
+Deta Drive is our easy-to-use file storage service.
+
+- [About Deta Drive](drive/about.md): General Information about Drive.
+- [Drive SDK](drive/sdk.md): SDK for using Drive in Node.js and Python.
+- [HTTP API](drive/HTTP.md): API for interacting with Drive over HTTP.
+- [Node.js Tutorial](drive/node_tutorial.md): Build a simple image server in Node.js using Drive.
+- [Python Tutorial](drive/py_tutorial.md): Build a simple image server in Python using Drive.
+
 
 ### Deta CLI
 
@@ -80,3 +90,5 @@ We have answered some [FAQs](faqs.md) in these docs, but we are here to help and
 If you have any questions or feedback, you can reach us:
 - [Discord](https://go.deta.dev/discord)
 - [hello@deta.sh](mailto:hello@deta.sh)
+
+### Reporting Abuse
