@@ -8,6 +8,10 @@ import TabItem from '@theme/TabItem';
 
 ### Deta Cron
 
+:::note
+Cron is a feature of Deta Micros. For the cron to trigger, your code must be deployed on a Micro.
+:::
+
 A Deta Micro can be set to run on a schedule from the `deta cli` using the [deta cron set](../cli/commands#deta-cron-set) command.
 
 In order to set a micro to run on a schedule, the micro's code needs to define a function that will be run on the schedule with the help of our library `deta`.
