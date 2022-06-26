@@ -94,3 +94,7 @@ Visor logs are retained for two weeks (14 days).
 ### Visor doesn't show the error
 
 Sometimes you will get a `500` response from our server and no errors will show up in Visor, in that case you could quickly check our system logs for you Micro with `deta logs`.  
+
+## Issues
+
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).

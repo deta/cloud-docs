@@ -2637,6 +2637,6 @@ Returns an `error`. Possible error values:
 
 </Tabs>
 
-## Contact
+## Issues
 
-`hello@deta.sh`
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).

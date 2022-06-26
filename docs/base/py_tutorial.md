@@ -194,3 +194,7 @@ Our server should respond with:
 ```json
 None
 ```
+
+## Issues
+
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).
