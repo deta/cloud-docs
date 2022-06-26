@@ -280,3 +280,7 @@ Successfully disabled http auth
 ```
 
 Congratulations, you have just deployed and published your first Micro!
+
+## Issues
+
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).
