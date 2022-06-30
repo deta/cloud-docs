@@ -176,7 +176,7 @@ You need to consider the following when querying on keys:
     For e.g. **the following queries are invalid**:
     ```json
     {
-        // different AND key queries
+        // different AND key queries (invalid query)
         "key": "a",
         "key?pfx": "b"
     }
@@ -184,7 +184,7 @@ You need to consider the following when querying on keys:
 
     ```json
     {
-        // different OR key queries
+        // different OR key queries (invalid query)
         [{"key?pfx":"a"}, {"key?pfx": "b"}]
     }
     ```
