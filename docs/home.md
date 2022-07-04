@@ -91,7 +91,6 @@ If you have any questions or feedback, you can reach us:
 
 - [Github Discussions](https://github.com/orgs/deta/discussions)
 - [Discord](https://go.deta.dev/discord)
-- [hello@deta.sh](mailto:hello@deta.sh)
 
 ### Reporting Abuse
 
