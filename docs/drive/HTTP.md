@@ -535,3 +535,7 @@ File names that did not exist will also be under `deleted`, `failed` will only c
 
 </TabItem>
 </Tabs>
+
+## Issues
+
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).

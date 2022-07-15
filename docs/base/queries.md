@@ -188,3 +188,7 @@ You need to consider the following when querying on keys:
         [{"key?pfx":"a"}, {"key?pfx": "b"}]
     }
     ```
+
+## Issues
+
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).

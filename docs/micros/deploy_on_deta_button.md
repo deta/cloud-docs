@@ -91,3 +91,7 @@ You can test your `deta.json` file by visiting `https://go.deta.dev/deploy?repo=
 Make sure to add the `deta` tag to your repo for it to show up in our [GitHub topic](https://github.com/topics/deta).
 
 <img src="/img/deploy_button/deta-topic.png" alt="Deta Tpoic on GitHub"/>
+
+## Issues
+
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).

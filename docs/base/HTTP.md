@@ -509,6 +509,6 @@ Bad requests occur in the following cases:
 </TabItem>
 </Tabs>
 
-## Contact
+## Issues
 
-`team@deta.sh`
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).

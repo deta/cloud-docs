@@ -233,3 +233,6 @@ Our server should respond with:
     "message": "deleted"
 }
 ```
+## Issues
+
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).

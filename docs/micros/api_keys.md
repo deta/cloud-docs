@@ -62,3 +62,6 @@ curl --request GET \
 
 That is all you need to protect your APIs!
 
+## Issues
+
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).

@@ -297,6 +297,7 @@ loop = asyncio.get_event_loop()
 loop.run_until_complete(fetch_items())
 ```
 
-## Feedback
+## Issues
 
-Please provide us with feedback and bug reports on discord, [github](https://github.com/deta/deta-python) or send us an email at *team@deta.sh*. We appreciate any feedback.
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions). We also appreciate any feedback.
+

@@ -121,3 +121,7 @@ curl -X 'GET' \
 Response 
 The server should respond with the image.
 ```
+
+## Issues
+
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).

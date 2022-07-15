@@ -668,3 +668,7 @@ deta cron remove [path] [flags]
 ```
   -h, --help   help for remove
 ```
+
+## Issues
+
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).

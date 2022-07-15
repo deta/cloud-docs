@@ -112,3 +112,7 @@ app.get('/', async (request, reply) => {
 // no need for `app.listen()` on Deta, we run the app automatically.
 module.exports = app; // make sure to export your `app` instance.
 ```
+
+## Issues
+
+If you run into any issues, consider reporting them in our [Github Discussions](https://github.com/orgs/deta/discussions).
