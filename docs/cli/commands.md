@@ -37,8 +37,6 @@ To install the CLI, check out [Installing the CLI](install).
 
 [`deta visor`](#deta-visor)	 - Change the Visor settings for a Deta Micro
 
-[`deta run`](#deta-run) - Run a deta micro from the cli
-
 [`deta cron`](#deta-cron) - Change cron settings for a Deta Micro
 
 
