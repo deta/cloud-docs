@@ -36,7 +36,7 @@ The button image is hosted in the following url:
 https://button.deta.dev/1/svg
 ```
 
-and can be easily added to HTML pages or JavaScript applications. Exampel usage:
+and can be easily added to HTML pages or JavaScript applications. Example usage:
 
 ```html
 <a href="https://go.deta.dev/deploy?repo=your-repo-url">
