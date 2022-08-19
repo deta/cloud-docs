@@ -155,7 +155,7 @@ When you retrieve items with an expiration timestamp, the timestamp value will b
 <TabItem value="js">
 
 ```js
-const { __expires } = db.get("temp_key");
+const { __expires } = await db.get("temp_key");
 ```
 
 </TabItem>
