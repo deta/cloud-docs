@@ -63,9 +63,10 @@ This record allows us to issue certificates for `example.com` and all subdomains
 
 Check the following if you are experiencing issues in setting up a custom domain: 
 
-1. Make sure you have added an A record in your DNS settings with our IP address. You can use tools like [nslookup](https://linux.die.net/man/1/nslookup) or other online tools to check what IP address your domain is currently being resolved to. 
-2. If you are using `Cloudflare`, make sure to turn the proxy off in your DNS settings when adding the Deta provided IP address.
-3. Check if there is a CAA record set up for your domain. If yes, make sure you have [set up the necessary CAA record](#caa-records).
+1. [Check if your top level domain is supported](#unsupported-top-level-domains).
+2. Make sure you have added an A record in your DNS settings with our IP address. You can use tools like [nslookup](https://linux.die.net/man/1/nslookup) or other online tools to check what IP address your domain is currently being resolved to. 
+3. If you are using `Cloudflare`, make sure to turn the proxy off in your DNS settings when adding the Deta provided IP address.
+4. Check if there is a CAA record set up for your domain. If yes, make sure you have [set up the necessary CAA record](#caa-records).
 
 :::warning
 If you had to change something from the steps mentioned above, [email us](<mailto:aavash@deta.sh?subject=Re-enable custom domain>) or [let us know in discord](https://go.deta.dev/discord). This is important as our systems eventually stop trying to assign the custom domain on errors. Manual re-enabling of the domain might be required.
@@ -73,21 +74,7 @@ If you had to change something from the steps mentioned above, [email us](<mailt
 
 ### Unsupported Top Level Domains 
 
-We are not able to support custom domains for the following tlds at the moment:
-- `.af`
-- `.cu`
-- `.er`
-- `.gn`
-- `.ir`
-- `.kp`
-- `.lr`
-- `.nc.tr`
-- `.ru`
-- `.sd`
-- `.sl`
-- `.ss`
-- `.sy`
-- `.zw`
+Our SSL provider does not support some country code top level domains. [Please check them out here](https://help.zerossl.com/hc/en-us/articles/360060119833-Restricted-Countries).
 
 ## Issues
 
