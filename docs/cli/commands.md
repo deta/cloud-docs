@@ -556,53 +556,6 @@ deta visor disable [flags]
   -h, --help   help for disable
 ```
 
-## deta run
-
-Run a Deta Micro from the cli
-
-#### Command
-
-```
-deta run [flags] [action] [-- <input args>]
-```
-
-#### Flags
-
-```
-  -h, --help   help for run
-  -l, --logs   show micro logs
-```
-
-#### Examples
-
-```
-1. deta run -- --name Jimmy --age 33 -active
-
-Run deta micro with the following input:
-{
-	"name": "Jimmy",
-	"age": "33",
-	"active": true
-}
-
-2. deta run --logs test -- --username admin
-
-Run deta micro and show micro logs with action 'test' and the following input:
-{
-	"username": "admin"
-}
-
-3. deta run delete -- --emails jimmy@deta.sh --emails joe@deta.sh
-
-Run deta micro with action 'delete' and the following input:
-{
-	"emails": ["jimmy@deta.sh", "joe@deta.sh"]
-}  
-
-See https://docs.deta.sh for more examples and details. 
-
-```
-
 ## deta cron
 
 Change cron settings for a deta micro
