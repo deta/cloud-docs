@@ -16,7 +16,7 @@ If the login page could not be opened automatically for some reason, the cli wil
 
 ### Deta Access Tokens
 
-The deta cli also authenticates with deta access tokens. You can create an access token under the `Settings` view at `https://web.deta.sh/home/:your_username/` (also accessible by clicking the blue left caret `<` from the nav bar in a project's view). The access tokens are **valid for a year**.
+The deta cli also authenticates with deta access tokens. You can create an access token under the `Settings` tab in your dashboard(https://web.deta.sh). The access tokens are **valid for a year**.
 
 :::note
 The access token can only be retreived once after creation. Please, store it in a safe place after the token has been created.
