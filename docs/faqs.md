@@ -8,7 +8,7 @@ sidebar_label: FAQs
 
 Deta offers 3 types of secrets / keys / tokens:
 
-1. **Project Keys**: Project keys interact with both your data and your resources inside a project (currently allowing reads and writes for the project's Bases and Drives). A project key will be created for you when you create a project, and you can manage all of a project's keys from the *'Settings'* option in any project's sidebar. If this key is leaked, the data stored in any of the connected project's Bases and Drives can be compromised. 
+1. **Project Keys**: Project keys interact with both your data and your resources inside a project (currently allowing reads and writes for the project's Bases and Drives). A project key will be created for you when you create a project, and you can manage all of a project's keys from the *'Project Keys'* option in any project's sidebar. If this key is leaked, the data stored in any of the connected project's Bases and Drives can be compromised. 
 
 2. **API Keys**: API Keys are optional keys to protect your Micro HTTP endpoint or to implement client-based rules. Creating API Keys from the Deta CLI is described [here](/docs/cli/commands#deta-auth-create-api-key). Read more about API Keys [here](https://en.wikipedia.org/wiki/Application_programming_interface_key). If this key is leaked, your Micro's http endpoint can be used by unwanted clients.
 
