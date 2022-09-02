@@ -18,7 +18,7 @@ Deta Micros (micro servers) are a lightweight but scalable cloud runtime tied to
 2. Every Micro you use gets its own sandboxed Linux VM.
 3. Each Micro has a key and secret keys set in the environment, these are specific to your Micro and not the Deta system. Make sure to not share them to keep your own data safe.
 4. An execution times out after 10s. <a href="https://form.deta.dev/timeout">Request an increase.</a>
-5. 128 MB of RAM for *each* execution. <a href="https://form.deta.dev/memory">Request an increase.</a>
+5. 512 MB of RAM for *each* execution. <a href="https://form.deta.dev/memory">Request an increase.</a>
 6. Read-only file system. **Only `/tmp` can be written to**. It has a 512 MB storage limit.
 7. Invocations have an execution processes/threads limit of 1024.
 8. HTTP Payload size limit is 5.5 MB.
