@@ -38,7 +38,7 @@ Please, use the [`deta update -e [env_file_name]`](https://docs.deta.sh/docs/cli
 
 ### Cannot login from the web browser after `deta login`
 
-Logging in with `deta login` from the [Brave Browser](https://brave.com/) does not work at the moment. Please use a different browser to login (you can copy the link in a different browser after the login page opens up), or use [deta access tokens](https://docs.deta.sh/docs/cli/auth#deta-access-tokens) instead.
+If logging in with 'deta login' from the [Brave Browser](https://brave.com/) fails, disable the shields for that page and try again, or use [deta access tokens](https://docs.deta.sh/docs/cli/auth#deta-access-tokens).
 
 ### Account is unconfirmed but I did not receive a confirmation email
 
