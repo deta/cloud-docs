@@ -46,7 +46,7 @@ The guide assumes you have already signed up for Deta and have the [Deta CLI](..
     Adding dependencies...
     Collecting fastapi
     ...
-    Successfully installed fastapi-0.61.1 pydantic-1.6.1 starlette-0.13.6
+    Successfully installed anyio-3.6.1 fastapi-0.85.0 idna-3.4 pydantic-1.10.2 sniffio-1.3.0 starlette-0.20.4 typing-extensions-4.3.0
     ```
 
 We now have a FastAPI application deployed. 
