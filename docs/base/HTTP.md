@@ -81,7 +81,6 @@ Stores multiple items in a single request. This request overwrites an item if th
         // rest of items
     ]
 }
-
 ```
 
 </TabItem>
@@ -124,6 +123,10 @@ Bad requests occur in the following cases:
 - if total request size exceeds 16 MB
 - if any individual item exceeds 400KB
 - if there are two items with identical keys
+
+:::info
+Empty keys in objects/dictionaries/structs, like `{"": "value"}` are invalid and will fail to be added during the backend processing stage.
+:::
 
 </TabItem>
 </Tabs>

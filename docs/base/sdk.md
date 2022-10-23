@@ -588,6 +588,9 @@ Returns the `key` of the item stored and an `error`. Possible error values:
 
 </Tabs>
 
+:::info
+Empty keys in objects/dictionaries/structs, like `{"": "value"}` are invalid and will fail to be added during the backend processing stage.
+:::
 
 ### Get
 
