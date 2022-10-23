@@ -31,6 +31,17 @@ async def read_root():
 
 ```
 
+#### Bottlepy
+```py
+from bottle import Bottle
+
+app = Bottle()  # notice that the app instance is called `app`, this is very important.
+
+@app.route('/')
+def home():
+    return 'Hello, World!'
+```
+
 #### Flask
 
 ```py
