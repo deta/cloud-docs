@@ -85,12 +85,12 @@ Make sure you have the framework in your `package.json`.
 #### Express.js
 
 ```js
-const express = require('express')
-const app = express() // notice that the app instance is called `app`, this is very important.
+const express = require('express');
+const app = express(); // notice that the app instance is called `app`, this is very important.
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+  res.send('Hello World!');
+});
 
 // no need for `app.listen()` on Deta, we run the app automatically.
 module.exports = app; // make sure to export your `app` instance.
@@ -113,12 +113,12 @@ module.exports = app; // make sure to export your `app` instance.
 #### Fastify.js
 
 ```js
-const app = require('fastify')()
+const app = require('fastify')();
 
 // Declare a route
 app.get('/', async (request, reply) => {
-  return { hello: 'world' }
-})
+  return { hello: 'world' };
+});
 
 // no need for `app.listen()` on Deta, we run the app automatically.
 module.exports = app; // make sure to export your `app` instance.
