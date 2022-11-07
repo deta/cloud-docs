@@ -27,7 +27,6 @@ To accomplish our mission, we offer a set of minimal-config cloud primitives:
 1. **[Deta Base](#deta-base)** (beta): Instantly usable database with a feature-rich API.
 2. **[Deta Micros](#deta-micros)** (beta): Deploy scalable Node & Python apps in seconds.
 3. **[Deta Drive](#deta-drive)** (beta): Upload, host and serve images and files.
-4. **Deta Auth** (soon): Effortless signup, login & accounts for your apps.
 
 
 #### Local Development and the Deta CLI
