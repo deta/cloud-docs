@@ -870,7 +870,7 @@ Returns an `error`. A `nil` error is returned if no item was found with provided
 
 ### Insert
 
-The `insert` method inserts a single item into a **Base**, but is unique from [`put`](#put) in that it will raise an error of the `key` already exists in the database.
+The `insert` method inserts a single item into a **Base**, but is unique from [`put`](#put) in that it will raise an error if the `key` already exists in the database.
 
 `insert` is roughly 2x slower than [`put`](#put). 
 
