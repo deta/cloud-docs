@@ -23,7 +23,7 @@ You can let users deploy your GitHub, Gitlab BitBucket (Git) repo quickly by add
 ```
 
 :::note
-Specify the __exact__ branch url if you want to use a different branch for deplyment. If you provide the repository url without specifying a branch, the default branch will be used.
+Specify the __exact__ branch url if you want to use a different branch for deployment. If you provide the repository url without specifying a branch, the default branch will be used.
 
 The repository **must be a public git repository url.**
 ::: -->
