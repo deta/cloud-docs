@@ -40,7 +40,7 @@ A directory ceases to exist if there are no more files in it.
 Stores a smaller file in a single request. Use this endpoint if the file size is small enough to be sent in a single request. The file is overwritten if the file with given `name` already exists.
 
 :::note
-We do not accept payloads larger than 10 Mb on this endpoint. For larger uploads, use chunked uploads.
+We do not accept payloads larger than 10 MB on this endpoint. For larger uploads, use chunked uploads.
 :::  
 
 <Tabs
@@ -157,7 +157,7 @@ Uploads a chunked part.
 `POST /uploads/{upload_id}/parts?name={name}&part={part}`
 
 :::note
-Each chunk must be at least 5 Mb and at most 10 Mb. The final chunk can be less than 5 Mb.
+Each chunk must be at least 5 MB and at most 10 MB. The final chunk can be less than 5 MB.
 :::
 
 <Tabs
