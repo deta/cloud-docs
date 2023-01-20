@@ -61,7 +61,7 @@ def create_user():
         "hometown": hometown
     })
 
-    return jsonify(user, 201)
+    return jsonify(user), 201
 ```
 
 #### Request
@@ -100,7 +100,7 @@ If we tie a `GET` request to the `/users` path with a param giving a user id (i.
 @app.route("/users/<key>")
 def get_user(key):
     user = db.get(key)
-    return user if user else jsonify({"error": "Not found"}, 404)
+    return user if user else jsonify({"error": "Not found"}), 404
 ```
 
 #### Request
@@ -172,7 +172,7 @@ We can tie a `DELETE` request to the path `/users/{id}` to delete a given user r
 @app.route("/users/<key>", methods=["DELETE"])
 def delete_user(key):
     db.delete(key)
-    return jsonify({"status": "ok"}, 200)
+    return jsonify({"status": "ok"}), 200
 ```
 
 #### Request
