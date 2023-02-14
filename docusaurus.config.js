@@ -64,6 +64,14 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} Abstract Computing UG (haftungsbeschränkt). `,
     },
+    announcementBar: {
+      id: 'announcement',
+      content:
+        'Deta Cloud is now a part of Deta Space. We will support Deta Cloud projects until May 1, 2023. <a target="_blank" rel="noopener noreferrer" href="https://deta.space/migration">Learn more about migrating here</a>',
+      backgroundColor: '#F478B3',
+      textColor: '#fff',
+      isCloseable: false,
+    },
   },
   presets: [
     [
